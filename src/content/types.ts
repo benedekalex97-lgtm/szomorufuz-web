@@ -61,6 +61,9 @@ export interface NavItem extends Link {
 }
 
 export interface Navigation {
+  /** Asztali fejléc (rövid lista) */
+  header: NavItem[];
+  /** Mobilmenü (teljes lista) */
   primary: NavItem[];
   footerImportant: NavItem[];
   footerLegal: NavItem[];
@@ -157,28 +160,90 @@ export interface TrustPoint {
   fact: Fact<true>;
 }
 
+export interface HelpPath {
+  label: string;
+  title: string;
+  body: string;
+  href: string;
+}
+
+export interface ServiceTeaser {
+  title: string;
+  body: string;
+  href: string;
+  points?: string[];
+}
+
+export interface Principle {
+  title: string;
+  body: string;
+}
+
 export interface Homepage {
   seo: SeoMetadata;
   hero: {
+    eyebrow: string;
     title: string;
+    /** A cím dőlt, kiemelt része (új sorban). */
+    titleEmphasis: string;
     lead: string;
     primaryCtaLabel: string;
     secondaryCta: Link;
-    tertiaryCta: Link;
+    paths: HelpPath[];
   };
   firstSteps: {
+    eyebrow: string;
     title: string;
     intro: string;
     steps: Step[];
     cta: Link;
     copyStatus: CopyStatus;
   };
-  services: { title: string; intro: string; cta: Link };
-  pricing: { title: string; body: string; cta: Link; copyStatus: CopyStatus };
-  trust: { title: string; intro: string; points: TrustPoint[] };
-  offices: { title: string; intro: string; cta: Link };
-  faq: { title: string; intro: string; cta: Link };
+  services: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    featured: ServiceTeaser[];
+    others: ServiceTeaser[];
+    cta: Link;
+    copyStatus: CopyStatus;
+  };
+  process: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    stages: Step[];
+    copyStatus: CopyStatus;
+  };
+  pricing: { eyebrow: string; title: string; body: string; cta: Link; copyStatus: CopyStatus };
+  about: {
+    eyebrow: string;
+    quote: string;
+    principles: Principle[];
+    facts: TrustPoint[];
+    copyStatus: CopyStatus;
+  };
+  offices: { eyebrow: string; title: string; intro: string; cta: Link };
+  faq: { eyebrow: string; title: string; intro: string; cta: Link };
   contact: { title: string; intro: string };
+}
+
+/** Szolgáltatás-aloldal (Hamvasztás, Hagyományos temetés) tartalma. */
+export interface ServicePage {
+  slug: string;
+  seo: SeoMetadata;
+  eyebrow: string;
+  title: string;
+  titleEmphasis?: string;
+  lead: string;
+  /** Rövid, áttekintő pontok a hero mellett. */
+  overview: { title: string; points: string[] };
+  intro: { title: string; paragraphs: string[] };
+  steps: { title: string; intro: string; items: Step[] };
+  options: { title: string; intro: string; items: Principle[] };
+  related: ServiceTeaser[];
+  faqIds: string[];
+  copyStatus: CopyStatus;
 }
 
 export interface ContentPage {

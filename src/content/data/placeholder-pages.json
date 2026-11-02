@@ -1,19 +1,72 @@
 [
-  { "slug": "teendok-halaleset-utan", "title": "Teendők haláleset esetén", "plannedPhase": 2 },
-  { "slug": "szolgaltatasok", "title": "Szolgáltatásaink", "plannedPhase": 2 },
-  { "slug": "arak", "title": "Árak és költségek", "plannedPhase": 2 },
-  { "slug": "irodak", "title": "Irodáink", "plannedPhase": 2 },
-  { "slug": "tudnivalok", "title": "Tudnivalók", "plannedPhase": 2 },
-  { "slug": "rolunk", "title": "Rólunk", "plannedPhase": 2 },
-  { "slug": "elerhetoseg", "title": "Kapcsolat", "plannedPhase": 2 },
-  { "slug": "gyakori-kerdesek", "title": "Gyakori kérdések", "plannedPhase": 2 },
-  { "slug": "szukseges-iratok", "title": "Szükséges iratok", "plannedPhase": 2 },
-  { "slug": "hamvasztasos-temetes", "title": "Hamvasztás", "plannedPhase": 2 },
-  { "slug": "koporsos-temetes", "title": "Koporsós temetés", "plannedPhase": 2 },
-  { "slug": "hamvak-szorasa-temeto", "title": "Hamvak szórása", "plannedPhase": 2 },
-  { "slug": "hamvak-szorasa-dunaba", "title": "Hajós temetés", "plannedPhase": 2 },
-  { "slug": "adatkezeles", "title": "Adatkezelési tájékoztató", "plannedPhase": 2 },
-  { "slug": "suti-tajekoztato", "title": "Sütiinformációk", "plannedPhase": 2 },
-  { "slug": "ceginformaciok", "title": "Impresszum", "plannedPhase": 2 },
-  { "slug": "a-sz-f", "title": "Általános szerződési feltételek", "plannedPhase": 2 }
+  {
+    "slug": "arak",
+    "title": "Árak és költségek",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "irodak",
+    "title": "Irodáink",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "tudnivalok",
+    "title": "Tudnivalók",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "rolunk",
+    "title": "Rólunk",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "gyakori-kerdesek",
+    "title": "Gyakori kérdések",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "szukseges-iratok",
+    "title": "Szükséges iratok",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "hamvak-szorasa-temeto",
+    "title": "Hamvak szórása",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "hamvak-szorasa-dunaba",
+    "title": "Hajós temetés",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "adatkezeles",
+    "title": "Adatkezelési tájékoztató",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "suti-tajekoztato",
+    "title": "Sütiinformációk",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "ceginformaciok",
+    "title": "Impresszum",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "a-sz-f",
+    "title": "Általános szerződési feltételek",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "ravatalozo-terem",
+    "title": "Ravatalozó",
+    "plannedPhase": 2
+  },
+  {
+    "slug": "polgari-bucsuztatas",
+    "title": "Polgári búcsúztatás",
+    "plannedPhase": 2
+  }
 ]

@@ -5,6 +5,14 @@ import type { Navigation } from '../types';
  * új URL csak új oldalnál keletkezik (/arak/, /irodak/, /rolunk/, /szolgaltatasok/, /tudnivalok/).
  */
 export const navigation: Navigation = {
+  header: [
+    { label: 'Teendők', href: '/teendok-halaleset-utan/', description: 'Teendők haláleset esetén' },
+    { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
+    { label: 'Árak', href: '/arak/' },
+    { label: 'Irodáink', href: '/irodak/' },
+    { label: 'Rólunk', href: '/rolunk/' },
+    { label: 'Kapcsolat', href: '/elerhetoseg/' },
+  ],
   primary: [
     { label: 'Főoldal', href: '/' },
     { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },

@@ -7,67 +7,175 @@ const claim = (source: string, note?: string): Fact<true> => ({
   ...(note ? { note } : {}),
 });
 
+/**
+ * Főoldal. A hero főüzenete és alcíme a briefből származik (jóváhagyott);
+ * minden más szöveg szerkesztői TERVEZET (copyStatus: 'draft'), tényállítást
+ * (évszám, ügyfélszám, díj, 0–24, ár, garancia) nem tartalmaz.
+ */
 export const homepage: Homepage = {
   seo: {
     title: 'Szomorúfűz Temetkezés – segítség a nehéz pillanatokban',
     description:
-      'Segítünk eligazodni a haláleset utáni teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében. Szolgáltatások, árak és budapesti irodák egy helyen.',
+      'Segítünk eligazodni a haláleset utáni teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében. Hamvasztás, hagyományos temetés, budapesti irodák.',
   },
-  // A hero szövegei a briefből származnak (jóváhagyott).
   hero: {
-    title: 'Nincs egyedül a nehéz pillanatokban.',
+    eyebrow: 'Temetkezés · Budapest',
+    title: 'Nincs egyedül',
+    titleEmphasis: 'a nehéz pillanatokban.',
     lead: 'Segítünk eligazodni a szükséges teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében.',
     primaryCtaLabel: 'Telefonos segítség',
     secondaryCta: { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
-    tertiaryCta: { label: 'Szolgáltatásaink', href: '#szolgaltatasok' },
-  },
-  // A lépések a cég saját folyamatát írják le, nem adnak hatósági/egészségügyi útmutatást.
-  firstSteps: {
-    title: 'Teendők haláleset esetén',
-    intro:
-      'Egy haláleset után sok kérdés merül fel egyszerre. Nem kell mindent egyedül végiggondolnia – lépésről lépésre segítünk.',
-    steps: [
+    paths: [
       {
-        title: 'Vegye fel velünk a kapcsolatot',
-        body: 'Munkatársunk meghallgatja, mi történt, és elmondja, mire van szükség a következő lépésekhez.',
+        label: 'Ha most történt',
+        title: 'Haláleset történt',
+        body: 'Az első lépések nyugodt sorrendben.',
+        href: '/teendok-halaleset-utan/',
       },
       {
-        title: 'Készítse elő a személyes iratokat',
-        body: 'Az ügyintézéshez szükséges iratok listáját részletes útmutatónkban találja.',
+        label: 'Szervezés',
+        title: 'Temetést szervezne',
+        body: 'Hamvasztás, hagyományos temetés, búcsúztatás.',
+        href: '/szolgaltatasok/',
       },
       {
-        title: 'Egyeztessük a búcsúztatás részleteit',
-        body: 'Közösen döntünk a temetés módjáról, helyszínéről és időpontjáról – az Ön tempójában.',
+        label: 'Személyesen',
+        title: 'Beszélne velünk',
+        body: 'Telefonon vagy budapesti irodáinkban.',
+        href: '/elerhetoseg/',
       },
     ],
-    cta: { label: 'A részletes útmutató', href: '/teendok-halaleset-utan/' },
+  },
+  firstSteps: {
+    eyebrow: 'Ha most történt',
+    title: 'Az első órákban',
+    intro:
+      'Egy haláleset után sok kérdés merül fel egyszerre. Nem kell mindenre azonnal választ tudnia – ez a három lépés elég a kezdéshez.',
+    steps: [
+      {
+        title: 'Hívjon minket',
+        body: 'Elmondjuk, mi a következő lépés az Ön helyzetében, és mire lesz szükség.',
+      },
+      {
+        title: 'Készítse elő az iratokat',
+        body: 'Az elhunyt személyes iratainak listáját részletes útmutatónkban találja.',
+      },
+      {
+        title: 'Egyeztessünk',
+        body: 'Irodánkban vagy telefonon, az Ön tempójában beszéljük meg a búcsú módját, helyét és idejét.',
+      },
+    ],
+    cta: { label: 'A teljes útmutató', href: '/teendok-halaleset-utan/' },
     copyStatus: 'draft',
   },
   services: {
-    title: 'Szolgáltatásaink',
+    eyebrow: 'Szolgáltatások',
+    title: 'A búcsú formái',
     intro:
-      'Áttekintés a búcsúztatás lehetséges formáiról. Minden részletet személyesen is átbeszélünk.',
-    cta: { label: 'Összes szolgáltatás', href: '/szolgaltatasok/' },
-  },
-  pricing: {
-    title: 'Árak és költségek',
-    body: 'Fontosnak tartjuk, hogy a költségekről előre, érthetően tájékozódhasson. A szolgáltatások árát és tartalmát tételesen bemutató árlistánk hamarosan elérhető lesz az Árak oldalon.',
-    cta: { label: 'Tovább az Árak oldalra', href: '/arak/' },
+      'Minden család másként búcsúzik. Bemutatjuk a lehetőségeket, a döntés az Öné – és ha bizonytalan, segítünk mérlegelni.',
+    featured: [
+      {
+        title: 'Hamvasztás',
+        body: 'A hamvasztás után a hamvak elhelyezéséről a család dönt: temetőben, szórással vagy a Dunán is búcsúzhat.',
+        href: '/hamvasztasos-temetes/',
+        points: [
+          'Urnás temetés temetőben',
+          'Hamvak szórása',
+          'Búcsú a Dunán',
+          'Az urna hazavitele',
+        ],
+      },
+      {
+        title: 'Hagyományos temetés',
+        body: 'Koporsós búcsúztatás temetőben, a család kívánsága szerinti szertartással.',
+        href: '/koporsos-temetes/',
+        points: [
+          'Ravatalozás és búcsúztatás',
+          'Egyházi vagy polgári szertartás',
+          'Koporsó és kellékek kiválasztása',
+          'Az időpont egyeztetése a temetővel',
+        ],
+      },
+    ],
+    others: [
+      {
+        title: 'Hamvak szórása',
+        body: 'Búcsú a temető szóróparcellájában.',
+        href: '/hamvak-szorasa-temeto/',
+      },
+      {
+        title: 'Hajós temetés',
+        body: 'A hamvak szórása a Dunán.',
+        href: '/hamvak-szorasa-dunaba/',
+      },
+      {
+        title: 'Polgári búcsúztatás',
+        body: 'Személyes, nem egyházi szertartás.',
+        href: '/polgari-bucsuztatas/',
+      },
+      {
+        title: 'Ravatalozó',
+        body: 'Méltó helyszín a búcsúhoz.',
+        href: '/ravatalozo-terem/',
+      },
+    ],
+    cta: { label: 'Minden szolgáltatás', href: '/szolgaltatasok/' },
     copyStatus: 'draft',
   },
-  trust: {
-    title: 'Miért a Szomorúfűz?',
-    intro: 'Röviden arról, mire számíthat, ha hozzánk fordul.',
-    points: [
+  process: {
+    eyebrow: 'Ügyintézés',
+    title: 'Hogyan zajlik a közös munka?',
+    intro:
+      'Az első beszélgetéstől a búcsú napjáig végigkísérjük a folyamatot, és minden lépésnél elmondjuk, mi következik.',
+    stages: [
+      {
+        title: 'Első beszélgetés',
+        body: 'Meghallgatjuk, mi történt, és elmondjuk a következő lépéseket.',
+      },
+      {
+        title: 'Személyes egyeztetés',
+        body: 'Közösen kiválasztjuk a búcsú formáját, helyszínét és időpontját, és átbeszéljük a költségeket.',
+      },
+      {
+        title: 'Ügyintézés',
+        body: 'Elvégezzük a temetés megszervezéséhez szükséges lépéseket, és jelezzük, ha valamire szükségünk van Öntől.',
+      },
+      {
+        title: 'A búcsú napja',
+        body: 'A szertartás a megbeszéltek szerint zajlik, hogy Ön a búcsúra figyelhessen.',
+      },
+    ],
+    copyStatus: 'draft',
+  },
+  pricing: {
+    eyebrow: 'Költségek',
+    title: 'Előre, érthetően',
+    body: 'A költségekről a döntés előtt, tételesen tájékoztatjuk. A szolgáltatások árát és tartalmát bemutató árlista jóváhagyás után kerül az Árak oldalra.',
+    cta: { label: 'Árak és költségek', href: '/arak/' },
+    copyStatus: 'draft',
+  },
+  about: {
+    eyebrow: 'A Szomorúfűzről',
+    quote: 'A búcsú méltósága a figyelemben rejlik: abban, hogy meghallgatjuk, és időt hagyunk.',
+    principles: [
+      {
+        title: 'Érthető tájékoztatás',
+        body: 'A lehetőségeket és a költségeket előre, közérthetően mondjuk el.',
+      },
+      {
+        title: 'Az Ön tempójában',
+        body: 'Nem sürgetjük a döntéseket. Annyi időt adunk, amennyire szüksége van.',
+      },
+      {
+        title: 'Személyes jelenlét',
+        body: 'Telefonon és irodáinkban is munkatársainkkal beszél, nem automatával.',
+      },
+    ],
+    facts: [
       {
         title: 'Öt budapesti iroda',
         body: 'A város több pontján személyesen is felkereshet minket.',
         fact: claim('Szomorufuz-webaudit: reports/seo-audit.md 6.1'),
-      },
-      {
-        title: 'Minden temetési mód egy helyen',
-        body: 'Hamvasztás, koporsós temetés, hamvak szórása és hajós temetés.',
-        fact: claim('Szomorufuz-webaudit: reports/seo-audit.md 3. (élő oldal szolgáltatásoldalai)'),
       },
       {
         title: 'Saját ravatalozó terem',
@@ -78,20 +186,23 @@ export const homepage: Homepage = {
         ),
       },
     ],
+    copyStatus: 'draft',
   },
   offices: {
-    title: 'Irodáink',
-    intro: 'Öt budapesti irodában fogadjuk Önt.',
-    cta: { label: 'Az irodák részletes adatai', href: '/irodak/' },
+    eyebrow: 'Irodáink',
+    title: 'Budapest öt pontján',
+    intro:
+      'Személyesen is felkereshet minket. A pontos címek és a nyitvatartás jóváhagyás után kerülnek fel.',
+    cta: { label: 'Kapcsolat és irodák', href: '/elerhetoseg/' },
   },
   faq: {
+    eyebrow: 'Kérdések',
     title: 'Gyakori kérdések',
-    intro: 'Válaszok a leggyakrabban felmerülő kérdésekre.',
+    intro: 'Rövid válaszok azokra a kérdésekre, amelyek a legtöbbször felmerülnek.',
     cta: { label: 'Összes kérdés', href: '/gyakori-kerdesek/' },
   },
   contact: {
-    title: 'Kapcsolat',
-    intro:
-      'Hívjon minket, vagy keresse fel valamelyik irodánkat. Munkatársaink türelemmel segítenek.',
+    title: 'Ha most szüksége van ránk',
+    intro: 'Hívjon minket, vagy keresse fel valamelyik irodánkat. Türelemmel segítünk eligazodni.',
   },
 };
