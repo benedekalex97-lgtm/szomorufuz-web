@@ -6,7 +6,11 @@
   "outputDirectory": "dist",
   "trailingSlash": true,
   "git": {
-    "deploymentEnabled": false
+    "deploymentEnabled": {
+      "phase-1/foundation": false,
+      "main": false,
+      "fix/content-reconstruction": true
+    }
   },
   "redirects": [
     {
