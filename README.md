@@ -58,6 +58,7 @@ Egy adat jóváhagyása: a `src/content/data/*.ts` fájlban `status: 'verified'`
 - [SEO-migrációs terv](docs/seo-migration-plan.md)
 - [1. fázis jelentés](docs/phase-1-report.md)
 - [Nyitott kérdések, hiányzó adatok](docs/open-questions.md)
+- [Vercel felülvizsgálati deployment](docs/deployment.md)
 - Élő stílusútmutató: `/stilus/` (noindex)
 
 ## Munkafolyamat

@@ -1,7 +1,7 @@
 {
   "tag": "strict",
   "base": "/home/user/szomorufuz-web/dist",
-  "startedAt": "2026-11-02T13:55:00.702Z",
+  "startedAt": "2026-11-02T14:13:05.260Z",
   "checks": {
     "responsive": [
       {
@@ -140,11 +140,11 @@
       }
     ],
     "links": {
-      "checked": 27,
+      "checked": 26,
       "broken": [],
       "unknownPathStatus": 404
     }
   },
-  "finishedAt": "2026-11-02T13:55:16.760Z",
+  "finishedAt": "2026-11-02T14:13:22.495Z",
   "failures": []
 }
