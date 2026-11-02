@@ -1,0 +1,172 @@
+---
+import Logo from '@/components/ui/Logo.astro';
+import PhoneLink from '@/components/ui/PhoneLink.astro';
+import { getNavigation, getOffices, getSiteSettings } from '@/lib/content';
+import { publishable } from '@/lib/facts';
+
+const [navigation, offices, settings] = await Promise.all([
+  getNavigation(),
+  getOffices(),
+  getSiteSettings(),
+]);
+const phone = publishable(settings.primaryPhone);
+const email = publishable(settings.company.email);
+const legalName = publishable(settings.company.legalName);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container container--wide">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <Logo tone="inverse" />
+        <p class="site-footer__text">
+          Segítünk eligazodni a teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="site-footer__heading">Kapcsolat</h2>
+        <ul class="site-footer__list" role="list">
+          {phone ? (
+            <li>
+              <PhoneLink phone={settings.primaryPhone} class="site-footer__phone" />
+            </li>
+          ) : (
+            <li class="site-footer__muted">A központi telefonszám ellenőrzés után jelenik meg.</li>
+          )}
+          {email && (
+            <li>
+              {email.pending ? (
+                <span>{email.value} (ellenőrizetlen)</span>
+              ) : (
+                <a href={`mailto:${email.value}`}>{email.value}</a>
+              )}
+            </li>
+          )}
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__heading">Irodáink</h2>
+        <ul class="site-footer__list" role="list">
+          {offices.map((office) => (
+            <li>
+              <a href="/irodak/">{office.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__heading">Fontos oldalak</h2>
+        <ul class="site-footer__list" role="list">
+          {navigation.footerImportant.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <nav aria-label="Jogi információk">
+        <ul class="site-footer__legal" role="list">
+          {navigation.footerLegal.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <p class="site-footer__copy">
+        © {year} {legalName && !legalName.pending ? legalName.value : 'Szomorúfűz Temetkezés'}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-surface-inverse);
+    color: var(--color-text-inverse);
+    padding-block: var(--space-16) var(--space-8);
+    font-size: var(--text-sm);
+  }
+  .site-footer a {
+    color: var(--color-text-inverse);
+    text-decoration-color: color-mix(in srgb, var(--color-text-inverse) 45%, transparent);
+  }
+  .site-footer a:hover {
+    color: var(--palette-white);
+    text-decoration-color: currentColor;
+  }
+  .site-footer :focus-visible {
+    outline-color: var(--color-focus-ring-inverse);
+  }
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-10);
+  }
+  .site-footer__text {
+    margin-top: var(--space-4);
+    max-width: 34ch;
+    color: #d6d1c7;
+  }
+  .site-footer__heading {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #d6d1c7;
+  }
+  .site-footer__list {
+    padding: 0;
+    list-style: none;
+  }
+  .site-footer__list a {
+    display: inline-block;
+    padding-block: var(--space-2);
+  }
+  .site-footer__muted {
+    color: #d6d1c7;
+    max-width: 30ch;
+  }
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid #4a4842;
+  }
+  .site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+  .site-footer__legal a {
+    display: inline-block;
+    padding-block: var(--space-2);
+  }
+  .site-footer__copy {
+    color: #d6d1c7;
+  }
+  @media (min-width: 48em) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64em) {
+    .site-footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+/**
+ * Általános kártya. Ha `href` van, a cím linkje az egész kártyát kattinthatóvá teszi
+ * (::after réteggel), de a képernyőolvasó csak egy értelmes linket hall.
+ */
+interface Props {
+  title: string;
+  href?: string;
+  linkLabel?: string;
+  headingLevel?: 2 | 3 | 4;
+  tone?: 'surface' | 'plain';
+  class?: string;
+}
+
+const {
+  title,
+  href,
+  linkLabel,
+  headingLevel = 3,
+  tone = 'surface',
+  class: className,
+} = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
+---
+
+<article class:list={['card', `card--${tone}`, href && 'card--link', className]}>
+  <slot name="before" />
+  <Heading class="card__title">
+    {href ? (
+      <a href={href} class="card__link" data-stretched-link>
+        {title}
+      </a>
+    ) : (
+      title
+    )}
+  </Heading>
+  <div class="card__body">
+    <slot />
+  </div>
+  {href && linkLabel && (
+    <p class="card__more" aria-hidden="true">
+      {linkLabel}
+      <span class="card__arrow">→</span>
+    </p>
+  )}
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: var(--border-width) solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    height: 100%;
+  }
+  .card--surface {
+    background-color: var(--color-surface);
+  }
+  .card__title {
+    font-size: var(--text-xl);
+  }
+  .card__link {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .card__link:focus-visible {
+    outline: none;
+  }
+  .card--link:has(.card__link:focus-visible) {
+    outline: var(--focus-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+  .card__body {
+    color: var(--color-text-muted);
+    flex-grow: 1;
+  }
+  .card__more {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent-text);
+  }
+  .card__arrow {
+    display: inline-block;
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .card--link {
+    transition:
+      border-color var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
+  }
+  .card--link:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .card--link:hover .card__arrow {
+    transform: translateX(3px);
+  }
+</style>

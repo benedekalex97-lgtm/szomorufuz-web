@@ -1,0 +1,66 @@
+---
+/**
+ * Rögzített alsó hívássáv mobilon (audit: UX-01). CSAK ellenőrzött számmal jelenik meg –
+ * kitalált vagy ellenőrizetlen számot soha nem tesz kattinthatóvá.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { getSiteSettings } from '@/lib/content';
+import { verifiedOnly } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+
+const settings = await getSiteSettings();
+const phone = verifiedOnly(settings.primaryPhone);
+const availability = verifiedOnly(settings.phoneAvailability);
+---
+
+{phone && (
+  <aside class="callbar" aria-label="Gyors telefonos kapcsolat">
+    <a class="callbar__link" href={telHref(phone.e164)}>
+      <Icon name="phone" size={20} />
+      <span>
+        <span class="callbar__label">Hívás most</span>
+        {availability && <span class="callbar__meta">{availability}</span>}
+      </span>
+    </a>
+  </aside>
+)}
+
+<style>
+  .callbar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: var(--z-callbar);
+    padding: var(--space-2) var(--gutter) calc(var(--space-2) + env(safe-area-inset-bottom));
+    background-color: var(--color-bg);
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+  :global(body:has(.callbar)) {
+    --callbar-height: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+  .callbar__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    min-height: 3.25rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-action-primary-bg);
+    color: var(--color-action-primary-text);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+  }
+  .callbar__meta {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+  }
+  @media (min-width: 48em) {
+    .callbar {
+      display: none;
+    }
+    :global(body:has(.callbar)) {
+      --callbar-height: 0px;
+    }
+  }
+</style>

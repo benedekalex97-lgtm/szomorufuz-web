@@ -1,0 +1,336 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+import { getNavigation, getSiteSettings } from '@/lib/content';
+import { verifiedOnly } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+
+const [navigation, settings] = await Promise.all([getNavigation(), getSiteSettings()]);
+// tel: link CSAK ellenőrzött számra (review módban sem).
+const phone = verifiedOnly(settings.primaryPhone);
+const currentPath = Astro.url.pathname;
+
+const isCurrent = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+// A logó a főoldalra visz, ezért asztali nézetben a "Főoldal" elem rejtett.
+const desktopItems = navigation.primary.filter((item) => item.href !== '/');
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <Logo />
+
+    <nav class="site-nav" aria-label="Fő navigáció">
+      <ul class="site-nav__list" role="list">
+        {desktopItems.map((item) => (
+          <li>
+            <a
+              class="site-nav__link"
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      {phone ? (
+        <Button href={telHref(phone.e164)} icon="phone" class="site-header__cta">
+          <span class="site-header__cta-label">Telefonos segítség</span>
+          <span class="site-header__cta-number">{phone.display}</span>
+        </Button>
+      ) : (
+        <Button
+          href="/#kapcsolat"
+          variant="secondary"
+          class="site-header__cta site-header__cta--fallback"
+        >
+          Kapcsolat
+        </Button>
+      )}
+
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobil-menu"
+        data-menu-toggle
+      >
+        <span class="menu-toggle__open">
+          <Icon name="menu" size={22} />
+        </span>
+        <span class="menu-toggle__close">
+          <Icon name="x" size={22} />
+        </span>
+        <span class="menu-toggle__label" data-menu-label>
+          Menü
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobil-menu" data-menu hidden>
+    <nav class="container" aria-label="Mobil navigáció">
+      <ul class="mobile-menu__list" role="list">
+        {navigation.primary.map((item) => (
+          <li>
+            <a
+              class="mobile-menu__link"
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+              <Icon name="arrow-right" size={18} />
+            </a>
+          </li>
+        ))}
+      </ul>
+      {phone && (
+        <div class="mobile-menu__cta">
+          <Button href={telHref(phone.e164)} icon="phone" size="lg" fullWidth>
+            Hívás: {phone.display}
+          </Button>
+        </div>
+      )}
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Disclosure-minta: aria-expanded + hidden. Escape bezár és visszaadja a fókuszt.
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = header?.querySelector<HTMLElement>('[data-menu]');
+  const label = header?.querySelector<HTMLElement>('[data-menu-label]');
+  const desktop = window.matchMedia('(min-width: 75em)');
+
+  if (header && toggle && menu) {
+    const setOpen = (open: boolean, restoreFocus = false) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      header.classList.toggle('is-open', open);
+      if (label) label.textContent = open ? 'Bezárás' : 'Menü';
+      if (!open && restoreFocus) toggle.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hidden) setOpen(false, true);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!menu.hidden && event.target instanceof Node && !header.contains(event.target)) {
+        setOpen(false);
+      }
+    });
+
+    // Horgonylinkre kattintás után a menü záródjon be.
+    menu.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+    });
+
+    desktop.addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background-color: color-mix(in srgb, var(--color-bg) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  /* JS nélkül nincs lenyíló menü: a fejléc nem rögzített, a lista látható. */
+  :global(.no-js) .site-header {
+    position: static;
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--header-height);
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .site-nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-nav__link:hover {
+    color: var(--color-accent-text);
+  }
+
+  .site-nav__link[aria-current='page'] {
+    color: var(--color-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 0.45em;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  /* Mobilon csak a menügomb látszik; a hívás a hívássávban / menüben érhető el. */
+  .site-header__actions :global(.site-header__cta) {
+    display: none;
+  }
+
+  .site-header__cta-number {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    min-width: var(--tap-target);
+    padding-inline: var(--space-3);
+    /* Rögzített szélesség: a Menü/Bezárás feliratváltás ne mozdítsa el a logót. */
+    width: 6.5rem;
+    justify-content: center;
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  .menu-toggle:hover {
+    background-color: var(--color-bg-alt);
+  }
+
+  .menu-toggle__close,
+  .site-header.is-open .menu-toggle__open {
+    display: none;
+  }
+
+  .site-header.is-open .menu-toggle__close {
+    display: inline-flex;
+  }
+
+  .menu-toggle__open {
+    display: inline-flex;
+  }
+
+  :global(.no-js) .menu-toggle {
+    display: none;
+  }
+
+  /* No-JS: a mobil lista mindig látszik */
+  :global(.no-js) .mobile-menu[hidden] {
+    display: block;
+    position: static;
+    box-shadow: none;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background-color: var(--color-bg);
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+    box-shadow: var(--shadow-md);
+    padding-block: var(--space-2) var(--space-6);
+  }
+
+  .mobile-menu__list {
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobile-menu__list li + li {
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .mobile-menu__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 3.5rem;
+    padding-inline: var(--space-1);
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    text-decoration: none;
+  }
+
+  .mobile-menu__link :global(.icon) {
+    color: var(--color-accent-decor);
+  }
+
+  .mobile-menu__link[aria-current='page'] {
+    color: var(--color-accent-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  .mobile-menu__cta {
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 40em) {
+    .site-header__actions :global(.site-header__cta) {
+      display: inline-flex;
+    }
+  }
+
+  @media (min-width: 75em) {
+    .site-nav {
+      display: block;
+    }
+    .menu-toggle,
+    .mobile-menu,
+    :global(.no-js) .mobile-menu[hidden] {
+      display: none;
+    }
+    .site-header__cta-number {
+      display: inline;
+    }
+    .site-header__cta-label {
+      display: none;
+    }
+    /* Asztali nézetben a navigáció már tartalmazza a Kapcsolat linket. */
+    .site-header__actions :global(.site-header__cta--fallback) {
+      display: none;
+    }
+  }
+</style>

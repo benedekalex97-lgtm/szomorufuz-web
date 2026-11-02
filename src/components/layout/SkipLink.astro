@@ -1,0 +1,30 @@
+---
+interface Props {
+  target?: string;
+}
+const { target = '#tartalom' } = Astro.props;
+---
+
+<a class="skip-link" href={target}>
+  Ugrás a tartalomra
+</a>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    z-index: var(--z-skip);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    background-color: var(--color-action-primary-bg);
+    color: var(--color-action-primary-text);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline-color: var(--color-focus-ring);
+  }
+</style>

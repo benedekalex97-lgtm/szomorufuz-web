@@ -1,0 +1,84 @@
+---
+/**
+ * Natív <details>/<summary> alapú harmonika: JavaScript nélkül is működik,
+ * billentyűzettel és képernyőolvasóval kezelhető.
+ */
+interface Props {
+  items: { id: string; question: string; answer: string }[];
+  headingLevel?: 3 | 4;
+}
+const { items, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+---
+
+<div class="accordion">
+  {items.map((item) => (
+    <details class="accordion__item" id={`gyik-${item.id}`}>
+      <summary class="accordion__summary">
+        <Heading class="accordion__question">{item.question}</Heading>
+        <span class="accordion__icon" aria-hidden="true" />
+      </summary>
+      <div class="accordion__answer">
+        <p>{item.answer}</p>
+      </div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .accordion {
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+  .accordion__item {
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+  .accordion__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--tap-target);
+    padding-block: var(--space-5);
+    cursor: pointer;
+    list-style: none;
+  }
+  .accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+  .accordion__question {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+  }
+  .accordion__summary:hover .accordion__question {
+    color: var(--color-accent-text);
+  }
+  .accordion__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+  }
+  .accordion__icon::before,
+  .accordion__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: currentColor;
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .accordion__icon::after {
+    transform: rotate(90deg);
+  }
+  .accordion__item[open] .accordion__icon::after {
+    transform: rotate(0deg);
+  }
+  .accordion__answer {
+    padding-bottom: var(--space-6);
+    color: var(--color-text-muted);
+  }
+</style>

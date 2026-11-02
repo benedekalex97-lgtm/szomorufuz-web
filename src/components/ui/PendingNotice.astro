@@ -1,0 +1,31 @@
+---
+/** Látható helyőrző ott, ahol ellenőrzött adat még nincs. Nem tartalmaz kitalált értéket. */
+interface Props {
+  title?: string;
+  class?: string;
+}
+const { title = 'Ellenőrzésre vár', class: className } = Astro.props;
+---
+
+<div class:list={['pending', className]} role="note">
+  <p class="pending__title">{title}</p>
+  <div class="pending__body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .pending {
+    padding: var(--space-4) var(--space-5);
+    border: var(--border-width) dashed var(--color-notice-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-notice-bg);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .pending__title {
+    font-weight: var(--weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+  }
+</style>

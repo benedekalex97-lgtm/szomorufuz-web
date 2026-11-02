@@ -1,0 +1,58 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+  tone?: 'default' | 'alt' | 'surface';
+  width?: 'default' | 'narrow' | 'wide';
+  headingLevel?: 2 | 3;
+}
+
+const {
+  id,
+  title,
+  eyebrow,
+  intro,
+  tone = 'default',
+  width = 'default',
+  headingLevel = 2,
+} = Astro.props;
+const headingId = `${id}-cim`;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<section id={id} class:list={['section', `section--${tone}`]} aria-labelledby={headingId}>
+  <div class:list={['container', width !== 'default' && `container--${width}`]}>
+    <header class="section__header">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <Heading id={headingId} class="section__title">
+        {title}
+      </Heading>
+      {intro && <p class="lead section__intro">{intro}</p>}
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--section-space);
+  }
+  .section--alt {
+    background-color: var(--color-bg-alt);
+  }
+  .section--surface {
+    background-color: var(--color-surface);
+  }
+  .section__header {
+    margin-bottom: var(--space-10);
+    max-width: var(--measure);
+  }
+  .section__header > * + * {
+    margin-top: var(--space-3);
+  }
+  .section__title {
+    font-size: var(--text-3xl);
+  }
+</style>

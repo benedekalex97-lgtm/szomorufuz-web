@@ -1,0 +1,43 @@
+---
+import type { Link } from '@/content/types';
+
+interface Props {
+  items: Link[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Morzsamenü">
+  <ol role="list">
+    {items.map((item, i) => (
+      <li>
+        {i < items.length - 1 ? (
+          <a href={item.href}>{item.label}</a>
+        ) : (
+          <span aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .breadcrumbs li + li::before {
+    content: '/';
+    margin-inline-end: var(--space-2);
+    color: var(--color-border-strong);
+  }
+  .breadcrumbs a {
+    display: inline-block;
+    padding-block: var(--space-2);
+  }
+</style>

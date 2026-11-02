@@ -1,0 +1,29 @@
+---
+import { allowIndexing, OG_LOCALE } from '@/config/site';
+import type { SeoMetadata } from '@/content/types';
+import { buildTitle, canonicalUrl } from '@/lib/seo';
+
+interface Props {
+  seo: SeoMetadata;
+}
+
+const { seo } = Astro.props;
+const title = buildTitle(seo.title);
+const canonical = canonicalUrl(seo.canonicalPath ?? Astro.url.pathname);
+// Nem éles környezetben MINDEN oldal noindex (staging-védelem).
+const robots = seo.noindex || !allowIndexing ? 'noindex, follow' : 'index, follow';
+---
+
+<title>{title}</title>
+<meta name="description" content={seo.description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={robots} />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={OG_LOCALE} />
+<meta property="og:site_name" content="Szomorúfűz Temetkezés" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:url" content={canonical} />
+{seo.ogImage && <meta property="og:image" content={new URL(seo.ogImage, Astro.site).href} />}
+<meta name="twitter:card" content={seo.ogImage ? 'summary_large_image' : 'summary'} />

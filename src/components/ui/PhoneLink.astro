@@ -1,0 +1,55 @@
+---
+/**
+ * Telefonszám megjelenítése a jogosultság szerint:
+ *  - ellenőrzött szám → kattintható tel: link
+ *  - review mód, ellenőrizetlen → csak szöveg, jelöléssel, tel: link NÉLKÜL
+ *  - strict mód, ellenőrizetlen → nem renderel semmit (a hívó dönt a helyettesítésről)
+ */
+import type { Fact, PhoneNumber } from '@/content/types';
+import { publishable } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+import Icon from './Icon.astro';
+import PendingBadge from './PendingBadge.astro';
+
+interface Props {
+  phone: Fact<PhoneNumber>;
+  /** Kiegészítő felirat képernyőolvasónak, pl. "Izabella utcai iroda" */
+  context?: string;
+  showIcon?: boolean;
+  class?: string;
+}
+
+const { phone, context, showIcon = true, class: className } = Astro.props;
+const p = publishable(phone);
+---
+
+{p &&
+  (p.pending ? (
+    <span class:list={['phone', 'phone--pending', className]}>
+      {showIcon && <Icon name="phone" size={18} />}
+      <span>{p.value.display}</span>
+      <PendingBadge />
+    </span>
+  ) : (
+    <a class:list={['phone', className]} href={telHref(p.value.e164)}>
+      {showIcon && <Icon name="phone" size={18} />}
+      <span>{p.value.display}</span>
+      {context && <span class="visually-hidden">– {context}</span>}
+    </a>
+  ))}
+
+<style>
+  .phone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    font-weight: var(--weight-medium);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .phone--pending {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+</style>

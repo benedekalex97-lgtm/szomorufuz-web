@@ -1,0 +1,114 @@
+---
+/**
+ * Űrlapmező a későbbi (jóváhagyott) űrlapokhoz. Az 1. fázisban nincs működő,
+ * személyes adatot gyűjtő űrlap – ez a komponens csak a dizájnrendszer része.
+ */
+interface Props {
+  id: string;
+  label: string;
+  type?: 'text' | 'tel' | 'email';
+  hint?: string;
+  error?: string;
+  required?: boolean;
+  disabled?: boolean;
+  autocomplete?: string;
+}
+const {
+  id,
+  label,
+  type = 'text',
+  hint,
+  error,
+  required = false,
+  disabled = false,
+  autocomplete,
+} = Astro.props;
+const hintId = hint ? `${id}-sugo` : undefined;
+const errorId = error ? `${id}-hiba` : undefined;
+const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['field', error && 'field--error', disabled && 'field--disabled']}>
+  <label class="field__label" for={id}>
+    {label}
+    {required ? (
+      <span class="field__req">(kötelező)</span>
+    ) : (
+      <span class="field__opt">(nem kötelező)</span>
+    )}
+  </label>
+  {hint && (
+    <p class="field__hint" id={hintId}>
+      {hint}
+    </p>
+  )}
+  <input
+    class="field__input"
+    id={id}
+    name={id}
+    type={type}
+    required={required}
+    disabled={disabled}
+    autocomplete={autocomplete}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={describedBy}
+  />
+  {error && (
+    <p class="field__error" id={errorId}>
+      {error}
+    </p>
+  )}
+</div>
+
+<style>
+  .field {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 28rem;
+  }
+  .field__label {
+    font-weight: var(--weight-medium);
+  }
+  .field__req,
+  .field__opt {
+    margin-inline-start: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-muted);
+  }
+  .field__hint {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .field__input {
+    min-height: var(--tap-target);
+    padding: var(--space-3) var(--space-4);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    font-size: var(--text-base);
+  }
+  .field__input:hover {
+    border-color: var(--color-text);
+  }
+  .field__input:focus-visible {
+    border-color: var(--color-text);
+  }
+  .field--error .field__input {
+    border-width: 2px;
+    border-color: #8c2f23;
+  }
+  .field__error {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: #8c2f23;
+  }
+  .field__error::before {
+    content: '! ';
+  }
+  .field--disabled .field__input {
+    cursor: not-allowed;
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-muted);
+  }
+</style>

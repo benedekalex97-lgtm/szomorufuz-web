@@ -1,0 +1,88 @@
+---
+import '@/styles/global.css';
+
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import MobileCallBar from '@/components/layout/MobileCallBar.astro';
+import SkipLink from '@/components/layout/SkipLink.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Seo from '@/components/seo/Seo.astro';
+import { contentMode, SITE_LANG } from '@/config/site';
+import type { SeoMetadata } from '@/content/types';
+import { getSiteSettings } from '@/lib/content';
+import { organizationJsonLd } from '@/lib/seo';
+
+interface Props {
+  seo: SeoMetadata;
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { seo, jsonLd = [] } = Astro.props;
+const settings = await getSiteSettings();
+const structuredData = [...organizationJsonLd(settings), ...jsonLd];
+---
+
+<!doctype html>
+<html lang={SITE_LANG} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <!-- A nagyítás engedélyezett (audit A11Y-01) – nincs maximum-scale / user-scalable=no. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.replace('no-js', 'js');
+    </script>
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/newsreader-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <Seo seo={seo} />
+    <meta name="theme-color" content="#f7f5f0" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <JsonLd data={structuredData} />
+  </head>
+  <body>
+    <SkipLink />
+    {contentMode === 'review' && (
+      <aside class="review-banner" aria-label="Átnézési mód">
+        <p>
+          Belső átnézési nézet – az „Ellenőrizetlen” jelölésű adatok nem jelennek meg az éles
+          oldalon.
+        </p>
+      </aside>
+    )}
+    <Header />
+    <main id="tartalom" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileCallBar />
+  </body>
+</html>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+  .review-banner p {
+    max-width: none;
+  }
+  .review-banner {
+    padding: var(--space-2) var(--gutter);
+    background-color: var(--color-notice-bg);
+    border-bottom: var(--border-width) dashed var(--color-notice-border);
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+</style>
