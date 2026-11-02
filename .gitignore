@@ -1,0 +1,21 @@
+# build
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# env – titkok soha nem kerülnek a repóba
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+.vercel/
+/test-results/
+dist-review/
+dist-prod/
