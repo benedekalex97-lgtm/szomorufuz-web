@@ -1,0 +1,48 @@
+---
+import Accordion from '@/components/ui/Accordion.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import Section from '@/components/ui/Section.astro';
+import type { FaqItem, Homepage } from '@/content/types';
+
+interface Props {
+  data: Homepage['faq'];
+  items: FaqItem[];
+}
+const { data, items } = Astro.props;
+const isDemo = items.some((item) => item.copyStatus !== 'approved');
+---
+
+<Section id="gyik" eyebrow="Kérdések" title={data.title} intro={data.intro} tone="alt">
+  <div class="faq">
+    {isDemo && (
+      <PendingNotice title="Mintatartalom" class="faq__notice">
+        <p>
+          Az alábbi kérdések és válaszok demonstrációs célúak. A végleges, szakmailag jóváhagyott
+          tartalom a 2. fázisban kerül ide.
+        </p>
+      </PendingNotice>
+    )}
+    <Accordion items={items} />
+  </div>
+  <p class="faq__cta">
+    <a href={data.cta.href}>{data.cta.label}</a>
+  </p>
+</Section>
+
+<style>
+  .faq {
+    max-width: var(--container-narrow);
+  }
+  .faq__cta {
+    margin-top: var(--space-8);
+  }
+  .faq__cta a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-weight: var(--weight-semibold);
+  }
+  :global(.faq__notice) {
+    margin-bottom: var(--space-6);
+  }
+</style>

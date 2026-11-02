@@ -1,0 +1,37 @@
+---
+import ContactSection from '@/components/home/ContactSection.astro';
+import FaqSection from '@/components/home/FaqSection.astro';
+import FirstStepsSection from '@/components/home/FirstStepsSection.astro';
+import HeroSection from '@/components/home/HeroSection.astro';
+import OfficesSection from '@/components/home/OfficesSection.astro';
+import PricingSection from '@/components/home/PricingSection.astro';
+import ServicesSection from '@/components/home/ServicesSection.astro';
+import TrustSection from '@/components/home/TrustSection.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import {
+  getFaqItems,
+  getHomepage,
+  getOffices,
+  getPricingCategories,
+  getServices,
+} from '@/lib/content';
+
+const [home, services, pricing, offices, faq] = await Promise.all([
+  getHomepage(),
+  getServices(),
+  getPricingCategories(),
+  getOffices(),
+  getFaqItems(),
+]);
+---
+
+<BaseLayout seo={home.seo}>
+  <HeroSection hero={home.hero} />
+  <FirstStepsSection data={home.firstSteps} />
+  <ServicesSection data={home.services} services={services} />
+  <PricingSection data={home.pricing} categories={pricing} />
+  <TrustSection data={home.trust} />
+  <OfficesSection data={home.offices} offices={offices} />
+  <FaqSection data={home.faq} items={faq} />
+  <ContactSection data={home.contact} />
+</BaseLayout>

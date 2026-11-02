@@ -1,0 +1,104 @@
+---
+import Button from '@/components/ui/Button.astro';
+import PendingBadge from '@/components/ui/PendingBadge.astro';
+import Section from '@/components/ui/Section.astro';
+import type { Homepage, PricingCategory } from '@/content/types';
+import { publishable } from '@/lib/facts';
+import { formatPrice } from '@/lib/format';
+
+interface Props {
+  data: Homepage['pricing'];
+  categories: PricingCategory[];
+}
+const { data, categories } = Astro.props;
+
+const prices = categories
+  .flatMap((c) => c.items)
+  .map((item) => ({ item, price: publishable(item.price) }))
+  .filter((p) => p.price !== null);
+---
+
+<Section id="arak" eyebrow="Átláthatóság" title={data.title} tone="surface">
+  <div class="pricing">
+    <div class="pricing__text">
+      <p class="lead">{data.body}</p>
+      <Button href={data.cta.href} variant="secondary" icon="arrow-right" iconPosition="end">
+        {data.cta.label}
+      </Button>
+    </div>
+
+    {prices.length > 0 ? (
+      <dl class="pricing__list">
+        {prices.map(({ item, price }) => (
+          <div class="pricing__row">
+            <dt>{item.name}</dt>
+            <dd>
+              {price && formatPrice(price.value)}
+              {price?.pending && <PendingBadge />}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    ) : (
+      <div class="pricing__aside">
+        <h3 class="pricing__aside-title">Mit talál majd az árlistában?</h3>
+        <ul class="pricing__points">
+          <li>A szolgáltatások kiindulási árát</li>
+          <li>Az árban foglalt tételek leírását</li>
+          <li>Az esetleges választható kiegészítőket</li>
+        </ul>
+      </div>
+    )}
+  </div>
+</Section>
+
+<style>
+  .pricing {
+    display: grid;
+    gap: var(--space-10);
+    align-items: start;
+  }
+  .pricing__text > * + * {
+    margin-top: var(--space-6);
+  }
+  .pricing__aside,
+  .pricing__list {
+    padding: var(--space-6);
+    border: var(--border-width) solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg);
+  }
+  .pricing__aside-title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+  }
+  .pricing__points {
+    display: grid;
+    gap: var(--space-3);
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .pricing__points li::marker {
+    color: var(--color-accent-decor);
+  }
+  .pricing__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: var(--space-3);
+  }
+  .pricing__row + .pricing__row {
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+  .pricing__row dd {
+    font-weight: var(--weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 64em) {
+    .pricing {
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--space-16);
+    }
+  }
+</style>

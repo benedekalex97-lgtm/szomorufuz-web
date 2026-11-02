@@ -1,0 +1,129 @@
+---
+import Button from '@/components/ui/Button.astro';
+import type { Homepage } from '@/content/types';
+import { getSiteSettings } from '@/lib/content';
+import { verifiedOnly } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+
+interface Props {
+  hero: Homepage['hero'];
+}
+const { hero } = Astro.props;
+const settings = await getSiteSettings();
+const phone = verifiedOnly(settings.primaryPhone);
+const availability = verifiedOnly(settings.phoneAvailability);
+---
+
+<section class="hero" aria-labelledby="hero-cim">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <p class="eyebrow">Szomorúfűz Temetkezés · Budapest</p>
+      <h1 id="hero-cim" class="hero__title">
+        {hero.title}
+      </h1>
+      <p class="hero__lead">{hero.lead}</p>
+
+      <div class="hero__actions">
+        {phone ? (
+          <Button href={telHref(phone.e164)} icon="phone" size="lg">
+            {hero.primaryCtaLabel}: {phone.display}
+          </Button>
+        ) : (
+          <Button href="#kapcsolat" icon="phone" size="lg">
+            {hero.primaryCtaLabel}
+          </Button>
+        )}
+        <Button href={hero.secondaryCta.href} variant="secondary" size="lg">
+          {hero.secondaryCta.label}
+        </Button>
+      </div>
+
+      {availability && <p class="hero__meta">{availability}</p>}
+
+      <p class="hero__tertiary">
+        <a href={hero.tertiaryCta.href}>{hero.tertiaryCta.label}</a>
+      </p>
+    </div>
+
+    <!-- Absztrakt, dekoratív vonalrajz (nem logó, nem fotó) -->
+    <svg class="hero__art" viewBox="0 0 320 340" fill="none" aria-hidden="true" focusable="false">
+      <path d="M160 300 C 158 220, 162 120, 160 40" />
+      <path d="M160 40 C 196 34, 226 52, 236 96 C 242 150, 238 230, 240 300" />
+      <path d="M160 40 C 214 30, 262 54, 276 110 C 284 160, 282 220, 284 270" />
+      <path d="M160 40 C 230 26, 298 60, 308 126 C 314 162, 312 200, 314 232" />
+      <path d="M160 40 C 186 44, 204 62, 210 104 C 214 160, 212 250, 214 320" />
+      <path d="M160 40 C 124 34, 94 52, 84 96 C 78 150, 82 230, 80 300" />
+      <path d="M160 40 C 106 30, 58 54, 44 110 C 36 160, 38 220, 36 270" />
+      <path d="M160 40 C 90 26, 22 60, 12 126 C 6 162, 8 200, 6 232" />
+      <path d="M160 40 C 134 44, 116 62, 110 104 C 106 160, 108 250, 106 320" />
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-12) var(--space-16);
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+  .hero__inner {
+    display: grid;
+    align-items: center;
+    gap: var(--space-10);
+  }
+  .hero__content > * + * {
+    margin-top: var(--space-5);
+  }
+  .hero__title {
+    font-size: var(--text-4xl);
+    max-width: 16ch;
+  }
+  .hero__lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 40ch;
+  }
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+  }
+  .hero__meta {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .hero__tertiary a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-weight: var(--weight-medium);
+  }
+  .hero__art {
+    display: none;
+    width: 100%;
+    max-width: 20rem;
+    justify-self: end;
+    stroke: var(--color-accent-decor);
+    stroke-width: 1;
+    opacity: 0.55;
+  }
+  @media (min-width: 40em) {
+    .hero__actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  @media (min-width: 64em) {
+    .hero {
+      padding-block: var(--space-24);
+    }
+    .hero__inner {
+      grid-template-columns: 1.5fr 1fr;
+    }
+    .hero__art {
+      display: block;
+    }
+  }
+</style>

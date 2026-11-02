@@ -1,0 +1,81 @@
+---
+import Section from '@/components/ui/Section.astro';
+import type { Homepage } from '@/content/types';
+
+interface Props {
+  data: Homepage['firstSteps'];
+}
+const { data } = Astro.props;
+---
+
+<Section id="teendok" eyebrow="Első lépések" title={data.title} intro={data.intro} tone="alt">
+  <ol class="steps" role="list">
+    {data.steps.map((step, i) => (
+      <li class="steps__item">
+        <span class="steps__number" aria-hidden="true">
+          {i + 1}
+        </span>
+        <h3 class="steps__title">
+          <span class="visually-hidden">{i + 1}. lépés: </span>
+          {step.title}
+        </h3>
+        <p class="steps__body">{step.body}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="steps__cta">
+    <a href={data.cta.href}>
+      {data.cta.label}
+      <span class="visually-hidden"> a teendőkről</span>
+    </a>
+  </p>
+</Section>
+
+<style>
+  .steps {
+    display: grid;
+    gap: var(--space-6);
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+  .steps__item {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg);
+    border: var(--border-width) solid var(--color-border-subtle);
+  }
+  .steps__number {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: var(--border-width) solid var(--color-accent-decor);
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--color-accent-text);
+  }
+  .steps__title {
+    font-size: var(--text-xl);
+  }
+  .steps__body {
+    color: var(--color-text-muted);
+  }
+  .steps__cta {
+    margin-top: var(--space-8);
+  }
+  .steps__cta a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-weight: var(--weight-semibold);
+  }
+  @media (min-width: 48em) {
+    .steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,211 @@
+---
+/** Belső stílusútmutató – élő dizájnrendszer-referencia. noindex, sitemapen kívül. */
+import Accordion from '@/components/ui/Accordion.astro';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { icons, type IconName } from '@/components/ui/icons.generated';
+import PendingBadge from '@/components/ui/PendingBadge.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import TextField from '@/components/ui/TextField.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const colors = [
+  { token: '--color-bg', name: 'Porcelain', hex: '#F7F5F0', use: 'Elsődleges háttér' },
+  { token: '--color-bg-alt', name: 'Warm Ivory', hex: '#EAE5DA', use: 'Másodlagos háttér' },
+  {
+    token: '--color-border-subtle',
+    name: 'Stone Taupe',
+    hex: '#B8AA98',
+    use: 'Dekoratív vonal (2,09:1)',
+  },
+  { token: '--color-text', name: 'Deep Charcoal', hex: '#292825', use: 'Szöveg (13,53:1)' },
+  {
+    token: '--color-accent-decor',
+    name: 'Muted Bronze',
+    hex: '#89745D',
+    use: 'Díszítés, nagy elem (4,08:1)',
+  },
+  {
+    token: '--color-accent-text',
+    name: 'Bronze 700',
+    hex: '#6E5B47',
+    use: 'Hangsúlyos szöveg, link (5,93:1)',
+  },
+  {
+    token: '--color-text-muted',
+    name: 'Graphite 600',
+    hex: '#5C5952',
+    use: 'Másodlagos szöveg (6,41:1)',
+  },
+  { token: '--color-border-strong', name: 'Stone 600', hex: '#8A7F72', use: 'Űrlapkeret (3,60:1)' },
+];
+const scale = ['4xl', '3xl', '2xl', 'xl', 'lg', 'base', 'sm'];
+const iconNames = Object.keys(icons) as IconName[];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Stílusútmutató',
+    description: 'A Szomorúfűz dizájnrendszer belső referenciája.',
+    noindex: true,
+  }}
+>
+  <div class="container guide">
+    <h1>Stílusútmutató</h1>
+    <p class="lead">
+      Belső referencia. A tokenek forrása: <code>src/styles/tokens.css</code>.
+    </p>
+
+    <section aria-labelledby="g-szinek">
+      <h2 id="g-szinek">Színek</h2>
+      <ul class="swatches" role="list">
+        {colors.map((c) => (
+          <li class="swatch">
+            <span class="swatch__chip" style={`background: var(${c.token})`} />
+            <strong>{c.name}</strong>
+            <code>{c.hex}</code>
+            <span>{c.use}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="g-tipo">
+      <h2 id="g-tipo">Tipográfia</h2>
+      {scale.map((s) => (
+        <p
+          style={`font-size: var(--text-${s}); font-family: ${['4xl', '3xl', '2xl', 'xl'].includes(s) ? 'var(--font-heading)' : 'var(--font-body)'}; max-width:none`}
+        >
+          text-{s} – Nincs egyedül a nehéz pillanatokban.
+        </p>
+      ))}
+    </section>
+
+    <section aria-labelledby="g-gombok">
+      <h2 id="g-gombok">Gombok</h2>
+      <div class="row">
+        <Button icon="phone">Elsődleges</Button>
+        <Button variant="secondary">Másodlagos</Button>
+        <Button variant="ghost">Szöveges</Button>
+        <Button size="lg">Nagy</Button>
+        <Button disabled>Letiltott</Button>
+      </div>
+      <div class="row row--inverse">
+        <Button variant="inverse">Sötét felületen</Button>
+      </div>
+    </section>
+
+    <section aria-labelledby="g-kartyak">
+      <h2 id="g-kartyak">Kártyák</h2>
+      <div class="cards">
+        <Card title="Kattintható kártya" href="#g-kartyak" linkLabel="Részletek">
+          <p>Az egész kártya kattintható, a fókusz a kártyán látszik.</p>
+        </Card>
+        <Card title="Statikus kártya">
+          <p>Link nélküli tartalmi doboz.</p>
+        </Card>
+      </div>
+    </section>
+
+    <section aria-labelledby="g-urlap">
+      <h2 id="g-urlap">Űrlapmezők (későbbi használatra)</h2>
+      <div class="fields">
+        <TextField id="demo-nev" label="Név" autocomplete="name" hint="Ahogy megszólíthatjuk." />
+        <TextField
+          id="demo-tel"
+          label="Telefonszám"
+          type="tel"
+          required
+          error="Kérjük, adjon meg egy telefonszámot."
+        />
+        <TextField id="demo-letiltott" label="Letiltott mező" disabled />
+      </div>
+    </section>
+
+    <section aria-labelledby="g-jelolesek">
+      <h2 id="g-jelolesek">Jelölések</h2>
+      <PendingNotice>
+        <p>Helyőrző ellenőrizetlen adat helyén.</p>
+      </PendingNotice>
+      <p>
+        Ellenőrizetlen érték review módban <PendingBadge />
+      </p>
+    </section>
+
+    <section aria-labelledby="g-gyik">
+      <h2 id="g-gyik">Harmonika</h2>
+      <Accordion items={[{ id: 'g1', question: 'Példa kérdés?', answer: 'Példa válasz.' }]} />
+    </section>
+
+    <section aria-labelledby="g-ikonok">
+      <h2 id="g-ikonok">Ikonok (Lucide, 1,75 vonalvastagság)</h2>
+      <ul class="icons" role="list">
+        {iconNames.map((n) => (
+          <li>
+            <Icon name={n} size={24} />
+            <code>{n}</code>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .guide {
+    padding-block: var(--space-12) var(--space-24);
+  }
+  .guide > * + * {
+    margin-top: var(--space-12);
+  }
+  .guide section > * + * {
+    margin-top: var(--space-4);
+  }
+  .guide h2 {
+    font-size: var(--text-2xl);
+  }
+  .swatches,
+  .icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .swatch {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+  }
+  .swatch__chip {
+    height: 4rem;
+    border-radius: var(--radius-md);
+    border: var(--border-width) solid var(--color-border-strong);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .row--inverse {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-inverse);
+  }
+  .cards {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  .fields {
+    display: grid;
+    gap: var(--space-6);
+  }
+  .icons li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+  }
+</style>

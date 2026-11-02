@@ -1,0 +1,59 @@
+---
+/**
+ * Helyőrző oldalak a navigációban hivatkozott, de még el nem készült oldalakhoz.
+ * Mindegyik noindex, és kimarad a sitemapből. A 2. fázisban saját oldalra cserélődnek.
+ */
+import type { GetStaticPaths } from 'astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Button from '@/components/ui/Button.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import type { ContentPage } from '@/content/types';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getPlaceholderPages } from '@/lib/content';
+import { breadcrumbJsonLd } from '@/lib/seo';
+
+export const getStaticPaths = (async () => {
+  const pages = await getPlaceholderPages();
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: ContentPage;
+}
+const { page } = Astro.props;
+const path = `/${page.slug}/`;
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: page.title, href: path },
+];
+---
+
+<BaseLayout seo={page.seo}>
+  <JsonLd data={breadcrumbJsonLd(crumbs.map((c) => ({ name: c.label, path: c.href })))} />
+  <div class="container container--narrow placeholder">
+    <Breadcrumbs items={crumbs} />
+    <h1>{page.title}</h1>
+    <PendingNotice title="Ez az oldal fejlesztés alatt áll">
+      <p>
+        A tartalom a weboldal-megújítás {page.plannedPhase}. fázisában, a meglévő oldal tartalmának
+        és keresőoptimalizálási értékének megőrzésével készül el.
+      </p>
+    </PendingNotice>
+    <Button href="/" variant="secondary">
+      Vissza a főoldalra
+    </Button>
+  </div>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    padding-block: var(--space-12) var(--space-24);
+  }
+  .placeholder > * + * {
+    margin-top: var(--space-6);
+  }
+  .placeholder h1 {
+    font-size: var(--text-3xl);
+  }
+</style>

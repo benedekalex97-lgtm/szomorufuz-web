@@ -1,0 +1,45 @@
+---
+import Button from '@/components/ui/Button.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Az oldal nem található',
+    description: 'A keresett oldal nem található. Segítünk megtalálni, amit keres.',
+    noindex: true,
+  }}
+>
+  <div class="container container--narrow notfound">
+    <p class="eyebrow">404-es hiba</p>
+    <h1>Ezt az oldalt nem találjuk.</h1>
+    <p class="lead">
+      Lehet, hogy a cím megváltozott, vagy elírás történt. Az alábbi oldalakon biztosan segítséget
+      talál.
+    </p>
+    <div class="notfound__actions">
+      <Button href="/">Főoldal</Button>
+      <Button href="/teendok-halaleset-utan/" variant="secondary">
+        Teendők haláleset esetén
+      </Button>
+      <Button href="/elerhetoseg/" variant="secondary">
+        Kapcsolat
+      </Button>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: var(--space-16) var(--space-24);
+  }
+  .notfound > * + * {
+    margin-top: var(--space-5);
+  }
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+  }
+</style>
