@@ -54,7 +54,7 @@ const showHelp = ['teendok', 'szolgaltatas', 'tudnivalo'].includes(article.secti
 
   <div class="container article">
     <div class="article__main">
-      <ArticleBlocks blocks={article.blocks} />
+      <ArticleBlocks blocks={article.blocks} slug={article.slug} />
     </div>
     <aside class="article__aside" aria-label="Kapcsolódó információk">
       <div class="article__contact">

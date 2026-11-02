@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 import { loadEnv } from 'vite';
 
 // Környezet a build idejére (.env fájl vagy a hosting környezeti változói).
@@ -28,8 +29,34 @@ export default defineConfig({
         values: ['strict', 'review'],
         default: 'strict',
       }),
+      // ---- Űrlapok (audit SZF-002). Értékek: Vercel → Settings → Environment Variables ----
+      // disabled | dry-run | smtp. Hiányában: Vercel preview és helyi fejlesztés → dry-run,
+      // minden más (production) → disabled. Csak jóváhagyott adatkezelési tájékoztató után: smtp.
+      FORMS_DELIVERY: envField.enum({
+        context: 'server',
+        access: 'public',
+        values: ['disabled', 'dry-run', 'smtp'],
+        optional: true,
+      }),
+      // Vercel automatikusan beállítja (production | preview | development).
+      VERCEL_ENV: envField.string({ context: 'server', access: 'public', optional: true }),
+      FORMS_RECIPIENT: envField.string({ context: 'server', access: 'secret', optional: true }),
+      FORMS_FROM: envField.string({ context: 'server', access: 'secret', optional: true }),
+      FORMS_ALLOWED_ORIGINS: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
+      FORMS_RATE_SALT: envField.string({ context: 'server', access: 'secret', optional: true }),
+      SMTP_HOST: envField.string({ context: 'server', access: 'secret', optional: true }),
+      SMTP_PORT: envField.number({ context: 'server', access: 'secret', optional: true }),
+      SMTP_SECURE: envField.boolean({ context: 'server', access: 'secret', optional: true }),
+      SMTP_USER: envField.string({ context: 'server', access: 'secret', optional: true }),
+      SMTP_PASS: envField.string({ context: 'server', access: 'secret', optional: true }),
     },
   },
+  // Statikus oldalak + egyetlen szerveroldali végpont (/api/urlap/, prerender = false).
+  adapter: vercel(),
   site: SITE_URL,
   // Összevont / duplikált URL-ek (a SEO-migrációs terv szerint)
   redirects: {

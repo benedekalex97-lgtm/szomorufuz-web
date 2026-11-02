@@ -2,19 +2,26 @@
 /** A cikk-blokkok megjelenítése (lásd ArticleBlock típus). */
 import ContactCard from '@/components/article/ContactCard.astro';
 import QuoteRequest from '@/components/article/QuoteRequest.astro';
+import Form from '@/components/forms/Form.astro';
+import QuoteForms from '@/components/forms/QuoteForms.astro';
 import LeafMark from '@/components/brand/LeafMark.astro';
 import StepList from '@/components/sections/StepList.astro';
 import Accordion from '@/components/ui/Accordion.astro';
 import Button from '@/components/ui/Button.astro';
 import { central } from '@/content/data/contact';
 import type { ArticleBlock } from '@/content/types';
+import { quoteHref, serviceById } from '@/forms/definitions';
 import { telHref } from '@/lib/format';
 import { inline } from '@/lib/inline';
 
 interface Props {
   blocks: ArticleBlock[];
+  /** Az oldal slugja – a szolgáltatásspecifikus árajánlat-hivatkozáshoz */
+  slug?: string;
 }
-const { blocks } = Astro.props;
+const { blocks, slug } = Astro.props;
+const service = serviceById(slug);
+const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap';
 ---
 
 <div class="blocks">
@@ -136,7 +143,7 @@ const { blocks } = Astro.props;
                 {central.info.phone.display}
               </Button>
               <Button
-                href="/arajanlat-keres-itt/"
+                href={quoteLink}
                 variant="inverse-outline"
                 icon="arrow-right"
                 iconPosition="end"
@@ -148,6 +155,10 @@ const { blocks } = Astro.props;
         );
       case 'quote-request':
         return <QuoteRequest />;
+      case 'form':
+        return <Form form={b.form} service={service} />;
+      case 'quote-forms':
+        return <QuoteForms />;
       default:
         return null;
     }

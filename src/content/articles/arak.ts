@@ -100,7 +100,7 @@ export const argarancia: Article = {
   related: ['arak', 'arajanlat-keres-itt'],
 };
 
-/** Forrás: /arajanlat-keres-itt/ (és a duplikált /arajanlatkeres/). Űrlap helyett telefon és e-mail. */
+/** Forrás: /arajanlat-keres-itt/ (és a duplikált /arajanlatkeres/). Az eredeti űrlapok kérdéseivel. */
 export const arajanlatKeres: Article = {
   slug: 'arajanlat-keres-itt',
   source: [`${LIVE}/arajanlat-keres-itt/`, `${LIVE}/arajanlatkeres/`],
@@ -108,7 +108,7 @@ export const arajanlatKeres: Article = {
   eyebrow: 'Árajánlat',
   title: 'Árajánlat',
   titleEmphasis: 'kérés',
-  lead: 'Kérjen tőlünk díjmentes, minden kötelezettségtől mentes árajánlatot hamvasztásos vagy koporsós temetésre – telefonon vagy e-mailben, akár 2 órán belül.',
+  lead: 'Kérjen tőlünk díjmentes, minden kötelezettségtől mentes árajánlatot hamvasztásos vagy koporsós temetésre – az alábbi űrlapon, telefonon vagy e-mailben, akár 2 órán belül.',
   seo: {
     title: 'Temetési árajánlat kérés – hamvasztás, koporsós',
     description:
@@ -119,12 +119,14 @@ export const arajanlatKeres: Article = {
       type: 'p',
       text: 'Az általunk adott árajánlatokra garanciát vállalunk, hogy csak a kifejezetten szükséges szolgáltatásokat tartalmazzák. Fontos: jelölje meg, hogy **hamvasztásos** vagy **koporsós** temetésre kéri a szertartási költségkalkulációt.',
     },
-    { type: 'quote-request' },
+    { type: 'quote-forms' },
+    { type: 'h2', text: 'Telefonon vagy e-mailben', id: 'telefon' },
+    { type: 'contact' },
   ],
   related: ['arak', 'argarancia', 'hamvasztasos-temetes', 'koporsos-temetes'],
 };
 
-/** Forrás: /tajekoztatas-keres/ – visszahívás-kérés űrlap helyett közvetlen elérhetőség. */
+/** Forrás: /tajekoztatas-keres/ – telefonos visszahívás kérése (az eredeti form_1973 mezőivel). */
 export const tajekoztatasKeres: Article = {
   slug: 'tajekoztatas-keres',
   source: [`${LIVE}/tajekoztatas-keres/`],
@@ -141,8 +143,10 @@ export const tajekoztatasKeres: Article = {
   blocks: [
     {
       type: 'p',
-      text: 'Hívja munkatársunkat az alábbi telefonszámok egyikén, vagy írjon nekünk e-mailt – munkatársaink a lehető leghamarabb válaszolnak felvetődő kérdéseire.',
+      text: 'Adja meg elérhetőségét, és munkatársunk az Önnek megfelelő időben telefonon megkeresi. Ha inkább Ön hívna, az alábbi telefonszámokon is elér minket.',
     },
+    { type: 'form', form: 'visszahivas' },
+    { type: 'h2', text: 'Közvetlen elérhetőség', id: 'elerhetoseg' },
     { type: 'contact' },
   ],
   related: ['arajanlat-keres-itt', 'teendok-halaleset-utan'],

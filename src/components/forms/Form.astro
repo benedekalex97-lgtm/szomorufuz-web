@@ -1,0 +1,419 @@
+---
+/**
+ * Akadálymentes, progresszíven bővített űrlap (audit SZF-002/003).
+ * - JavaScript nélkül: hagyományos POST a /api/urlap/ végpontra.
+ * - JavaScripttel: helyben ellenőriz, fetch-csel küld, a hibánál megtartja az adatokat.
+ * A mezők a src/forms/definitions.ts definíciójából jönnek (a szerver ugyanazt ellenőrzi).
+ */
+import { formsMode } from '@/forms/config';
+import { type FieldDef, type FormId, forms, type ServiceForm } from '@/forms/definitions';
+import { META } from '@/forms/security';
+import { maxLengthOf } from '@/forms/validate';
+import { central } from '@/content/data/contact';
+import { telHref } from '@/lib/format';
+
+interface Props {
+  form: FormId;
+  /** Egyedi azonosító-előtag (több űrlap egy oldalon) */
+  idPrefix?: string;
+  /** Szolgáltatás, amelyhez az űrlap tartozik (rejtett mező + előkitöltés) */
+  service?: ServiceForm | undefined;
+  /** Rejtve indul (a szolgáltatásválasztó mutatja meg) */
+  hidden?: boolean;
+  headingLevel?: 2 | 3;
+  title?: string;
+}
+
+const { form, idPrefix = form, service, hidden = false, headingLevel = 2, title } = Astro.props;
+const def = forms[form];
+const disabled = formsMode === 'disabled';
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const fid = (name: string) => `${idPrefix}-${name.replace(/_/g, '-')}`;
+const prefill = service?.prefill ?? {};
+const isPrefilled = (f: FieldDef, opt: string) => prefill[f.name] === opt;
+const describedBy = (f: FieldDef) =>
+  [f.hint ? `${fid(f.name)}-sugo` : '', `${fid(f.name)}-hiba`].filter(Boolean).join(' ');
+---
+
+<section
+  class="form-wrap"
+  id={`${idPrefix}-urlap`}
+  aria-labelledby={`${idPrefix}-cim`}
+  data-form-variant={form}
+  hidden={hidden}
+>
+  <Heading class="form-wrap__title" id={`${idPrefix}-cim`}>
+    {title ?? def.title}
+  </Heading>
+
+  {formsMode === 'dry-run' && (
+    <p class="form-notice" role="note">
+      <strong>Tesztüzem.</strong> Az űrlap ellenőrzi az adatokat, de üzenetet nem továbbít. Kérjük,
+      valódi személyes adatot ne adjon meg.
+    </p>
+  )}
+  {disabled && (
+    <p class="form-notice" role="note">
+      <strong>Az online küldés még nem aktív.</strong> Kérjük, hívja munkatársunkat a{' '}
+      <a href={telHref(central.info.phone.e164)}>{central.info.phone.display}</a> számon (
+      {central.info.note}), vagy írjon a <a href={`mailto:${central.email}`}>{central.email}</a>{' '}
+      címre.
+    </p>
+  )}
+
+  <form
+    class="form"
+    action="/api/urlap/"
+    method="post"
+    novalidate
+    data-form={form}
+    data-prefill={JSON.stringify(prefill)}
+    aria-describedby={`${idPrefix}-kotelezo`}
+  >
+    <div class="form__summary" data-form-summary tabindex="-1" hidden>
+      <p class="form__summary-title" id={`${idPrefix}-hibak-cim`}>
+        Az űrlapot nem tudtuk elküldeni. Kérjük, javítsa az alábbiakat:
+      </p>
+      <ul data-form-summary-list aria-labelledby={`${idPrefix}-hibak-cim`}></ul>
+    </div>
+
+    <input type="hidden" name={META.form} value={form} />
+    <input type="hidden" name={META.service} value={service?.id ?? ''} data-form-service />
+    <input type="hidden" name={META.page} value="" data-form-page />
+    <input type="hidden" name={META.key} value="" data-form-key />
+    <input type="hidden" name={META.startedAt} value="" data-form-started />
+    <div class="form__hp" aria-hidden="true">
+      <label>
+        Ezt a mezőt hagyja üresen
+        <input type="text" name={META.honeypot} tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+
+    <p class="form__required" id={`${idPrefix}-kotelezo`}>
+      A „(kötelező)” jelölésű mezők kitöltése szükséges.
+    </p>
+
+    <fieldset class="form__body" disabled={disabled}>
+      {def.sections.map((section) => (
+        <fieldset class="form__section">
+          <legend class="form__legend">{section.legend}</legend>
+          {section.fields.map((f) =>
+            f.kind === 'radio' || f.kind === 'checkboxes' ? (
+              <fieldset
+                class="field field--choice"
+                data-field={f.name}
+                id={fid(f.name)}
+                tabindex="-1"
+                aria-describedby={describedBy(f)}
+              >
+                <legend class="field__label">
+                  {f.label}
+                  <span class="field__req">{f.required ? '(kötelező)' : '(nem kötelező)'}</span>
+                </legend>
+                {f.hint && (
+                  <p class="field__hint" id={`${fid(f.name)}-sugo`}>
+                    {f.hint}
+                  </p>
+                )}
+                <div class="choices">
+                  {f.options?.map((opt, i) => (
+                    <label class="choice">
+                      <input
+                        type={f.kind === 'radio' ? 'radio' : 'checkbox'}
+                        name={f.name}
+                        value={opt}
+                        id={i === 0 ? `${fid(f.name)}-1` : undefined}
+                        required={f.kind === 'radio' && f.required && i === 0}
+                        checked={isPrefilled(f, opt)}
+                      />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+                <p class="field__error" id={`${fid(f.name)}-hiba`} data-field-error hidden />
+              </fieldset>
+            ) : (
+              <div class="field" data-field={f.name}>
+                <label class="field__label" for={fid(f.name)}>
+                  {f.label}
+                  <span class="field__req">{f.required ? '(kötelező)' : '(nem kötelező)'}</span>
+                </label>
+                {f.hint && (
+                  <p class="field__hint" id={`${fid(f.name)}-sugo`}>
+                    {f.hint}
+                  </p>
+                )}
+                {f.kind === 'textarea' ? (
+                  <textarea
+                    class="field__input field__input--area"
+                    id={fid(f.name)}
+                    name={f.name}
+                    rows="5"
+                    maxlength={maxLengthOf(f)}
+                    required={f.required}
+                    aria-describedby={describedBy(f)}
+                  />
+                ) : f.kind === 'select' ? (
+                  <select
+                    class="field__input"
+                    id={fid(f.name)}
+                    name={f.name}
+                    required={f.required}
+                    aria-describedby={describedBy(f)}
+                  >
+                    <option value="">Válasszon…</option>
+                    {f.options?.map((opt) => (
+                      <option value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    class="field__input"
+                    id={fid(f.name)}
+                    name={f.name}
+                    type={f.kind}
+                    inputmode={f.kind === 'tel' ? 'tel' : f.kind === 'email' ? 'email' : undefined}
+                    autocomplete={f.autocomplete}
+                    maxlength={maxLengthOf(f)}
+                    required={f.required}
+                    spellcheck={f.kind === 'email' ? 'false' : undefined}
+                    aria-describedby={describedBy(f)}
+                  />
+                )}
+                <p class="field__error" id={`${fid(f.name)}-hiba`} data-field-error hidden />
+              </div>
+            ),
+          )}
+        </fieldset>
+      ))}
+
+      <div class="field field--notice" data-field={META.notice}>
+        <label class="choice">
+          <input
+            type="checkbox"
+            name={META.notice}
+            value="igen"
+            id={fid('tajekoztato')}
+            required
+            aria-describedby={`${fid('tajekoztato')}-hiba`}
+          />
+          <span>
+            Elolvastam az <a href="/adatkezeles/#urlapok">adatkezelési tájékoztatót</a>.
+            <span class="field__req">(kötelező)</span>
+          </span>
+        </label>
+        <p class="field__error" id={`${fid('tajekoztato')}-hiba`} data-field-error hidden />
+      </div>
+
+      <div class="form__actions">
+        <button type="submit" class="btn btn--primary btn--lg form__submit" data-form-submit>
+          <span data-form-submit-label>{def.submitLabel}</span>
+        </button>
+      </div>
+    </fieldset>
+
+    <div class="form__status" data-form-status role="status" aria-live="polite"></div>
+  </form>
+
+  <div class="form-success" data-form-success tabindex="-1" hidden>
+    <p class="form-success__title">Köszönjük!</p>
+    <p data-form-success-text></p>
+    <p class="form-success__note">
+      Sürgős esetben hívjon minket:{' '}
+      <a href={telHref(central.info.phone.e164)}>{central.info.phone.display}</a> (
+      {central.info.note}).
+    </p>
+  </div>
+</section>
+
+<script>
+  import { initForms } from '@/scripts/forms';
+  initForms();
+</script>
+
+<style>
+  .form-wrap {
+    margin-block: var(--space-10);
+    padding: var(--space-6) var(--space-4);
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-text);
+    scroll-margin-top: calc(var(--header-height) + var(--space-4));
+  }
+  @media (min-width: 40em) {
+    .form-wrap {
+      padding: var(--space-8);
+    }
+  }
+  .form-wrap__title {
+    font-size: var(--text-2xl);
+    font-weight: 350;
+  }
+  .form-notice {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    border-left: 3px solid var(--color-notice-border);
+    background-color: var(--color-notice-bg);
+    font-size: var(--text-sm);
+  }
+  .form {
+    margin-top: var(--space-6);
+  }
+  .form__required {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .form__body,
+  .form__section,
+  .field--choice {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .form__section {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+  .form__legend {
+    padding: 0;
+    margin-bottom: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 400;
+  }
+  .field {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 34rem;
+  }
+  .field--choice {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .field__label {
+    padding: 0;
+    font-weight: var(--weight-medium);
+  }
+  .field__req {
+    margin-inline-start: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-muted);
+  }
+  .field__hint {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .field__input {
+    width: 100%;
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: max(1rem, var(--text-base));
+  }
+  .field__input--area {
+    min-height: 8rem;
+    resize: vertical;
+  }
+  .field__input:hover {
+    border-color: var(--color-text);
+  }
+  .field__input[aria-invalid='true'],
+  .field--choice[data-invalid] .choices {
+    border-color: #8c2f23;
+  }
+  .field__input[aria-invalid='true'] {
+    border-width: 2px;
+  }
+  .field--choice[data-invalid] .choices {
+    padding-left: var(--space-3);
+    border-left: 3px solid #8c2f23;
+  }
+  .choices {
+    display: grid;
+    gap: 0;
+  }
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-height: 3rem;
+    padding-block: var(--space-2);
+    cursor: pointer;
+  }
+  .choice input {
+    flex: none;
+    width: 1.375rem;
+    height: 1.375rem;
+    margin-top: 0.15rem;
+    accent-color: var(--color-text);
+  }
+  .field__error {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: #8c2f23;
+  }
+  .field__error::before {
+    content: '! ';
+  }
+  .field--notice {
+    margin-top: var(--space-8);
+  }
+  .form__actions {
+    margin-top: var(--space-6);
+  }
+  .form__submit[aria-busy='true'] {
+    cursor: progress;
+    opacity: 0.8;
+  }
+  .form__body:disabled {
+    opacity: 0.6;
+  }
+  .form__summary {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    border: 2px solid #8c2f23;
+    background-color: #fbf3f1;
+  }
+  .form__summary-title {
+    font-weight: var(--weight-semibold);
+  }
+  .form__summary ul {
+    margin-top: var(--space-2);
+    padding-left: var(--space-5);
+  }
+  .form__summary a {
+    color: #8c2f23;
+  }
+  .form__status:not(:empty) {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    border-left: 3px solid #8c2f23;
+    background-color: #fbf3f1;
+  }
+  .form__hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .form-success {
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    border-left: 3px solid var(--color-text);
+    background-color: var(--color-bg-alt);
+  }
+  .form-success__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+  }
+  .form-success__note {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+  }
+</style>

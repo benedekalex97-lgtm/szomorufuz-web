@@ -1,3 +1,5 @@
+import type { FormId } from '@/forms/definitions';
+
 /**
  * Tartalomtípusok – a későbbi Sanity-sémák előképe (docs/content-model.md).
  *
@@ -263,7 +265,9 @@ export type ArticleBlock =
   | { type: 'faq'; items: { q: string; a: string }[] }
   | { type: 'contact' }
   | { type: 'quote-cta'; title?: string }
-  | { type: 'quote-request' };
+  | { type: 'quote-request' }
+  | { type: 'form'; form: FormId }
+  | { type: 'quote-forms' };
 
 export interface Article {
   slug: string;

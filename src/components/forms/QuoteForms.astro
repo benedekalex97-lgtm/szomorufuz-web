@@ -1,0 +1,29 @@
+---
+/**
+ * Az árajánlat-oldal űrlapjai (audit SZF-003). Alapból az általános űrlap látszik;
+ * a szolgáltatásoldalak CTA-ja ?szolgaltatas=<azonosító> paraméterrel a megfelelő,
+ * az eredeti oldal kérdéseit tartalmazó változatot nyitja meg (src/scripts/forms.ts).
+ */
+import Form from '@/components/forms/Form.astro';
+import { QUOTE_FORMS } from '@/forms/definitions';
+---
+
+<div class="quote-forms" id="urlap">
+  <p class="quote-forms__switch" data-form-switch hidden>
+    Más szolgáltatásra kér ajánlatot?
+    <a href="/arajanlat-keres-itt/#urlap">Általános árajánlatkérés</a>
+  </p>
+  {QUOTE_FORMS.map((id) => (
+    <Form form={id} hidden={id !== 'arajanlat'} />
+  ))}
+</div>
+
+<style>
+  .quote-forms {
+    scroll-margin-top: calc(var(--header-height) + var(--space-4));
+  }
+  .quote-forms__switch {
+    margin-top: var(--space-8);
+    font-size: var(--text-sm);
+  }
+</style>
