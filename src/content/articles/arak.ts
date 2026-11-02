@@ -1,3 +1,5 @@
+import { priceBlock } from '@/lib/prices';
+
 import type { Article } from '../types';
 
 const LIVE = 'https://www.budapest-temetkezes.hu';
@@ -23,34 +25,24 @@ export const arak: Article = {
   seo: {
     title: 'Temetési árak – koporsós temetés, ravatalozó',
     description:
-      'Koporsós temetés 232 288 Ft-tól, ravatalozó terem 65 000 Ft-tól, polgári búcsúztatás 35 000 Ft-tól (27% ÁFA-val). Árgarancia és díjmentes árajánlat.',
+      'Koporsós temetés 232 288 Ft-tól (27% ÁFA-val), polgári búcsúztatás 35 000 Ft-tól. Ravatalozó teremre és hamvasztásra egyedi árajánlat. Árgarancia, díjmentes ajánlat.',
   },
   blocks: [
     { type: 'h2', text: 'Publikált áraink', id: 'arak' },
-    {
-      type: 'price',
-      label: 'Koporsós temetési díj',
-      value: '232 288 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. Részletek: [Koporsós temetés](/koporsos-temetes/)',
-    },
-    {
-      type: 'price',
-      label: 'Ravatalozó terem díja',
-      value: '65 000 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. Részletek és feltételek: [Ravatalozó terem](/ravatalozo-terem/)',
-    },
-    {
-      type: 'price',
+    priceBlock('koporsos-temetes', {
+      extraNote: 'Részletek: [Koporsós temetés](/koporsos-temetes/)',
+    }),
+    priceBlock('ravatalozo-terem', {
+      extraNote: 'Részletek: [Ravatalozó terem](/ravatalozo-terem/)',
+    }),
+    priceBlock('polgari-bucsuztatas', {
       label: 'Polgári búcsúztatás',
-      value: '35 000 Ft-tól',
-      note: 'Részletek: [Polgári búcsúztatás](/polgari-bucsuztatas/)',
-    },
-    {
-      type: 'price',
+      extraNote: 'Részletek: [Polgári búcsúztatás](/polgari-bucsuztatas/)',
+    }),
+    priceBlock('sephia-urna', {
       label: 'Sephia kézzel festett fém díszurnák',
-      value: '23 900 Ft',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. A választék: [Urnák és kegyeleti kellékek](/urnak/)',
-    },
+      extraNote: 'A választék: [Urnák és kegyeleti kellékek](/urnak/)',
+    }),
     { type: 'h2', text: 'Hamvasztásos temetés', id: 'hamvasztas' },
     {
       type: 'p',

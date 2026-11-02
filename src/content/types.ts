@@ -217,7 +217,7 @@ export interface Homepage {
     eyebrow: string;
     title: string;
     intro: string;
-    items: { label: string; value: string; note: string; href: string }[];
+    items: { label: string; value: string; note: string; href: string; quote?: boolean }[];
     cta: Link;
   };
   offices: { eyebrow: string; title: string; intro: string; cta: Link };
@@ -255,7 +255,7 @@ export type ArticleBlock =
   | { type: 'p'; text: string }
   | { type: 'list'; items: string[]; ordered?: boolean }
   | { type: 'steps'; items: Step[] }
-  | { type: 'price'; label: string; value: string; note?: string }
+  | { type: 'price'; label: string; value: string; note?: string; condition?: string }
   | { type: 'callout'; title?: string; text: string }
   | { type: 'legal'; source: string; paragraphs: string[] }
   | { type: 'defs'; items: { term: string; text: string }[] }

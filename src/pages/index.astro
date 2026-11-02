@@ -88,7 +88,7 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
         <li>
           <a href={p.href} class="price">
             <span class="price__label">{p.label}</span>
-            <span class="price__value">{p.value}</span>
+            <span class:list={['price__value', p.quote && 'price__value--quote']}>{p.value}</span>
             <span class="price__note">{p.note}</span>
           </a>
         </li>
@@ -207,6 +207,9 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
   }
   .price:hover {
     background-color: var(--palette-white);
+  }
+  .price__value--quote {
+    font-size: var(--text-2xl);
   }
   .price__label {
     font-size: 0.75rem;

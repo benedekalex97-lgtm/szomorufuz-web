@@ -59,6 +59,9 @@ const { blocks } = Astro.props;
             <p class="b-price__label">{b.label}</p>
             <p class="b-price__value">{b.value}</p>
             {b.note && <p class="b-price__note" set:html={inline(b.note)} />}
+            {b.condition && (
+              <p class="b-price__condition" data-price-condition set:html={inline(b.condition)} />
+            )}
           </div>
         );
       case 'callout':
@@ -230,6 +233,14 @@ const { blocks } = Astro.props;
     margin-top: var(--space-2);
     font-size: var(--text-sm);
     color: var(--color-text-muted);
+  }
+  .b-price__condition {
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--color-accent-decor);
+    background-color: var(--color-bg);
+    font-size: var(--text-sm);
+    color: var(--color-text);
   }
   .b-callout {
     padding: var(--space-5) var(--space-6);

@@ -1,3 +1,5 @@
+import { priceBlock } from '@/lib/prices';
+
 import type { Article } from '../types';
 
 const LIVE = 'https://www.budapest-temetkezes.hu';
@@ -222,12 +224,7 @@ export const urnak: Article = {
       type: 'p',
       text: 'Teljesen egyedi gyártású, kézzel festett, fém alapanyagú, kerek, normál méretű díszurnák. Nincs két ugyanolyan alkotás: valamilyen részletben mindig eltérnek egymástól.',
     },
-    {
-      type: 'price',
-      label: 'Sephia fémurnák ára',
-      value: '23 900 Ft',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t.',
-    },
+    priceBlock('sephia-urna', { label: 'Sephia fémurnák ára' }),
     {
       type: 'facts',
       items: [
@@ -369,7 +366,7 @@ export const gyik: Article = {
         },
         {
           q: 'Van saját ravatalozójuk?',
-          a: 'Igen, exkluzívan berendezett, légkondicionált ravatalozó termünk a IX. kerületben, az Ernő utcában található. Díja 65 000 Ft-tól; szombaton is vállaljuk a ravatali szertartást. Részletek: [Ravatalozó terem](/ravatalozo-terem/).',
+          a: 'Igen, exkluzívan berendezett, légkondicionált ravatalozó termünk a IX. kerületben, az Ernő utcában található. A díjra egyedi árajánlatot adunk; szombaton is vállaljuk a ravatali szertartást. Részletek: [Ravatalozó terem](/ravatalozo-terem/).',
         },
       ],
     },

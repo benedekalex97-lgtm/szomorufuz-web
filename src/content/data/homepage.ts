@@ -1,3 +1,5 @@
+import { featuredPrice } from '@/lib/prices';
+
 import type { Homepage } from '../types';
 
 /**
@@ -182,19 +184,17 @@ export const homepage: Homepage = {
     items: [
       {
         label: 'Koporsós temetés',
-        value: '232 288 Ft-tól',
-        note: '27% ÁFA-val',
+        ...featuredPrice('koporsos-temetes'),
         href: '/koporsos-temetes/',
       },
       {
         label: 'Ravatalozó terem',
-        value: '65 000 Ft-tól',
-        note: '27% ÁFA-val',
+        ...featuredPrice('ravatalozo-terem'),
         href: '/ravatalozo-terem/',
       },
       {
         label: 'Polgári búcsúztatás',
-        value: '35 000 Ft-tól',
+        ...featuredPrice('polgari-bucsuztatas'),
         note: 'temetési beszéd',
         href: '/polgari-bucsuztatas/',
       },

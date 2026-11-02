@@ -1,3 +1,5 @@
+import { priceBlock } from '@/lib/prices';
+
 import type { Article } from '../types';
 
 const LIVE = 'https://www.budapest-temetkezes.hu';
@@ -19,12 +21,7 @@ export const koporsosTemetes: Article = {
       'Hagyományos koporsós temetés teljes körű megszervezéssel budapesti és vidéki temetőben. Koporsós temetési díj 232 288 Ft-tól (27% ÁFA-val). Kérjen árajánlatot!',
   },
   blocks: [
-    {
-      type: 'price',
-      label: 'Koporsós temetési díj',
-      value: '232 288 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t.',
-    },
+    priceBlock('koporsos-temetes'),
     {
       type: 'p',
       text: 'Vidéki temetés esetén a felmerülő hivatali ügyintézést is elvégezzük, és ilyenkor is megvásárolhatja nálunk a koporsót és valamennyi kegyeleti kelléket. Budapesten az Ön igényeihez igazodva foglalunk temetési időpontot a kiválasztott temetőben, meglévő sírhely esetén pedig egyeztetjük a temetővel a sírhely megváltási idejét és állapotát.',
@@ -212,17 +209,12 @@ export const ravatalozoTerem: Article = {
   titleEmphasis: 'terem',
   lead: 'Méltó, elegáns környezet a hamvasztás utáni búcsúztatáshoz: teljes egészében légkondicionált, színvonalasan berendezett terem, ahol nyáron nincs hőség, télen nem kell fagyoskodni.',
   seo: {
-    title: 'Ravatalozó terem Budapesten 65 000 Ft-tól',
+    title: 'Ravatalozó terem Budapesten – IX. kerület, Ernő utca',
     description:
-      'Exkluzívan berendezett, légkondicionált ravatalozó terem a IX. kerületben, Ernő utcában. Díja 65 000 Ft-tól. Szombaton is vállaljuk a ravatali szertartást.',
+      'Exkluzívan berendezett, légkondicionált ravatalozó terem a IX. kerületben, Ernő utcában. Szombaton is vállaljuk a ravatali szertartást. Kérjen egyedi árajánlatot!',
   },
   blocks: [
-    {
-      type: 'price',
-      label: 'Ravatalozó terem díja',
-      value: '65 000 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. A forrásoldal szerint: „A fenti árak a három szolgáltatás egy időben történő megrendelésekor és egyszerre történő igénybevételekor érvényesek.”',
-    },
+    priceBlock('ravatalozo-terem'),
     {
       type: 'facts',
       items: [
@@ -285,7 +277,7 @@ export const polgariBucsuztatas: Article = {
       'Polgári temetési búcsúztatás megszervezése: búcsúbeszéd, versek, énekek, a gyászmenet kísérése. Szolgáltatásunk díja 35 000 Ft-tól.',
   },
   blocks: [
-    { type: 'price', label: 'Szolgáltatásunk díja', value: '35 000 Ft-tól' },
+    priceBlock('polgari-bucsuztatas', { label: 'Szolgáltatásunk díja' }),
     { type: 'h2', text: 'A polgári búcsúztatás menete', id: 'menete' },
     {
       type: 'steps',
