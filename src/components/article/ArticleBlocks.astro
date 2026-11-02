@@ -21,10 +21,13 @@ interface Props {
   blocks: ArticleBlock[];
   /** Az oldal slugja – a szolgáltatásspecifikus árajánlat-hivatkozáshoz */
   slug?: string;
+  /** SZF-014: ha a fejlécben már ott a gyorssegély-panel, a cikkbe ágyazott kártya elmarad */
+  hideContact?: boolean;
 }
-const { blocks, slug } = Astro.props;
+const { blocks, slug, hideContact = false } = Astro.props;
 const service = serviceById(slug);
 const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap';
+const toc = blocks.flatMap((b) => (b.type === 'h2' && b.id ? [{ id: b.id, text: b.text }] : []));
 ---
 
 <div class="blocks">
@@ -132,7 +135,7 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
           </div>
         );
       case 'contact':
-        return (
+        return hideContact ? null : (
           <div class="b-contact">
             <ContactCard />
           </div>
@@ -181,6 +184,39 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
         );
       case 'catalog':
         return <ProductCatalog group={b.group} />;
+      case 'jump':
+        return (
+          <nav class="b-jump" aria-labelledby={`jump-${i}`}>
+            <p class="b-jump__label" id={`jump-${i}`}>
+              {b.label}
+            </p>
+            <ul role="list">
+              {b.items.map((it) => (
+                <li>
+                  <a href={it.href}>
+                    <span class="b-jump__title">{it.label}</span>
+                    {it.text && <span class="b-jump__text">{it.text}</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        );
+      case 'toc':
+        return (
+          <nav class="b-toc" aria-labelledby={`toc-${i}`}>
+            <p class="b-toc__label" id={`toc-${i}`}>
+              {b.label ?? 'Tartalom'}
+            </p>
+            <ol>
+              {toc.map((h) => (
+                <li>
+                  <a href={`#${h.id}`}>{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        );
       default:
         return null;
     }
@@ -368,5 +404,70 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
     .b-facts > div {
       grid-template-columns: 12rem 1fr;
     }
+  }
+  .b-jump {
+    margin-block: var(--space-6) var(--space-10);
+  }
+  .b-jump__label,
+  .b-toc__label {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .b-jump ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+  .b-jump a {
+    display: grid;
+    gap: var(--space-1);
+    min-height: 3.5rem;
+    height: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .b-jump a:hover {
+    border-color: var(--color-text);
+  }
+  .b-jump__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+  @media (min-width: 48em) {
+    .b-jump ul {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+  }
+  .b-jump__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .b-toc {
+    margin-block: var(--space-6) var(--space-10);
+    padding: var(--space-5) var(--space-6);
+    border-left: 3px solid var(--color-accent-decor);
+    background: var(--color-surface);
+  }
+  .b-toc ol {
+    display: grid;
+    gap: 0;
+    margin-top: var(--space-2);
+    padding-left: var(--space-5);
+  }
+  .b-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
   }
 </style>

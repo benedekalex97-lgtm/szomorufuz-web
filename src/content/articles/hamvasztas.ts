@@ -77,12 +77,12 @@ export const hamvasztasUrnakiadas: Article = {
   seo: {
     title: 'Hamvasztás és urnakiadás Budapesten',
     description:
-      'Hamvasztás és a hamvak kiadása díszurnában: a dokumentumok beszerzését díjmentesen vállaljuk. Hamvasztási szolgáltatás anyakönyv beszerzésével.',
+      'Hamvasztás és a hamvak kiadása díszurnában, díjmentes ügyintézéssel. A halotti anyakönyvi kivonatot az Ön meghatalmazásával kérelmezzük.',
   },
   blocks: [
     {
       type: 'p',
-      text: 'Felejtse el, hogy hivatalokban vagy más nehézkes intézményekben kell sorban állnia azért, hogy a hiányzó dokumentumokat beszerezze. Ezeket a tennivalókat levesszük az Ön válláról – és ezt **díjmentesen** nyújtjuk Önnek.',
+      text: 'Felejtse el, hogy hivatalokban vagy más nehézkes intézményekben kell sorban állnia. Az ügyintézést levesszük az Ön válláról – és ezt **díjmentesen** nyújtjuk Önnek. Ehhez eredetiben a Halottvizsgálati Bizonyítványra, az elhunyt személyi igazolványára és – ha volt – lakcímkártyájára, valamint az Ön által aláírt meghatalmazásra van szükség. A születési, házassági vagy a házastárs halotti anyakönyvi kivonatának beszerzését jogszabályi okokból nem tudjuk vállalni. Részletek: [Szükséges iratok](/szukseges-iratok/).',
     },
     { type: 'h2', text: 'Hogyan zajlik?', id: 'menete' },
     {
@@ -264,6 +264,7 @@ export const hamvasztasMenete: Article = {
       type: 'p',
       text: 'A budapesti hamvasztóüzem (Adytum Kft.) 2015 óta működik, és az egyetlen Budapesten. Temetőben történő hamvasztás megrendelése esetén az elhunytat Csömörre szállítják hamvasztani.',
     },
+    { type: 'toc', label: 'Ezen az oldalon' },
     { type: 'h2', text: 'Ki hamvasztható?', id: 'ki' },
     {
       type: 'p',

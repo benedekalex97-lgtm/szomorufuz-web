@@ -214,7 +214,14 @@ export interface Homepage {
     items: ServiceTeaser[];
     cta: Link;
   };
-  handled: { eyebrow: string; title: string; intro: string; items: string[] };
+  handled: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    items: string[];
+    /** Rövid pontosítás a szükséges iratokról (SZF-013) */
+    note?: string;
+  };
   prices: {
     eyebrow: string;
     title: string;
@@ -268,6 +275,8 @@ export type ArticleBlock =
   | { type: 'quote-request' }
   | { type: 'form'; form: FormId }
   | { type: 'quote-forms' }
+  | { type: 'jump'; label: string; items: { href: string; label: string; text?: string }[] }
+  | { type: 'toc'; label?: string }
   | { type: 'gallery'; group: 'ravatalozo'; title: string; id: string }
   | { type: 'catalog'; group: 'sephia' | 'sirjelzok' | 'urnateritok' | 'urnaleeresztok' };
 
@@ -280,6 +289,8 @@ export interface Article {
   title: string;
   titleEmphasis?: string;
   lead: string;
+  /** Kártyákon megjelenő rövid leírás (teljes mondat); hiányában a lead első mondata */
+  excerpt?: string;
   seo: SeoMetadata;
   blocks: ArticleBlock[];
   /** Kapcsolódó cikkek (slug) */

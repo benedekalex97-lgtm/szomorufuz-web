@@ -54,7 +54,7 @@ const showHelp = ['teendok', 'szolgaltatas', 'tudnivalo'].includes(article.secti
 
   <div class="container article">
     <div class="article__main">
-      <ArticleBlocks blocks={article.blocks} slug={article.slug} />
+      <ArticleBlocks blocks={article.blocks} slug={article.slug} hideContact={showHelp} />
     </div>
     <aside class="article__aside" aria-label="Kapcsolódó információk">
       <div class="article__contact">
@@ -80,7 +80,7 @@ const showHelp = ['teendok', 'szolgaltatas', 'tudnivalo'].includes(article.secti
     </aside>
   </div>
 
-  <CtaBand />
+  <CtaBand phones={false} />
 </BaseLayout>
 
 <style>

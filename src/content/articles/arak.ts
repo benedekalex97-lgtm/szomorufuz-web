@@ -69,7 +69,7 @@ export const argarancia: Article = {
   seo: {
     title: 'Árgarancia – írásos temetési árajánlat',
     description:
-      'Árgarancia feltételei: ha azonos szolgáltatást kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, még kedvezőbb ajánlatot készítünk.',
+      'Árgarancia: ha azonos szolgáltatást kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, mindent megteszünk, hogy még kedvezőbb ajánlatot készítsünk.',
   },
   blocks: [
     { type: 'h2', text: 'A garancia feltételei', id: 'feltetelek' },

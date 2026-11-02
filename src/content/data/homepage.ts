@@ -49,11 +49,11 @@ export const homepage: Homepage = {
     points: [
       {
         title: 'Teljes körű ügyintézés',
-        body: 'A kórházi ügyintézéstől a halotti anyakönyvi kivonat és a hamvasztási engedély beszerzésén át a temetési időpont foglalásáig.',
+        body: 'A kórházi ügyintézéstől a halotti anyakönyvi kivonat kérelmezésén (az Ön meghatalmazásával) és a hamvasztási engedély beszerzésén át a temetési időpont foglalásáig.',
       },
       {
         title: 'Árgarancia',
-        body: 'Ha azonos szolgáltatást máshol kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, még kedvezőbb ajánlatot készítünk.',
+        body: 'Ha azonos szolgáltatást és kegyeleti kellékeket máshol kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, mindent megteszünk, hogy még kedvezőbb ajánlatot készítsünk. [Feltételek](/argarancia/)',
       },
       {
         title: 'Egyforma, kedvező árak',
@@ -169,12 +169,13 @@ export const homepage: Homepage = {
     intro: 'Cégünk teljes körűen elintézi a haláleset bekövetkezte utáni teendőket.',
     items: [
       'Kórházi ügyintézés',
-      'A halotti anyakönyvi kivonat beszerzése',
+      'A halotti anyakönyvi kivonat kérelmezése – az Ön meghatalmazásával',
       'A hamvasztási engedély beszerzése',
       'A meglévő sírhely előkészítése és az ügyintézés a temetőben',
       'Temetési időpont foglalása az Ön elvárásai szerint',
       'A síremlék bontása vagy a sírköves munkálatok, például a név és az évszámok bevésése',
     ],
+    note: 'Ehhez eredetiben a Halottvizsgálati Bizonyítványra, az elhunyt személyi igazolványára és – ha volt – lakcímkártyájára, valamint az Ön által aláírt meghatalmazásra van szükség. A születési, házassági vagy a házastárs halotti anyakönyvi kivonatának beszerzését jogszabályi okokból nem tudjuk vállalni. Részletek: [Szükséges iratok](/szukseges-iratok/).',
   },
   prices: {
     eyebrow: 'Árak',
