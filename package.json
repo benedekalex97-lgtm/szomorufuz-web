@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "qa:browser": "node scripts/qa/browser-qa.mjs",
+    "qa:deploy": "node scripts/qa/deploy-qa.mjs",
     "verify": "npm run check && npm run lint && npm run format:check && npm run build"
   },
   "dependencies": {

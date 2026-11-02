@@ -7,7 +7,7 @@ import MobileCallBar from '@/components/layout/MobileCallBar.astro';
 import SkipLink from '@/components/layout/SkipLink.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Seo from '@/components/seo/Seo.astro';
-import { contentMode, SITE_LANG } from '@/config/site';
+import { allowIndexing, contentMode, SITE_LANG } from '@/config/site';
 import type { SeoMetadata } from '@/content/types';
 import { getSiteSettings } from '@/lib/content';
 import { organizationJsonLd } from '@/lib/seo';
@@ -49,7 +49,7 @@ const structuredData = [...organizationJsonLd(settings), ...jsonLd];
     <meta name="theme-color" content="#f7f5f0" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    {allowIndexing && <link rel="sitemap" href="/sitemap-index.xml" />}
     <JsonLd data={structuredData} />
   </head>
   <body>

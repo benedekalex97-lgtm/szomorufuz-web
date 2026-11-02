@@ -1,7 +1,12 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { loadEnv } from 'vite';
 import placeholderPages from './src/content/data/placeholder-pages.json' with { type: 'json' };
+
+// Környezet a build idejére (.env fájl vagy a hosting környezeti változói).
+const { PUBLIC_SITE_ENV } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
+const IS_PRODUCTION = (process.env.PUBLIC_SITE_ENV ?? PUBLIC_SITE_ENV) === 'production';
 
 // A kanonikus domain a SEO-migrációs terv szerint változatlan marad.
 const SITE_URL = 'https://www.budapest-temetkezes.hu';
@@ -36,12 +41,16 @@ export default defineConfig({
     // A kis méretű CSS beágyazása megszünteti a renderblokkoló kérést (mobil FCP/LCP).
     inlineStylesheets: 'always',
   },
-  integrations: [
-    sitemap({
-      filter: (page) => {
-        const { pathname } = new URL(page);
-        return !PLACEHOLDER_PATHS.has(pathname) && !INTERNAL_PATHS.has(pathname);
-      },
-    }),
-  ],
+  // Sitemap csak éles környezetben készül – a felülvizsgálati buildek ne hivatkozzanak
+  // az éles domainre, és ne kínáljanak fel URL-listát a keresőknek.
+  integrations: IS_PRODUCTION
+    ? [
+        sitemap({
+          filter: (page) => {
+            const { pathname } = new URL(page);
+            return !PLACEHOLDER_PATHS.has(pathname) && !INTERNAL_PATHS.has(pathname);
+          },
+        }),
+      ]
+    : [],
 });

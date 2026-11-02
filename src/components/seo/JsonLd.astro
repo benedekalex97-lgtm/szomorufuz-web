@@ -1,10 +1,13 @@
 ---
+import { allowIndexing } from '@/config/site';
+
 interface Props {
   data: Record<string, unknown> | Record<string, unknown>[];
 }
 const { data } = Astro.props;
 // A "<" escape-elése megakadályozza a </script> befecskendezést.
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
+// Strukturált adat csak éles környezetben (az éles domainre hivatkozik).
 ---
 
-<script type="application/ld+json" is:inline set:html={json} />
+{allowIndexing && <script type="application/ld+json" is:inline set:html={json} />}
