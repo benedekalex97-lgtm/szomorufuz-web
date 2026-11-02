@@ -1,18 +1,10 @@
 ---
 import Willow from '@/components/brand/Willow.astro';
 import Logo from '@/components/ui/Logo.astro';
-import PhoneLink from '@/components/ui/PhoneLink.astro';
-import { getNavigation, getOffices, getSiteSettings } from '@/lib/content';
-import { publishable } from '@/lib/facts';
+import { central, company, officeHours } from '@/content/data/contact';
+import { getNavigation, getOffices } from '@/lib/content';
 
-const [navigation, offices, settings] = await Promise.all([
-  getNavigation(),
-  getOffices(),
-  getSiteSettings(),
-]);
-const phone = publishable(settings.primaryPhone);
-const email = publishable(settings.company.email);
-const legalName = publishable(settings.company.legalName);
+const [navigation, offices] = await Promise.all([getNavigation(), getOffices()]);
 const year = new Date().getFullYear();
 
 const services = [
@@ -37,19 +29,19 @@ const services = [
         </p>
       </div>
       <div class="site-footer__contact">
-        {phone ? (
-          <PhoneLink phone={settings.primaryPhone} class="site-footer__phone" />
-        ) : (
-          <p class="site-footer__muted">A központi telefonszám jóváhagyás után jelenik meg.</p>
-        )}
-        {email && !email.pending && (
-          <a href={`mailto:${email.value}`} class="site-footer__email">
-            {email.value}
-          </a>
-        )}
-        <a class="site-footer__cta" href="/teendok-halaleset-utan/">
-          Teendők haláleset esetén →
-        </a>
+        <p class="site-footer__label">Ügyfélfogadás irodáinkban</p>
+        {officeHours.map((h) => (
+          <p>
+            {h.days}: {h.hours}
+          </p>
+        ))}
+        <p class="site-footer__label">E-mail</p>
+        <p>
+          <a href={`mailto:${central.email}`}>{central.email}</a>
+        </p>
+        <p class="site-footer__links">
+          <a href="/elerhetoseg/">Elérhetőség és irodák →</a>
+        </p>
       </div>
     </div>
 
@@ -103,7 +95,7 @@ const services = [
         </ul>
       </nav>
       <p class="site-footer__copy">
-        © {year} {legalName && !legalName.pending ? legalName.value : 'Szomorúfűz Temetkezés'}
+        © {year} {company.legalName}
       </p>
     </div>
   </div>
@@ -163,9 +155,47 @@ const services = [
     color: var(--color-ink-muted);
     max-width: 30ch;
   }
-  :global(.site-footer__phone) {
+  .site-footer__contact > p {
+    color: var(--color-ink-muted);
+  }
+  .site-footer__contact > p.site-footer__label {
+    margin-top: var(--space-4);
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-accent);
+  }
+  .site-footer__contact > p.site-footer__label:first-child {
+    margin-top: 0;
+  }
+  .site-footer__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    color: var(--color-ink-accent);
+  }
+  .site-footer__contact dt {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-accent);
+  }
+  .site-footer__contact dd span {
+    display: block;
+    color: var(--color-ink-muted);
+  }
+  .site-footer__phone {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
     font-family: var(--font-heading);
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
+    font-variant-numeric: tabular-nums;
+  }
+  .site-footer__muted-inline {
+    color: var(--color-ink-muted);
   }
   .site-footer__cta {
     display: inline-flex;

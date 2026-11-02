@@ -1,89 +1,23 @@
 ---
 /**
- * Helyőrző oldalak a navigációban hivatkozott, de még el nem készült oldalakhoz.
- * Mindegyik noindex, és kimarad a sitemapből. A következő fázisban saját oldalra cserélődnek.
+ * A tájékoztató és szolgáltatási cikkek – az élő oldal URL-jein (perjellel).
+ * Tartalom: src/content/articles/
  */
 import type { GetStaticPaths } from 'astro';
-import CtaBand from '@/components/sections/CtaBand.astro';
-import PageHero from '@/components/sections/PageHero.astro';
-import JsonLd from '@/components/seo/JsonLd.astro';
-import Icon from '@/components/ui/Icon.astro';
-import Section from '@/components/ui/Section.astro';
-import type { ContentPage } from '@/content/types';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getPlaceholderPages } from '@/lib/content';
-import { breadcrumbJsonLd } from '@/lib/seo';
+import ArticleView from '@/components/article/ArticleView.astro';
+import { articles } from '@/content/articles';
+import type { Article } from '@/content/types';
 
-export const getStaticPaths = (async () => {
-  const pages = await getPlaceholderPages();
-  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
-}) satisfies GetStaticPaths;
+export const getStaticPaths = (() =>
+  articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }))) satisfies GetStaticPaths;
 
 interface Props {
-  page: ContentPage;
+  article: Article;
 }
-const { page } = Astro.props;
-const path = `/${page.slug}/`;
-const crumbs = [
-  { label: 'Főoldal', href: '/' },
-  { label: page.title, href: path },
-];
-const ready = [
-  { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
-  { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
-  { label: 'Hamvasztás', href: '/hamvasztasos-temetes/' },
-  { label: 'Hagyományos temetés', href: '/koporsos-temetes/' },
-  { label: 'Kapcsolat és irodák', href: '/elerhetoseg/' },
-];
+const { article } = Astro.props;
 ---
 
-<BaseLayout seo={page.seo}>
-  <JsonLd data={breadcrumbJsonLd(crumbs.map((c) => ({ name: c.label, path: c.href })))} />
-  <PageHero
-    eyebrow="Hamarosan"
-    title={page.title}
-    lead="Ezen az oldalon dolgozunk. A tartalom jóváhagyás után, a korábbi oldal tartalmának megőrzésével kerül ide."
-    breadcrumbs={crumbs}
-    seed={page.slug.length * 7}
-  />
-
-  <Section id="addig" eyebrow="Addig is" title="Ezek az oldalak már elérhetők" layout="split">
-    <ul class="ready" role="list">
-      {ready.map((item) => (
-        <li>
-          <a href={item.href}>
-            <span>{item.label}</span>
-            <Icon name="arrow-right" size={18} />
-          </a>
-        </li>
-      ))}
-    </ul>
-  </Section>
-
-  <CtaBand />
-</BaseLayout>
-
-<style>
-  .ready {
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--color-text);
-  }
-  .ready a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 4rem;
-    border-bottom: 1px solid rgb(184 170 152 / 0.8);
-    color: var(--color-text);
-    font-family: var(--font-heading);
-    font-size: var(--text-xl);
-    text-decoration: none;
-  }
-  .ready a:hover {
-    color: var(--color-accent-text);
-  }
-  .ready a :global(.icon) {
-    color: var(--color-accent-decor);
-  }
-</style>
+<ArticleView article={article} />

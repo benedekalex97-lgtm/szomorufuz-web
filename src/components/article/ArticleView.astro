@@ -1,0 +1,147 @@
+---
+/** Egységes oldalsablon a tájékoztató és szolgáltatási cikkekhez. */
+import ArticleBlocks from '@/components/article/ArticleBlocks.astro';
+import ContactCard from '@/components/article/ContactCard.astro';
+import CtaBand from '@/components/sections/CtaBand.astro';
+import HelpPanel from '@/components/sections/HelpPanel.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { articleBySlug } from '@/content/articles';
+import type { Article, Link } from '@/content/types';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { breadcrumbJsonLd } from '@/lib/seo';
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+
+const parents: Record<Article['section'], Link | null> = {
+  teendok: null,
+  szolgaltatas: { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
+  tudnivalo: { label: 'Tudnivalók', href: '/tudnivalok/' },
+  arak: article.slug === 'arak' ? null : { label: 'Árak', href: '/arak/' },
+  ceg: null,
+  jogi: null,
+};
+const fullTitle = [article.title, article.titleEmphasis].filter(Boolean).join(' ');
+const parent = parents[article.section];
+const crumbs: Link[] = [
+  { label: 'Főoldal', href: '/' },
+  ...(parent ? [parent] : []),
+  { label: fullTitle, href: `/${article.slug}/` },
+];
+const related = (article.related ?? [])
+  .map((slug) => articleBySlug(slug))
+  .filter((a): a is Article => Boolean(a));
+const seed = article.slug.length * 3 + 1;
+const showHelp = ['teendok', 'szolgaltatas', 'tudnivalo'].includes(article.section);
+---
+
+<BaseLayout seo={article.seo}>
+  <JsonLd data={breadcrumbJsonLd(crumbs.map((c) => ({ name: c.label, path: c.href })))} />
+  <PageHero
+    eyebrow={article.eyebrow}
+    title={article.title}
+    titleEmphasis={article.titleEmphasis}
+    lead={article.lead}
+    breadcrumbs={crumbs}
+    seed={seed}
+  >
+    {showHelp && <HelpPanel slot="aside" />}
+  </PageHero>
+
+  <div class="container article">
+    <div class="article__main">
+      <ArticleBlocks blocks={article.blocks} />
+    </div>
+    <aside class="article__aside" aria-label="Kapcsolódó információk">
+      <div class="article__contact">
+        <ContactCard compact />
+      </div>
+      {related.length > 0 && (
+        <nav class="related" aria-labelledby="kapcsolodo">
+          <p id="kapcsolodo" class="related__title">
+            Kapcsolódó oldalak
+          </p>
+          <ul role="list">
+            {related.map((r) => (
+              <li>
+                <a href={`/${r.slug}/`}>
+                  <span>{[r.title, r.titleEmphasis].filter(Boolean).join(' ')}</span>
+                  <Icon name="arrow-right" size={16} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </aside>
+  </div>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .article {
+    display: grid;
+    gap: var(--space-12);
+    padding-block: var(--space-12) var(--section-space);
+  }
+  .article__aside {
+    display: grid;
+    gap: var(--space-8);
+    align-content: start;
+  }
+  .related__title {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+    margin-bottom: var(--space-2);
+  }
+  .related ul {
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-text);
+  }
+  .related a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: 3.25rem;
+    border-bottom: 1px solid rgb(184 170 152 / 0.7);
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    text-decoration: none;
+  }
+  .related a:hover {
+    color: var(--color-accent-text);
+  }
+  .related a :global(.icon) {
+    flex-shrink: 0;
+    color: var(--color-accent-decor);
+  }
+  /* Mobilon a szövegközi kártya és a záró sáv mutatja az elérhetőséget */
+  .article__contact {
+    display: none;
+  }
+  @media (min-width: 64em) {
+    .article__contact {
+      display: block;
+    }
+    .article {
+      grid-template-columns: minmax(0, 1fr) 20rem;
+      gap: var(--space-16);
+      padding-top: var(--space-16);
+    }
+    .article__aside {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+    }
+  }
+</style>

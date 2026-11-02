@@ -2,7 +2,6 @@
 import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { loadEnv } from 'vite';
-import placeholderPages from './src/content/data/placeholder-pages.json' with { type: 'json' };
 
 // Környezet a build idejére (.env fájl vagy a hosting környezeti változói).
 const { PUBLIC_SITE_ENV } = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
@@ -11,8 +10,6 @@ const IS_PRODUCTION = (process.env.PUBLIC_SITE_ENV ?? PUBLIC_SITE_ENV) === 'prod
 // A kanonikus domain a SEO-migrációs terv szerint változatlan marad.
 const SITE_URL = 'https://www.budapest-temetkezes.hu';
 
-// Fejlesztés alatti (noindex) helyőrző oldalak – nem kerülnek a sitemapbe.
-const PLACEHOLDER_PATHS = new Set(placeholderPages.map((p) => `/${p.slug}/`));
 // Belső oldalak (stílusútmutató) – szintén noindex.
 const INTERNAL_PATHS = new Set(['/stilus/']);
 
@@ -34,6 +31,15 @@ export default defineConfig({
     },
   },
   site: SITE_URL,
+  // Összevont / duplikált URL-ek (a SEO-migrációs terv szerint)
+  redirects: {
+    '/arajanlatkeres/': '/arajanlat-keres-itt/',
+    '/irodak/': '/elerhetoseg/#irodak',
+    '/suti-tajekoztato/': '/adatkezeles/#sutik',
+    '/ravatalozo-galeria/': '/ravatalozo-terem/',
+    '/termek-adatlapok/': '/urnak/',
+    '/hasznos-linkek/': '/jogszabalyok/',
+  },
   // A meglévő URL-ek perjellel végződnek – ezt megtartjuk.
   trailingSlash: 'always',
   build: {
@@ -48,7 +54,7 @@ export default defineConfig({
         sitemap({
           filter: (page) => {
             const { pathname } = new URL(page);
-            return !PLACEHOLDER_PATHS.has(pathname) && !INTERNAL_PATHS.has(pathname);
+            return !INTERNAL_PATHS.has(pathname);
           },
         }),
       ]

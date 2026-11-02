@@ -4,7 +4,7 @@
  * billentyűzettel és képernyőolvasóval kezelhető.
  */
 interface Props {
-  items: { id: string; question: string; answer: string }[];
+  items: { id: string; question: string; answer: string; html?: boolean }[];
   headingLevel?: 3 | 4;
 }
 const { items, headingLevel = 3 } = Astro.props;
@@ -19,7 +19,7 @@ const Heading = `h${headingLevel}` as 'h3' | 'h4';
         <span class="accordion__icon" aria-hidden="true" />
       </summary>
       <div class="accordion__answer">
-        <p>{item.answer}</p>
+        {item.html ? <p set:html={item.answer} /> : <p>{item.answer}</p>}
       </div>
     </details>
   ))}

@@ -1,0 +1,328 @@
+---
+/** A cikk-blokkok megjelenítése (lásd ArticleBlock típus). */
+import ContactCard from '@/components/article/ContactCard.astro';
+import QuoteRequest from '@/components/article/QuoteRequest.astro';
+import LeafMark from '@/components/brand/LeafMark.astro';
+import StepList from '@/components/sections/StepList.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import Button from '@/components/ui/Button.astro';
+import { central } from '@/content/data/contact';
+import type { ArticleBlock } from '@/content/types';
+import { telHref } from '@/lib/format';
+import { inline } from '@/lib/inline';
+
+interface Props {
+  blocks: ArticleBlock[];
+}
+const { blocks } = Astro.props;
+---
+
+<div class="blocks">
+  {blocks.map((b, i) => {
+    switch (b.type) {
+      case 'h2':
+        return (
+          <h2 class="b-h2" id={b.id}>
+            {b.text}
+          </h2>
+        );
+      case 'h3':
+        return <h3 class="b-h3">{b.text}</h3>;
+      case 'p':
+        return <p class="b-p" set:html={inline(b.text)} />;
+      case 'list':
+        return b.ordered ? (
+          <ol class="b-ol">
+            {b.items.map((it) => (
+              <li set:html={inline(it)} />
+            ))}
+          </ol>
+        ) : (
+          <ul class="b-ul" role="list">
+            {b.items.map((it) => (
+              <li>
+                <LeafMark size={12} />
+                <span set:html={inline(it)} />
+              </li>
+            ))}
+          </ul>
+        );
+      case 'steps':
+        return (
+          <div class="b-steps">
+            <StepList steps={b.items} />
+          </div>
+        );
+      case 'price':
+        return (
+          <div class="b-price">
+            <p class="b-price__label">{b.label}</p>
+            <p class="b-price__value">{b.value}</p>
+            {b.note && <p class="b-price__note" set:html={inline(b.note)} />}
+          </div>
+        );
+      case 'callout':
+        return (
+          <div class="b-callout" role="note">
+            {b.title && <p class="b-callout__title">{b.title}</p>}
+            <p set:html={inline(b.text)} />
+          </div>
+        );
+      case 'legal':
+        return (
+          <figure class="b-legal">
+            <blockquote>
+              {b.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </blockquote>
+            <figcaption>{b.source}</figcaption>
+          </figure>
+        );
+      case 'defs':
+        return (
+          <dl class="b-defs">
+            {b.items.map((d) => (
+              <div>
+                <dt>{d.term}</dt>
+                <dd set:html={inline(d.text)} />
+              </div>
+            ))}
+          </dl>
+        );
+      case 'facts':
+        return (
+          <dl class="b-facts">
+            {b.items.map((f) => (
+              <div>
+                <dt>{f.label}</dt>
+                <dd set:html={inline(f.value)} />
+              </div>
+            ))}
+          </dl>
+        );
+      case 'faq':
+        return (
+          <div class="b-faq">
+            <Accordion
+              items={b.items.map((f, j) => ({
+                id: `k${i}-${j}`,
+                question: f.q,
+                answer: inline(f.a),
+                html: true,
+              }))}
+            />
+          </div>
+        );
+      case 'contact':
+        return (
+          <div class="b-contact">
+            <ContactCard />
+          </div>
+        );
+      case 'quote-cta':
+        return (
+          <aside class="b-quote" aria-label="Árajánlatkérés">
+            <p class="b-quote__title">{b.title ?? 'Temetési árajánlat'}</p>
+            <p class="b-quote__text">
+              Díjmentes, minden kötelezettségtől mentes árajánlatot küldünk – telefonon vagy
+              e-mailben.
+            </p>
+            <div class="b-quote__actions">
+              <Button href={telHref(central.info.phone.e164)} variant="inverse" icon="phone">
+                {central.info.phone.display}
+              </Button>
+              <Button
+                href="/arajanlat-keres-itt/"
+                variant="inverse-outline"
+                icon="arrow-right"
+                iconPosition="end"
+              >
+                Árajánlat kérése
+              </Button>
+            </div>
+          </aside>
+        );
+      case 'quote-request':
+        return <QuoteRequest />;
+      default:
+        return null;
+    }
+  })}
+</div>
+
+<style>
+  .blocks {
+    max-width: 44rem;
+  }
+  .blocks > :global(* + *) {
+    margin-top: var(--space-5);
+  }
+  .b-h2 {
+    margin-top: var(--space-12) !important;
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  }
+  .blocks > .b-h2:first-child {
+    margin-top: 0 !important;
+  }
+  .b-h3 {
+    margin-top: var(--space-8) !important;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+  }
+  .b-p {
+    line-height: 1.7;
+  }
+  .b-p :global(a),
+  .b-ul :global(a),
+  .b-defs :global(a),
+  .b-facts :global(a),
+  .b-callout :global(a),
+  .b-price :global(a) {
+    font-weight: var(--weight-medium);
+  }
+  .b-ul {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .b-ul li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    line-height: 1.6;
+  }
+  .b-ul li :global(.leaf) {
+    position: relative;
+    top: 0.1em;
+  }
+  .b-ol {
+    padding-left: 1.4rem;
+  }
+  .b-steps :global(.steps__item) {
+    padding-block: var(--space-5);
+  }
+  .b-price {
+    padding: var(--space-6);
+    border-top: 1px solid var(--color-text);
+    background-color: var(--color-surface);
+  }
+  .b-price__label {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .b-price__value {
+    margin-top: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 350;
+    line-height: 1.1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .b-price__note {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .b-callout {
+    padding: var(--space-5) var(--space-6);
+    border-left: 2px solid var(--color-accent-decor);
+    background-color: var(--color-bg-alt);
+  }
+  .b-callout__title {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+  }
+  .b-legal {
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-paper);
+    border: 1px solid rgb(184 170 152 / 0.6);
+  }
+  .b-legal blockquote p {
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .b-legal blockquote p + p {
+    margin-top: var(--space-3);
+  }
+  .b-legal figcaption {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .b-defs > div,
+  .b-facts > div {
+    padding-block: var(--space-4);
+    border-bottom: 1px solid rgb(184 170 152 / 0.6);
+  }
+  .b-defs > div:first-child,
+  .b-facts > div:first-child {
+    border-top: 1px solid var(--color-text);
+  }
+  .b-defs dt {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+  }
+  .b-defs dd {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  .b-facts > div {
+    display: grid;
+    gap: var(--space-1) var(--space-6);
+  }
+  .b-facts dt {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .b-facts dd {
+    font-weight: var(--weight-medium);
+    overflow-wrap: anywhere;
+  }
+  .b-contact,
+  .b-quote {
+    margin-block: var(--space-10) !important;
+  }
+  .b-quote {
+    padding: var(--space-6);
+    background-color: var(--color-ink-bg);
+    color: var(--color-ink-text);
+  }
+  .b-quote__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+  }
+  .b-quote__text {
+    margin-top: var(--space-2);
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+  .b-quote__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+  /* Asztali nézetben az oldalsáv mutatja a kapcsolatkártyát */
+  @media (min-width: 64em) {
+    .b-contact {
+      display: none;
+    }
+  }
+  @media (min-width: 40em) {
+    .b-facts > div {
+      grid-template-columns: 12rem 1fr;
+    }
+  }
+</style>

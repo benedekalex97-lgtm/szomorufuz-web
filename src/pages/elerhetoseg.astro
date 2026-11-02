@@ -1,120 +1,156 @@
 ---
-import CtaBand from '@/components/sections/CtaBand.astro';
 import LeafList from '@/components/sections/LeafList.astro';
 import OfficeList from '@/components/sections/OfficeList.astro';
 import PageHero from '@/components/sections/PageHero.astro';
-import PendingBadge from '@/components/ui/PendingBadge.astro';
-import PendingNotice from '@/components/ui/PendingNotice.astro';
-import PhoneLink from '@/components/ui/PhoneLink.astro';
+import CtaBand from '@/components/sections/CtaBand.astro';
 import Section from '@/components/ui/Section.astro';
+import { central, izabellaParking, izabellaTransit, officeHours } from '@/content/data/contact';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getOffices, getSiteSettings, getTeendok } from '@/lib/content';
-import { publishable } from '@/lib/facts';
+import { getOffices } from '@/lib/content';
+import { telHref } from '@/lib/format';
 
-const [settings, offices, teendok] = await Promise.all([
-  getSiteSettings(),
-  getOffices(),
-  getTeendok(),
-]);
-const phone = publishable(settings.primaryPhone);
-const availability = publishable(settings.phoneAvailability);
-const email = publishable(settings.company.email);
+const offices = await getOffices();
 const crumbs = [
   { label: 'Főoldal', href: '/' },
   { label: 'Kapcsolat', href: '/elerhetoseg/' },
 ];
+const lines = [central.info, central.transport, central.office];
 ---
 
 <BaseLayout
   seo={{
-    title: 'Kapcsolat és irodáink',
+    title: 'Elérhetőség – irodáink Budapesten',
     description:
-      'Telefonos segítség és budapesti irodáink. Mit érdemes előkészíteni a hívás előtt – röviden, érthetően.',
+      'Információ: +36 30 847 1915 (6–22 óra), ügyeleti halottszállítás: +36 30 849 3538. Öt budapesti iroda: VI., XII., XIV., XVII., XX. kerület. Ügyfélfogadás H–P 8–16.',
   }}
 >
   <PageHero
     eyebrow="Kapcsolat"
-    title="Beszéljünk."
-    titleEmphasis="Segítünk eligazodni."
-    lead="Hívjon minket, vagy keresse fel valamelyik budapesti irodánkat. A hívás nem kötelez semmire."
+    title="Elérhetőség"
+    titleEmphasis="és irodáink"
+    lead="Hívjon minket bizalommal, vagy keresse fel valamelyik budapesti irodánkat. Ügyfélfogadás hétfőtől péntekig 8:00–16:00 óra között."
     breadcrumbs={crumbs}
     seed={29}
   />
 
-  <Section id="telefon" eyebrow="Telefonos segítség" title="Hívjon minket" layout="split">
-    <div class="contact">
-      {phone ? (
-        <div class="contact__phone">
-          <PhoneLink phone={settings.primaryPhone} />
-          {availability && (
-            <p class="contact__meta">
-              {availability.value}
-              {availability.pending && <PendingBadge />}
-            </p>
-          )}
+  <Section id="kozponti" eyebrow="Központi telefonszámok" title="Hívjon minket" layout="split">
+    <dl class="central">
+      {lines.map((line) => (
+        <div>
+          <dt>{line.label}</dt>
+          <dd>
+            <a href={telHref(line.phone.e164)}>{line.phone.display}</a>
+            {line.note && <span>{line.note}</span>}
+          </dd>
         </div>
-      ) : (
-        <PendingNotice title="A telefonszám jóváhagyás alatt">
-          <p>
-            Az eddigi weboldalon egymásnak ellentmondó telefonszámok szerepeltek. A kiemelt, hívható
-            szám és az elérhetőségi idő a Szomorúfűz megerősítése után jelenik meg itt.
-          </p>
-        </PendingNotice>
-      )}
-      {email && (
-        <p class="contact__email">
-          E-mail:{' '}
-          {email.pending ? (
-            <>
-              {email.value} <PendingBadge />
-            </>
-          ) : (
-            <a href={`mailto:${email.value}`}>{email.value}</a>
-          )}
-        </p>
-      )}
-      <div class="contact__prepare">
-        <p class="contact__prepare-title">A hívás előtt érdemes kéznél tartani</p>
-        <LeafList items={teendok.prepare} />
+      ))}
+      <div>
+        <dt>E-mail</dt>
+        <dd>
+          <a href={`mailto:${central.email}`} class="central__email">
+            {central.email}
+          </a>
+        </dd>
       </div>
-    </div>
+      <div>
+        <dt>Ügyfélfogadás irodáinkban</dt>
+        <dd class="central__hours">
+          {officeHours.map((h) => (
+            <span>
+              {h.days}: <strong>{h.hours}</strong>
+            </span>
+          ))}
+        </dd>
+      </div>
+    </dl>
   </Section>
 
   <Section
     id="irodak"
     eyebrow="Irodáink"
-    title="Budapest öt pontján"
-    intro="Személyesen is felkereshet minket. A pontos címek, telefonszámok és a nyitvatartás jóváhagyás után kerülnek fel."
+    title="Öt budapesti iroda"
+    intro="Minden irodánk saját vezetékes és mobil telefonszámon is elérhető."
     tone="alt"
   >
-    <OfficeList offices={offices} />
+    <OfficeList offices={offices} detailed />
+  </Section>
+
+  <Section
+    id="megkozelites"
+    eyebrow="Belvárosi iroda"
+    title="Megközelítés"
+    intro="1064 Budapest, Izabella utca 65. – közel az Oktogonhoz, az Izabella és Aradi utca sarkától 50 méterre, a Podmaniczky utca irányában."
+    layout="split"
+  >
+    <p class="sub">Tömegközlekedéssel</p>
+    <LeafList items={izabellaTransit} />
+    <p class="sub">Személygépkocsival</p>
+    <p class="parking">{izabellaParking}</p>
   </Section>
 
   <CtaBand
-    id="haleset"
-    title="Haláleset történt?"
-    intro="Az első lépéseket nyugodt sorrendben mutatjuk meg – kórházi, otthoni vagy intézményi haláleset esetén is."
+    id="arajanlat-cta"
+    title="Kérjen díjmentes árajánlatot"
+    intro="Telefonon vagy e-mailben, akár 2 órán belül – hamvasztásos vagy koporsós temetésre."
   />
 </BaseLayout>
 
 <style>
-  .contact > :global(* + *) {
-    margin-top: var(--space-8);
+  .central > div {
+    padding-block: var(--space-5);
+    border-bottom: 1px solid rgb(184 170 152 / 0.8);
   }
-  .contact__phone :global(.phone) {
-    font-family: var(--font-heading);
-    font-size: var(--text-3xl);
+  .central > div:first-child {
+    border-top: 1px solid var(--color-text);
   }
-  .contact__meta,
-  .contact__email {
-    color: var(--color-text-muted);
-  }
-  .contact__prepare-title {
+  .central dt {
     font-size: 0.75rem;
     font-weight: var(--weight-semibold);
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-accent-text);
+  }
+  .central dd > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 350;
+    color: var(--color-text);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .central dd > a.central__email {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    text-decoration: underline;
+  }
+  .central dd > a:hover {
+    color: var(--color-accent-text);
+  }
+  .central dd > span {
+    display: block;
+    color: var(--color-text-muted);
+  }
+  .central__hours span {
+    display: block;
+    padding-top: var(--space-1);
+    font-size: var(--text-lg);
+  }
+  .sub {
+    margin-top: var(--space-6);
     margin-bottom: var(--space-2);
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .sub:first-child {
+    margin-top: 0;
+  }
+  .parking {
+    color: var(--color-text-muted);
   }
 </style>

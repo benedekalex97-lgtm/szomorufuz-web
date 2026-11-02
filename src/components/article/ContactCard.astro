@@ -1,0 +1,140 @@
+---
+/** Központi elérhetőségek – szerepenként elkülönítve. Adatforrás: content/data/contact.ts */
+import Icon from '@/components/ui/Icon.astro';
+import { central, officeHours } from '@/content/data/contact';
+import { telHref } from '@/lib/format';
+
+interface Props {
+  tone?: 'light' | 'ink';
+  compact?: boolean;
+}
+const { tone = 'light', compact = false } = Astro.props;
+const lines = [central.info, central.transport, central.office];
+---
+
+<div class:list={['contact-card', `contact-card--${tone}`, compact && 'contact-card--compact']}>
+  <p class="contact-card__title">Központi elérhetőségek</p>
+  <dl class="contact-card__lines">
+    {lines.map((line) => (
+      <div class="contact-card__line">
+        <dt>{line.label}</dt>
+        <dd>
+          <a href={telHref(line.phone.e164)} class="contact-card__phone">
+            <Icon name="phone" size={16} />
+            {line.phone.display}
+          </a>
+          {line.note && <span class="contact-card__note">{line.note}</span>}
+        </dd>
+      </div>
+    ))}
+    <div class="contact-card__line">
+      <dt>E-mail</dt>
+      <dd>
+        <a href={`mailto:${central.email}`}>{central.email}</a>
+      </dd>
+    </div>
+  </dl>
+  {!compact && (
+    <p class="contact-card__hours">
+      <strong>Ügyfélfogadás irodáinkban:</strong>{' '}
+      {officeHours.map((h) => `${h.days} ${h.hours}`).join(', ')}
+    </p>
+  )}
+  <a class="contact-card__more" href="/elerhetoseg/#irodak">
+    Mind az öt iroda elérhetősége <Icon name="arrow-right" size={16} />
+  </a>
+</div>
+
+<style>
+  .contact-card {
+    padding: var(--space-6);
+    border-top: 1px solid var(--color-text);
+    background-color: var(--color-surface);
+  }
+  .contact-card__title {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .contact-card__lines {
+    margin-top: var(--space-3);
+  }
+  .contact-card__line {
+    display: grid;
+    gap: 0.1rem;
+    padding-block: var(--space-3);
+    border-bottom: 1px solid rgb(184 170 152 / 0.6);
+  }
+  .contact-card__line dt {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .contact-card__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .contact-card__phone:hover {
+    color: var(--color-accent-text);
+  }
+  .contact-card__phone :global(.icon) {
+    color: var(--color-accent-decor);
+  }
+  .contact-card__note {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .contact-card__line dd > a[href^='mailto'] {
+    display: inline-block;
+    padding-block: var(--space-2);
+  }
+  .contact-card__hours {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .contact-card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    margin-top: var(--space-2);
+    font-weight: var(--weight-medium);
+  }
+  .contact-card--compact .contact-card__phone {
+    font-size: var(--text-lg);
+  }
+  /* Sötét változat */
+  .contact-card--ink {
+    background-color: var(--color-ink-bg);
+    border-top-color: var(--color-ink-accent);
+    color: var(--color-ink-text);
+  }
+  .contact-card--ink .contact-card__title {
+    color: var(--color-ink-accent);
+  }
+  .contact-card--ink .contact-card__line {
+    border-color: var(--color-ink-line);
+  }
+  .contact-card--ink .contact-card__line dt,
+  .contact-card--ink .contact-card__note,
+  .contact-card--ink .contact-card__hours {
+    color: var(--color-ink-muted);
+  }
+  .contact-card--ink .contact-card__phone,
+  .contact-card--ink a {
+    color: var(--color-ink-text);
+  }
+  .contact-card--ink :focus-visible {
+    outline-color: var(--color-focus-ring-inverse);
+  }
+</style>
