@@ -1,5 +1,6 @@
 ---
-/** Cikkek szerkesztői listája (gyűjtőoldalakhoz): cím + az eredeti bevezető első mondata. */
+/** Cikkek szerkesztői listája (gyűjtőoldalakhoz): cím + teljes mondatos kivonat (SZF-008). */
+import { excerpt } from '@/lib/excerpt';
 import Icon from '@/components/ui/Icon.astro';
 import type { Article } from '@/content/types';
 
@@ -7,7 +8,6 @@ interface Props {
   items: Article[];
 }
 const { items } = Astro.props;
-const firstSentence = (s: string) => s.split(/(?<=[.!?])\s/)[0] ?? s;
 ---
 
 <ul class="index" role="list">
@@ -15,7 +15,7 @@ const firstSentence = (s: string) => s.split(/(?<=[.!?])\s/)[0] ?? s;
     <li>
       <a href={`/${a.slug}/`} class="entry">
         <span class="entry__title">{[a.title, a.titleEmphasis].filter(Boolean).join(' ')}</span>
-        <span class="entry__body">{firstSentence(a.lead)}</span>
+        <span class="entry__body">{a.excerpt ?? excerpt(a.lead)}</span>
         <Icon name="arrow-right" size={18} class="entry__icon" />
       </a>
     </li>
