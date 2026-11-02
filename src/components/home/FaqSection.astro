@@ -7,42 +7,44 @@ import type { FaqItem, Homepage } from '@/content/types';
 interface Props {
   data: Homepage['faq'];
   items: FaqItem[];
+  id?: string;
+  tone?: 'default' | 'alt' | 'paper';
 }
-const { data, items } = Astro.props;
+const { data, items, id = 'gyik', tone = 'paper' } = Astro.props;
 const isDemo = items.some((item) => item.copyStatus !== 'approved');
 ---
 
-<Section id="gyik" eyebrow="Kérdések" title={data.title} intro={data.intro} tone="alt">
-  <div class="faq">
+<Section
+  id={id}
+  eyebrow={data.eyebrow}
+  title={data.title}
+  intro={data.intro}
+  tone={tone}
+  layout="split"
+>
+  <Fragment slot="header-extra">
     {isDemo && (
-      <PendingNotice title="Mintatartalom" class="faq__notice">
+      <PendingNotice title="Mintatartalom">
         <p>
-          Az alábbi kérdések és válaszok demonstrációs célúak. A végleges, szakmailag jóváhagyott
-          tartalom a 2. fázisban kerül ide.
+          A kérdések és válaszok demonstrációs célúak; a végleges szöveg jóváhagyás után kerül ide.
         </p>
       </PendingNotice>
     )}
-    <Accordion items={items} />
-  </div>
+  </Fragment>
+  <Accordion items={items} />
   <p class="faq__cta">
     <a href={data.cta.href}>{data.cta.label}</a>
   </p>
 </Section>
 
 <style>
-  .faq {
-    max-width: var(--container-narrow);
-  }
   .faq__cta {
-    margin-top: var(--space-8);
+    margin-top: var(--space-6);
   }
   .faq__cta a {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap-target);
-    font-weight: var(--weight-semibold);
-  }
-  :global(.faq__notice) {
-    margin-bottom: var(--space-6);
+    font-weight: var(--weight-medium);
   }
 </style>

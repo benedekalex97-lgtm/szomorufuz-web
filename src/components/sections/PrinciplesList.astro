@@ -1,0 +1,53 @@
+---
+import LeafMark from '@/components/brand/LeafMark.astro';
+import type { Principle } from '@/content/types';
+
+interface Props {
+  items: Principle[];
+  columns?: 2 | 3 | 4;
+}
+const { items, columns = 3 } = Astro.props;
+---
+
+<ul class="principles" role="list" style={`--cols: ${columns}`}>
+  {items.map((p) => (
+    <li class="principle">
+      <LeafMark size={20} />
+      <h3 class="principle__title">{p.title}</h3>
+      <p class="principle__body">{p.body}</p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .principles {
+    display: grid;
+    gap: var(--space-8);
+    padding: 0;
+    list-style: none;
+  }
+  .principle {
+    padding-top: var(--space-5);
+    border-top: 1px solid rgb(184 170 152 / 0.8);
+  }
+  .principle__title {
+    margin-top: var(--space-3);
+    font-size: var(--text-xl);
+    font-weight: 400;
+  }
+  .principle__body {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+  }
+  @media (min-width: 48em) {
+    .principles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-10);
+    }
+  }
+  @media (min-width: 64em) {
+    .principles {
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    }
+  }
+</style>

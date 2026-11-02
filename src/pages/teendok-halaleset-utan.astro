@@ -1,0 +1,98 @@
+---
+import CtaBand from '@/components/sections/CtaBand.astro';
+import HelpPanel from '@/components/sections/HelpPanel.astro';
+import LeafList from '@/components/sections/LeafList.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import PrinciplesList from '@/components/sections/PrinciplesList.astro';
+import StepList from '@/components/sections/StepList.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getTeendok } from '@/lib/content';
+
+const data = await getTeendok();
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
+];
+const situations = data.situations.map((s) => ({ id: s.id, question: s.title, answer: s.body }));
+---
+
+<BaseLayout
+  seo={{
+    title: 'Teendők haláleset esetén – lépésről lépésre',
+    description:
+      'Mit tegyen, ha egy hozzátartozója elhunyt? Az első lépések nyugodt sorrendben, és amire a hívás előtt szükség lehet.',
+  }}
+>
+  <PageHero
+    eyebrow="Útmutató"
+    title="Teendők"
+    titleEmphasis="haláleset esetén"
+    lead={data.lead}
+    breadcrumbs={crumbs}
+    seed={3}
+  >
+    <HelpPanel slot="aside" />
+  </PageHero>
+
+  <Section
+    id="lepesek"
+    eyebrow="Lépésről lépésre"
+    title="Az első lépések"
+    intro="Ebben a sorrendben érdemes haladni. Bármelyik lépésnél kérhet segítséget."
+    layout="split"
+  >
+    <StepList steps={data.steps} />
+  </Section>
+
+  <Section
+    id="helyzetek"
+    eyebrow="Az Ön helyzete"
+    title="Hol történt a haláleset?"
+    intro="A teendők sorrendje attól is függ, hol történt a haláleset. Válassza ki az Ön helyzetét."
+    tone="alt"
+    layout="split"
+  >
+    <Accordion items={situations} />
+    <PendingNotice title="Szakmai jóváhagyás alatt" class="situations-note">
+      <p>
+        A helyzetenkénti, szakmailag ellenőrzött teendőlista jóváhagyás után kerül ide. Addig
+        kérjük, hívjon minket – végigvezetjük a lépéseken.
+      </p>
+    </PendingNotice>
+  </Section>
+
+  <Section
+    id="elokeszites"
+    eyebrow="A hívás előtt"
+    title="Mit érdemes kéznél tartani?"
+    intro="Ha nincs meg minden, az sem baj – a hívás során közösen pótoljuk, ami hiányzik."
+    layout="split"
+  >
+    <LeafList items={data.prepare} size="lg" />
+    <p class="docs-link">
+      Az iratok részletes listája: <a href="/szukseges-iratok/">Szükséges iratok</a>
+    </p>
+  </Section>
+
+  <Section id="tolunk" eyebrow="Mire számíthat" title="Amit tőlünk kap" tone="paper">
+    <PrinciplesList items={data.expect} />
+  </Section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  :global(.situations-note) {
+    margin-top: var(--space-8);
+  }
+  .docs-link {
+    margin-top: var(--space-6);
+    color: var(--color-text-muted);
+  }
+  .docs-link a {
+    font-weight: var(--weight-medium);
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import LeafMark from '@/components/brand/LeafMark.astro';
+
+interface Props {
+  items: string[];
+  size?: 'md' | 'lg';
+}
+const { items, size = 'md' } = Astro.props;
+---
+
+<ul class:list={['leaf-list', `leaf-list--${size}`]} role="list">
+  {items.map((item) => (
+    <li>
+      <LeafMark size={13} />
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .leaf-list {
+    display: grid;
+    padding: 0;
+    list-style: none;
+  }
+  .leaf-list li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid rgb(184 170 152 / 0.6);
+  }
+  .leaf-list li :global(.leaf) {
+    position: relative;
+    top: 0.1em;
+  }
+  .leaf-list--lg li {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    padding-block: var(--space-4);
+  }
+</style>

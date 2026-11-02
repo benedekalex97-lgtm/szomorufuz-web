@@ -1,0 +1,151 @@
+---
+/** Közös sablon a szolgáltatás-aloldalakhoz (Hamvasztás, Hagyományos temetés). */
+import FaqSection from '@/components/home/FaqSection.astro';
+import CtaBand from '@/components/sections/CtaBand.astro';
+import LeafList from '@/components/sections/LeafList.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import PrinciplesList from '@/components/sections/PrinciplesList.astro';
+import ServicePaths from '@/components/sections/ServicePaths.astro';
+import StepList from '@/components/sections/StepList.astro';
+import Button from '@/components/ui/Button.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import Section from '@/components/ui/Section.astro';
+import type { ServicePage } from '@/content/types';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getFaqItems } from '@/lib/content';
+
+interface Props {
+  page: ServicePage;
+  seed?: number;
+}
+const { page, seed = 5 } = Astro.props;
+const faq = (await getFaqItems()).filter((f) => page.faqIds.includes(f.id));
+const fullTitle = [page.title, page.titleEmphasis].filter(Boolean).join(' ');
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
+  { label: fullTitle, href: `/${page.slug}/` },
+];
+---
+
+<BaseLayout seo={page.seo}>
+  <PageHero
+    eyebrow={page.eyebrow}
+    title={page.title}
+    titleEmphasis={page.titleEmphasis}
+    lead={page.lead}
+    breadcrumbs={crumbs}
+    seed={seed}
+  >
+    <div class="hero-actions">
+      <Button href="/elerhetoseg/" icon="phone">
+        Kérjen tájékoztatást
+      </Button>
+      <Button href="#menete" variant="ghost">
+        A szervezés menete
+      </Button>
+    </div>
+    <div slot="aside" class="overview">
+      <p class="overview__title">{page.overview.title}</p>
+      <LeafList items={page.overview.points} />
+    </div>
+  </PageHero>
+
+  <Section id="bemutatas" title={page.intro.title} layout="split">
+    <div class="prose">
+      {page.intro.paragraphs.map((p) => (
+        <p>{p}</p>
+      ))}
+    </div>
+  </Section>
+
+  <Section
+    id="menete"
+    eyebrow="Lépésről lépésre"
+    title={page.steps.title}
+    intro={page.steps.intro}
+    tone="alt"
+    layout="split"
+  >
+    <StepList steps={page.steps.items} />
+  </Section>
+
+  <Section
+    id="lehetosegek"
+    eyebrow="Lehetőségek"
+    title={page.options.title}
+    intro={page.options.intro}
+  >
+    <PrinciplesList items={page.options.items} columns={page.options.items.length === 4 ? 4 : 3} />
+  </Section>
+
+  <Section id="koltsegek" eyebrow="Költségek" title="Mennyibe kerül?" tone="paper" layout="split">
+    <div class="costs">
+      <p class="costs__lead">
+        A költségekről a döntés előtt, tételesen tájékoztatjuk – a végösszeg a választott
+        lehetőségektől függ.
+      </p>
+      <PendingNotice title="Árlista jóváhagyás alatt">
+        <p>
+          A jóváhagyott kiindulási árak és az árban foglalt tételek az Árak oldalon jelennek meg.
+        </p>
+      </PendingNotice>
+      <Button href="/arak/" variant="secondary" icon="arrow-right" iconPosition="end">
+        Árak és költségek
+      </Button>
+    </div>
+  </Section>
+
+  <Section id="kapcsolodo" eyebrow="Kapcsolódó" title="További lehetőségek">
+    <ServicePaths featured={[]} others={page.related} othersTitle="Szolgáltatások" />
+  </Section>
+
+  {faq.length > 0 && (
+    <FaqSection
+      data={{
+        eyebrow: 'Kérdések',
+        title: 'Gyakori kérdések',
+        intro: 'Rövid válaszok a leggyakoribb kérdésekre.',
+        cta: { label: 'Összes kérdés', href: '/gyakori-kerdesek/' },
+      }}
+      items={faq}
+      tone="alt"
+    />
+  )}
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
+    padding-top: var(--space-2);
+  }
+  .overview {
+    position: relative;
+    padding: var(--space-6);
+    background-color: rgb(255 255 255 / 0.6);
+    border-top: 1px solid var(--color-text);
+    backdrop-filter: blur(2px);
+  }
+  .overview__title {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+    margin-bottom: var(--space-2);
+  }
+  .costs > :global(* + *) {
+    margin-top: var(--space-6);
+  }
+  .costs__lead {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 300;
+    line-height: 1.35;
+    max-width: 32ch;
+  }
+</style>
