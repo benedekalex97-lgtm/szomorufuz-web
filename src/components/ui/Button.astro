@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 import Icon from './Icon.astro';
 import type { IconName } from './icons.generated';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'inverse';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'inverse' | 'inverse-outline';
 type Size = 'md' | 'lg';
 
 type Props = {
@@ -29,24 +29,31 @@ const {
   ...rest
 } = Astro.props;
 
-const classes = ['btn', `btn--${variant}`, `btn--${size}`, fullWidth && 'btn--full', className];
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  `btn--${size}`,
+  fullWidth && 'btn--full',
+  icon && iconPosition === 'end' && 'btn--icon-end',
+  className,
+];
 ---
 
 {href !== undefined ? (
   <a href={href} class:list={classes} {...(rest as HTMLAttributes<'a'>)}>
-    {icon && iconPosition === 'start' && <Icon name={icon} />}
+    {icon && iconPosition === 'start' && <Icon name={icon} size={18} />}
     <span class="btn__label">
       <slot />
     </span>
-    {icon && iconPosition === 'end' && <Icon name={icon} />}
+    {icon && iconPosition === 'end' && <Icon name={icon} size={18} class="btn__end" />}
   </a>
 ) : (
   <button type="button" class:list={classes} {...(rest as HTMLAttributes<'button'>)}>
-    {icon && iconPosition === 'start' && <Icon name={icon} />}
+    {icon && iconPosition === 'start' && <Icon name={icon} size={18} />}
     <span class="btn__label">
       <slot />
     </span>
-    {icon && iconPosition === 'end' && <Icon name={icon} />}
+    {icon && iconPosition === 'end' && <Icon name={icon} size={18} class="btn__end" />}
   </button>
 )}
 
@@ -55,14 +62,14 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, fullWidth && 'btn--fu
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
+    gap: 0.625rem;
     min-height: var(--tap-target);
-    padding: var(--space-3) var(--space-6);
+    padding: 0.8rem 1.5rem;
     border: var(--border-width) solid transparent;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-sm);
     font-family: var(--font-body);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
+    font-size: 0.9375rem;
+    font-weight: var(--weight-medium);
     line-height: 1.2;
     letter-spacing: 0.01em;
     text-align: center;
@@ -75,12 +82,19 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, fullWidth && 'btn--fu
 
   .btn--lg {
     min-height: 3.5rem;
-    padding-inline: var(--space-8);
-    font-size: var(--text-base);
+    padding-inline: 1.875rem;
+    font-size: 1rem;
   }
 
   .btn--full {
     width: 100%;
+  }
+
+  .btn :global(.btn__end) {
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .btn:hover :global(.btn__end) {
+    transform: translateX(3px);
   }
 
   .btn--primary {
@@ -98,32 +112,47 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, fullWidth && 'btn--fu
     color: var(--color-text);
   }
   .btn--secondary:hover {
-    background-color: var(--color-bg-alt);
-    color: var(--color-text);
+    background-color: var(--color-text);
+    color: var(--color-bg);
   }
 
   .btn--ghost {
-    background-color: transparent;
-    color: var(--color-link);
-    padding-inline: var(--space-2);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.25em;
+    min-height: var(--tap-target);
+    padding-inline: 0;
+    background: transparent;
+    color: var(--color-text);
+    border-radius: 0;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 calc(100% - 0.7rem);
+    background-repeat: no-repeat;
   }
   .btn--ghost:hover {
-    color: var(--color-link-hover);
-    text-decoration-thickness: 2px;
+    color: var(--color-accent-text);
   }
 
   .btn--inverse {
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: var(--color-ink-text);
+    color: var(--color-ink-bg);
   }
   .btn--inverse:hover {
-    background-color: var(--color-bg-alt);
-    color: var(--color-text);
+    background-color: var(--palette-white);
+    color: var(--color-ink-bg);
   }
-  .btn--inverse:focus-visible {
+
+  .btn--inverse-outline {
+    background: transparent;
+    border-color: var(--color-ink-muted);
+    color: var(--color-ink-text);
+  }
+  .btn--inverse-outline:hover {
+    border-color: var(--color-ink-text);
+    background-color: rgb(234 229 218 / 0.08);
+    color: var(--color-ink-text);
+  }
+
+  .btn--inverse:focus-visible,
+  .btn--inverse-outline:focus-visible {
     outline-color: var(--color-focus-ring-inverse);
   }
 

@@ -1,0 +1,27 @@
+---
+/** Apró fűzfalevél – listajelölő és díszítő pont. Dekoratív. */
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 14, class: className } = Astro.props;
+---
+
+<svg
+  class:list={['leaf', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 16 16"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d="M8 1.5C11.2 5 11.2 11 8 14.5 4.8 11 4.8 5 8 1.5Z" fill="currentColor"></path>
+</svg>
+
+<style>
+  .leaf {
+    flex-shrink: 0;
+    color: var(--color-accent-decor);
+    transform: rotate(-18deg);
+  }
+</style>
