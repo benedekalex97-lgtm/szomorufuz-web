@@ -19,3 +19,4 @@ npm-debug.log*
 /test-results/
 dist-review/
 dist-prod/
+docs/screenshots/qa/

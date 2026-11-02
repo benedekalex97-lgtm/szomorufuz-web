@@ -59,6 +59,7 @@ Egy adat jóváhagyása: a `src/content/data/*.ts` fájlban `status: 'verified'`
 - [1. fázis jelentés](docs/phase-1-report.md)
 - [Nyitott kérdések, hiányzó adatok](docs/open-questions.md)
 - [Vercel felülvizsgálati deployment](docs/deployment.md)
+- [Bemutatóverzió – vizuális újratervezés](docs/demo-redesign.md)
 - Élő stílusútmutató: `/stilus/` (noindex)
 
 ## Munkafolyamat

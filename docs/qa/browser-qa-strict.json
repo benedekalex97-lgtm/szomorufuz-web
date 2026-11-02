@@ -1,61 +1,97 @@
 {
   "tag": "strict",
   "base": "/home/user/szomorufuz-web/dist",
-  "startedAt": "2026-11-02T14:13:05.260Z",
+  "startedAt": "2026-11-02T16:46:24.933Z",
   "checks": {
     "responsive": [
       {
         "width": 320,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.hero__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "path.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 8670,
+        "height": 10605,
         "consoleErrors": []
       },
       {
         "width": 375,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.hero__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "path.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 7949,
+        "height": 9902,
         "consoleErrors": []
       },
       {
         "width": 390,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.hero__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "path.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 7956,
+        "height": 9718,
         "consoleErrors": []
       },
       {
         "width": 768,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.hero__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "g.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 6072,
+        "height": 7938,
         "consoleErrors": []
       },
       {
         "width": 1024,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.site-footer__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "g.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 5776,
+        "height": 6858,
         "consoleErrors": []
       },
       {
         "width": 1440,
         "overflow": 0,
-        "overflowing": [],
+        "overflowing": [
+          "div.site-footer__art",
+          "svg.[object",
+          "g.[object",
+          "path.[object",
+          "g.[object"
+        ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 5746,
+        "height": 6997,
         "consoleErrors": []
       }
     ],
@@ -78,7 +114,7 @@
         "path": "/",
         "width": 390,
         "violations": [],
-        "passes": 41,
+        "passes": 40,
         "incomplete": [
           "color-contrast"
         ]
@@ -87,24 +123,118 @@
         "path": "/",
         "width": 1440,
         "violations": [],
+        "passes": 39,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/teendok-halaleset-utan/",
+        "width": 390,
+        "violations": [],
+        "passes": 42,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/teendok-halaleset-utan/",
+        "width": 1440,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/szolgaltatasok/",
+        "width": 390,
+        "violations": [],
+        "passes": 39,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/szolgaltatasok/",
+        "width": 1440,
+        "violations": [],
+        "passes": 37,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/hamvasztasos-temetes/",
+        "width": 390,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/hamvasztasos-temetes/",
+        "width": 1440,
+        "violations": [],
         "passes": 40,
         "incomplete": [
           "color-contrast"
         ]
       },
       {
-        "path": "/teendok-halaleset-utan/",
+        "path": "/koporsos-temetes/",
+        "width": 390,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/koporsos-temetes/",
+        "width": 1440,
+        "violations": [],
+        "passes": 40,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/elerhetoseg/",
         "width": 390,
         "violations": [],
         "passes": 39,
-        "incomplete": []
+        "incomplete": [
+          "color-contrast"
+        ]
       },
       {
-        "path": "/teendok-halaleset-utan/",
+        "path": "/elerhetoseg/",
         "width": 1440,
         "violations": [],
         "passes": 37,
-        "incomplete": []
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/arak/",
+        "width": 390,
+        "violations": [],
+        "passes": 39,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/arak/",
+        "width": 1440,
+        "violations": [],
+        "passes": 37,
+        "incomplete": [
+          "color-contrast"
+        ]
       },
       {
         "path": "/stilus/",
@@ -136,15 +266,17 @@
         "width": 1440,
         "violations": [],
         "passes": 37,
-        "incomplete": []
+        "incomplete": [
+          "color-contrast"
+        ]
       }
     ],
     "links": {
-      "checked": 26,
+      "checked": 362,
       "broken": [],
       "unknownPathStatus": 404
     }
   },
-  "finishedAt": "2026-11-02T14:13:22.495Z",
+  "finishedAt": "2026-11-02T16:47:14.803Z",
   "failures": []
 }
