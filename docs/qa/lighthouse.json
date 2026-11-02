@@ -1,0 +1,105 @@
+{
+  "tool": "Lighthouse 12, mobil profil (szimulált lassú 4G, 4× CPU), helyi emulátor gzip-pel",
+  "date": "2026-11-02",
+  "results": [
+    {
+      "path": "/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/teendok-halaleset-utan/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/arajanlat-keres-itt/",
+      "performance": 95,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/elerhetoseg/",
+      "performance": 95,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/arak/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/urnak/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/ravatalozo-terem/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/szolgaltatasok/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.9 s",
+      "fcp": "1.1 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "1.1 s"
+    },
+    {
+      "path": "/tudnivalok/",
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "lcp": "2.7 s",
+      "fcp": "0.9 s",
+      "cls": "0",
+      "tbt": "0 ms",
+      "si": "0.9 s"
+    }
+  ]
+}

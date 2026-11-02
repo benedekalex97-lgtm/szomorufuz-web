@@ -45,7 +45,6 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
         </li>
       ))}
     </ul>
-    {home.handled.note && <p class="handled__note" set:html={inline(home.handled.note)} />}
   </Section>
 
   <Section
@@ -76,6 +75,7 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
         </li>
       ))}
     </ul>
+    {home.handled.note && <p class="handled__note" set:html={inline(home.handled.note)} />}
   </Section>
 
   <Section

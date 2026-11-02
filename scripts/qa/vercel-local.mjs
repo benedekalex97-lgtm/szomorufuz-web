@@ -6,6 +6,7 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { gzipSync } from 'node:zlib';
 
 const OUT = resolve('.vercel/output');
 const TYPES = {
@@ -49,11 +50,16 @@ export async function startServer({ port = 0, env = {} } = {}) {
         if (route.handle === 'filesystem') {
           const file = staticFile(path);
           if (file) {
-            res.writeHead(200, {
-              ...headers,
-              'Content-Type': TYPES[extname(file)] ?? 'application/octet-stream',
-            });
-            res.end(readFileSync(file));
+            const type = TYPES[extname(file)] ?? 'application/octet-stream';
+            let body = readFileSync(file);
+            // A Vercel tömörítve szolgálja ki a szöveges tartalmat – a mérés legyen valósághű.
+            const gzip = /gzip/.test(req.headers['accept-encoding'] ?? '');
+            if (gzip && /text|javascript|svg|json|xml/.test(type)) {
+              body = gzipSync(body);
+              headers['Content-Encoding'] = 'gzip';
+            }
+            res.writeHead(200, { ...headers, 'Content-Type': type });
+            res.end(body);
             return;
           }
           continue;

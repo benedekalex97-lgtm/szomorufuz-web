@@ -39,7 +39,7 @@
     {
       "name": "hibás e-mail jelzése",
       "ok": true,
-      "detail": "Kérjük, érvényes e-mail címet adjon meg (például nev@example.hu)."
+      "detail": "Kérjük, érvényes e-mail címet adjon meg (például nev@example.com)."
     },
     {
       "name": "hibás mező aria-invalid",

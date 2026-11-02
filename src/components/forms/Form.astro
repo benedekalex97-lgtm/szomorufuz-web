@@ -9,6 +9,7 @@ import { formsMode } from '@/forms/config';
 import { type FieldDef, type FormId, forms, type ServiceForm } from '@/forms/definitions';
 import { META } from '@/forms/security';
 import { maxLengthOf } from '@/forms/validate';
+import Button from '@/components/ui/Button.astro';
 import { central } from '@/content/data/contact';
 import { telHref } from '@/lib/format';
 
@@ -206,9 +207,9 @@ const describedBy = (f: FieldDef) =>
       </div>
 
       <div class="form__actions">
-        <button type="submit" class="btn btn--primary btn--lg form__submit" data-form-submit>
+        <Button type="submit" size="lg" class="form__submit" data-form-submit>
           <span data-form-submit-label>{def.submitLabel}</span>
-        </button>
+        </Button>
       </div>
     </fieldset>
 
@@ -366,7 +367,7 @@ const describedBy = (f: FieldDef) =>
   .form__actions {
     margin-top: var(--space-6);
   }
-  .form__submit[aria-busy='true'] {
+  :global(.form__submit[aria-busy='true']) {
     cursor: progress;
     opacity: 0.8;
   }

@@ -28,6 +28,8 @@ const {
   href,
   ...rest
 } = Astro.props;
+// A gomb típusa felülírható (pl. type="submit" űrlapon); alapértelmezés: "button".
+const { type: buttonType = 'button', ...buttonRest } = rest as HTMLAttributes<'button'>;
 
 const classes = [
   'btn',
@@ -48,7 +50,7 @@ const classes = [
     {icon && iconPosition === 'end' && <Icon name={icon} size={18} class="btn__end" />}
   </a>
 ) : (
-  <button type="button" class:list={classes} {...(rest as HTMLAttributes<'button'>)}>
+  <button type={buttonType} class:list={classes} {...buttonRest}>
     {icon && iconPosition === 'start' && <Icon name={icon} size={18} />}
     <span class="btn__label">
       <slot />
