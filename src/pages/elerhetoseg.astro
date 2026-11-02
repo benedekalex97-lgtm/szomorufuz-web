@@ -1,0 +1,120 @@
+---
+import CtaBand from '@/components/sections/CtaBand.astro';
+import LeafList from '@/components/sections/LeafList.astro';
+import OfficeList from '@/components/sections/OfficeList.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import PendingBadge from '@/components/ui/PendingBadge.astro';
+import PendingNotice from '@/components/ui/PendingNotice.astro';
+import PhoneLink from '@/components/ui/PhoneLink.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getOffices, getSiteSettings, getTeendok } from '@/lib/content';
+import { publishable } from '@/lib/facts';
+
+const [settings, offices, teendok] = await Promise.all([
+  getSiteSettings(),
+  getOffices(),
+  getTeendok(),
+]);
+const phone = publishable(settings.primaryPhone);
+const availability = publishable(settings.phoneAvailability);
+const email = publishable(settings.company.email);
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: 'Kapcsolat', href: '/elerhetoseg/' },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Kapcsolat és irodáink',
+    description:
+      'Telefonos segítség és budapesti irodáink. Mit érdemes előkészíteni a hívás előtt – röviden, érthetően.',
+  }}
+>
+  <PageHero
+    eyebrow="Kapcsolat"
+    title="Beszéljünk."
+    titleEmphasis="Segítünk eligazodni."
+    lead="Hívjon minket, vagy keresse fel valamelyik budapesti irodánkat. A hívás nem kötelez semmire."
+    breadcrumbs={crumbs}
+    seed={29}
+  />
+
+  <Section id="telefon" eyebrow="Telefonos segítség" title="Hívjon minket" layout="split">
+    <div class="contact">
+      {phone ? (
+        <div class="contact__phone">
+          <PhoneLink phone={settings.primaryPhone} />
+          {availability && (
+            <p class="contact__meta">
+              {availability.value}
+              {availability.pending && <PendingBadge />}
+            </p>
+          )}
+        </div>
+      ) : (
+        <PendingNotice title="A telefonszám jóváhagyás alatt">
+          <p>
+            Az eddigi weboldalon egymásnak ellentmondó telefonszámok szerepeltek. A kiemelt, hívható
+            szám és az elérhetőségi idő a Szomorúfűz megerősítése után jelenik meg itt.
+          </p>
+        </PendingNotice>
+      )}
+      {email && (
+        <p class="contact__email">
+          E-mail:{' '}
+          {email.pending ? (
+            <>
+              {email.value} <PendingBadge />
+            </>
+          ) : (
+            <a href={`mailto:${email.value}`}>{email.value}</a>
+          )}
+        </p>
+      )}
+      <div class="contact__prepare">
+        <p class="contact__prepare-title">A hívás előtt érdemes kéznél tartani</p>
+        <LeafList items={teendok.prepare} />
+      </div>
+    </div>
+  </Section>
+
+  <Section
+    id="irodak"
+    eyebrow="Irodáink"
+    title="Budapest öt pontján"
+    intro="Személyesen is felkereshet minket. A pontos címek, telefonszámok és a nyitvatartás jóváhagyás után kerülnek fel."
+    tone="alt"
+  >
+    <OfficeList offices={offices} />
+  </Section>
+
+  <CtaBand
+    id="haleset"
+    title="Haláleset történt?"
+    intro="Az első lépéseket nyugodt sorrendben mutatjuk meg – kórházi, otthoni vagy intézményi haláleset esetén is."
+  />
+</BaseLayout>
+
+<style>
+  .contact > :global(* + *) {
+    margin-top: var(--space-8);
+  }
+  .contact__phone :global(.phone) {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+  }
+  .contact__meta,
+  .contact__email {
+    color: var(--color-text-muted);
+  }
+  .contact__prepare-title {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+    margin-bottom: var(--space-2);
+  }
+</style>

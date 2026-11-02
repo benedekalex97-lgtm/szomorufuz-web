@@ -1,0 +1,112 @@
+---
+/**
+ * Valódi sorrendet jelölő lépéssor – a számozás itt információt hordoz.
+ *  - list: függőleges, szerkesztői lista (nagy serif számokkal)
+ *  - timeline: asztali nézetben vízszintes idővonal
+ */
+import type { Step } from '@/content/types';
+
+interface Props {
+  steps: Step[];
+  variant?: 'list' | 'timeline';
+  tone?: 'light' | 'ink';
+  headingLevel?: 3 | 4;
+}
+const { steps, variant = 'list', tone = 'light', headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+---
+
+<ol class:list={['steps', `steps--${variant}`, `steps--${tone}`]} role="list">
+  {steps.map((step, i) => (
+    <li class="steps__item">
+      <span class="steps__num" aria-hidden="true">
+        {String(i + 1)}
+      </span>
+      <div class="steps__text">
+        <Heading class="steps__title">
+          <span class="visually-hidden">{i + 1}. lépés: </span>
+          {step.title}
+        </Heading>
+        <p class="steps__body">{step.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps {
+    padding: 0;
+    list-style: none;
+  }
+  .steps__item {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+    border-top: 1px solid rgb(184 170 152 / 0.7);
+  }
+  .steps__item:last-child {
+    border-bottom: 1px solid rgb(184 170 152 / 0.7);
+  }
+  .steps__num {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1;
+    color: var(--color-accent-decor);
+    font-variant-numeric: lining-nums;
+  }
+  .steps__title {
+    font-size: var(--text-xl);
+    font-weight: 400;
+  }
+  .steps__body {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    max-width: 34rem;
+  }
+
+  /* Sötét változat */
+  .steps--ink .steps__item {
+    border-color: var(--color-ink-line);
+  }
+  .steps--ink .steps__num {
+    color: var(--color-ink-accent);
+  }
+  .steps--ink .steps__title {
+    color: var(--color-ink-text);
+  }
+  .steps--ink .steps__body {
+    color: var(--color-ink-muted);
+  }
+
+  @media (min-width: 48em) {
+    .steps__item {
+      grid-template-columns: 5rem 1fr;
+      gap: var(--space-6);
+      padding-block: var(--space-8);
+    }
+    .steps__num {
+      font-size: 3.25rem;
+    }
+  }
+
+  @media (min-width: 64em) {
+    .steps--timeline {
+      display: grid;
+      grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+      gap: var(--space-8);
+    }
+    .steps--timeline .steps__item {
+      align-content: start;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      padding-block: var(--space-6) 0;
+      border-bottom: 0;
+    }
+    .steps--timeline .steps__item:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

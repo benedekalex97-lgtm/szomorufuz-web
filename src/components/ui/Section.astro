@@ -1,10 +1,16 @@
 ---
+/**
+ * Szekció-keret. Két elrendezés:
+ *  - stack: fejléc a tartalom fölött
+ *  - split: asztali nézetben a fejléc bal oldali hasábban (szerkesztői elrendezés)
+ */
 interface Props {
   id: string;
   title: string;
   eyebrow?: string;
   intro?: string;
-  tone?: 'default' | 'alt' | 'surface';
+  tone?: 'default' | 'alt' | 'paper' | 'ink';
+  layout?: 'stack' | 'split';
   width?: 'default' | 'narrow' | 'wide';
   headingLevel?: 2 | 3;
 }
@@ -15,6 +21,7 @@ const {
   eyebrow,
   intro,
   tone = 'default',
+  layout = 'stack',
   width = 'default',
   headingLevel = 2,
 } = Astro.props;
@@ -22,37 +29,87 @@ const headingId = `${id}-cim`;
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
 ---
 
-<section id={id} class:list={['section', `section--${tone}`]} aria-labelledby={headingId}>
-  <div class:list={['container', width !== 'default' && `container--${width}`]}>
+<section
+  id={id}
+  class:list={['section', `section--${tone}`, `section--${layout}`]}
+  aria-labelledby={headingId}
+>
+  <div class:list={['container', width !== 'default' && `container--${width}`, 'section__grid']}>
     <header class="section__header">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <Heading id={headingId} class="section__title">
         {title}
       </Heading>
-      {intro && <p class="lead section__intro">{intro}</p>}
+      {intro && <p class="section__intro">{intro}</p>}
+      <slot name="header-extra" />
     </header>
-    <slot />
+    <div class="section__body">
+      <slot />
+    </div>
   </div>
 </section>
 
 <style>
   .section {
+    position: relative;
     padding-block: var(--section-space);
   }
   .section--alt {
     background-color: var(--color-bg-alt);
   }
-  .section--surface {
-    background-color: var(--color-surface);
+  .section--paper {
+    background-color: var(--color-paper);
   }
+  .section--ink {
+    background-color: var(--color-ink-bg);
+    color: var(--color-ink-text);
+  }
+  .section--ink .section__title {
+    color: var(--color-ink-text);
+  }
+  .section--ink .section__intro {
+    color: var(--color-ink-muted);
+  }
+  .section--ink .eyebrow {
+    color: var(--color-ink-accent);
+  }
+  .section--ink :focus-visible {
+    outline-color: var(--color-focus-ring-inverse);
+  }
+
   .section__header {
-    margin-bottom: var(--space-10);
-    max-width: var(--measure);
+    max-width: 40rem;
   }
   .section__header > * + * {
-    margin-top: var(--space-3);
+    margin-top: var(--space-4);
   }
   .section__title {
     font-size: var(--text-3xl);
+    font-weight: 350;
+  }
+  .section__intro {
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    max-width: 36rem;
+  }
+  .section__body {
+    margin-top: var(--space-10);
+  }
+
+  @media (min-width: 64em) {
+    .section--split .section__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-16);
+      align-items: start;
+    }
+    .section--split .section__header {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-8));
+    }
+    .section--split .section__body {
+      margin-top: 0;
+    }
   }
 </style>

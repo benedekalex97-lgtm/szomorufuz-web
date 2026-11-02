@@ -1,4 +1,5 @@
 ---
+import Willow from '@/components/brand/Willow.astro';
 import Logo from '@/components/ui/Logo.astro';
 import PhoneLink from '@/components/ui/PhoneLink.astro';
 import { getNavigation, getOffices, getSiteSettings } from '@/lib/content';
@@ -13,53 +14,62 @@ const phone = publishable(settings.primaryPhone);
 const email = publishable(settings.company.email);
 const legalName = publishable(settings.company.legalName);
 const year = new Date().getFullYear();
+
+const services = [
+  { label: 'Hamvasztás', href: '/hamvasztasos-temetes/' },
+  { label: 'Hagyományos temetés', href: '/koporsos-temetes/' },
+  { label: 'Hamvak szórása', href: '/hamvak-szorasa-temeto/' },
+  { label: 'Hajós temetés', href: '/hamvak-szorasa-dunaba/' },
+  { label: 'Minden szolgáltatás', href: '/szolgaltatasok/' },
+];
 ---
 
 <footer class="site-footer">
-  <div class="container container--wide">
-    <div class="site-footer__grid">
-      <div class="site-footer__brand">
+  <div class="site-footer__art" aria-hidden="true">
+    <Willow variant="band" seed={23} />
+  </div>
+  <div class="container container--wide site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__brand-top">
         <Logo tone="inverse" />
-        <p class="site-footer__text">
+        <p class="site-footer__lede">
           Segítünk eligazodni a teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében.
         </p>
       </div>
-
-      <div>
-        <h2 class="site-footer__heading">Kapcsolat</h2>
-        <ul class="site-footer__list" role="list">
-          {phone ? (
-            <li>
-              <PhoneLink phone={settings.primaryPhone} class="site-footer__phone" />
-            </li>
-          ) : (
-            <li class="site-footer__muted">A központi telefonszám ellenőrzés után jelenik meg.</li>
-          )}
-          {email && (
-            <li>
-              {email.pending ? (
-                <span>{email.value} (ellenőrizetlen)</span>
-              ) : (
-                <a href={`mailto:${email.value}`}>{email.value}</a>
-              )}
-            </li>
-          )}
-        </ul>
+      <div class="site-footer__contact">
+        {phone ? (
+          <PhoneLink phone={settings.primaryPhone} class="site-footer__phone" />
+        ) : (
+          <p class="site-footer__muted">A központi telefonszám jóváhagyás után jelenik meg.</p>
+        )}
+        {email && !email.pending && (
+          <a href={`mailto:${email.value}`} class="site-footer__email">
+            {email.value}
+          </a>
+        )}
+        <a class="site-footer__cta" href="/teendok-halaleset-utan/">
+          Teendők haláleset esetén →
+        </a>
       </div>
+    </div>
 
-      <div>
-        <h2 class="site-footer__heading">Irodáink</h2>
+    <div class="site-footer__grid">
+      <nav aria-labelledby="footer-szolg">
+        <h2 id="footer-szolg" class="site-footer__heading">
+          Szolgáltatások
+        </h2>
         <ul class="site-footer__list" role="list">
-          {offices.map((office) => (
+          {services.map((item) => (
             <li>
-              <a href="/irodak/">{office.name}</a>
+              <a href={item.href}>{item.label}</a>
             </li>
           ))}
         </ul>
-      </div>
-
-      <div>
-        <h2 class="site-footer__heading">Fontos oldalak</h2>
+      </nav>
+      <nav aria-labelledby="footer-info">
+        <h2 id="footer-info" class="site-footer__heading">
+          Tudnivalók
+        </h2>
         <ul class="site-footer__list" role="list">
           {navigation.footerImportant.map((item) => (
             <li>
@@ -67,7 +77,19 @@ const year = new Date().getFullYear();
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
+      <nav aria-labelledby="footer-irodak">
+        <h2 id="footer-irodak" class="site-footer__heading">
+          Irodáink
+        </h2>
+        <ul class="site-footer__list" role="list">
+          {offices.map((office) => (
+            <li>
+              <a href="/elerhetoseg/">{office.name}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
 
     <div class="site-footer__bottom">
@@ -89,39 +111,82 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background-color: var(--color-surface-inverse);
-    color: var(--color-text-inverse);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-ink-bg);
+    color: var(--color-ink-text);
     padding-block: var(--space-16) var(--space-8);
     font-size: var(--text-sm);
   }
+  .site-footer__art {
+    position: absolute;
+    top: -2rem;
+    right: -6rem;
+    width: min(34rem, 80vw);
+    opacity: 0.22;
+    pointer-events: none;
+    --willow-stem: var(--color-ink-accent);
+    --willow-leaf: var(--color-ink-accent);
+  }
+  .site-footer__inner {
+    position: relative;
+  }
   .site-footer a {
-    color: var(--color-text-inverse);
-    text-decoration-color: color-mix(in srgb, var(--color-text-inverse) 45%, transparent);
+    color: var(--color-ink-text);
+    text-decoration: none;
   }
   .site-footer a:hover {
     color: var(--palette-white);
-    text-decoration-color: currentColor;
+    text-decoration: underline;
+    text-decoration-color: var(--color-ink-accent);
   }
   .site-footer :focus-visible {
     outline-color: var(--color-focus-ring-inverse);
   }
+  .site-footer__top {
+    display: grid;
+    gap: var(--space-8);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-ink-line);
+  }
+  .site-footer__lede {
+    margin-top: var(--space-4);
+    max-width: 36ch;
+    color: var(--color-ink-muted);
+  }
+  .site-footer__contact {
+    display: grid;
+    gap: var(--space-3);
+    align-content: end;
+  }
+  .site-footer__muted {
+    color: var(--color-ink-muted);
+    max-width: 30ch;
+  }
+  :global(.site-footer__phone) {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+  }
+  .site-footer__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    color: var(--color-ink-accent) !important;
+    font-weight: var(--weight-medium);
+  }
   .site-footer__grid {
     display: grid;
     gap: var(--space-10);
-  }
-  .site-footer__text {
-    margin-top: var(--space-4);
-    max-width: 34ch;
-    color: #d6d1c7;
+    padding-block: var(--space-12);
   }
   .site-footer__heading {
     margin-bottom: var(--space-3);
     font-family: var(--font-body);
-    font-size: var(--text-xs);
+    font-size: 0.75rem;
     font-weight: var(--weight-semibold);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #d6d1c7;
+    color: var(--color-ink-accent);
   }
   .site-footer__list {
     padding: 0;
@@ -129,11 +194,7 @@ const year = new Date().getFullYear();
   }
   .site-footer__list a {
     display: inline-block;
-    padding-block: var(--space-2);
-  }
-  .site-footer__muted {
-    color: #d6d1c7;
-    max-width: 30ch;
+    padding-block: 0.45rem;
   }
   .site-footer__bottom {
     display: flex;
@@ -141,9 +202,9 @@ const year = new Date().getFullYear();
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    margin-top: var(--space-12);
     padding-top: var(--space-6);
-    border-top: var(--border-width) solid #4a4842;
+    border-top: 1px solid var(--color-ink-line);
+    color: var(--color-ink-muted);
   }
   .site-footer__legal {
     display: flex;
@@ -155,18 +216,17 @@ const year = new Date().getFullYear();
   .site-footer__legal a {
     display: inline-block;
     padding-block: var(--space-2);
+    color: var(--color-ink-muted);
   }
   .site-footer__copy {
-    color: #d6d1c7;
+    color: var(--color-ink-muted);
   }
   @media (min-width: 48em) {
-    .site-footer__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .site-footer__top {
+      grid-template-columns: 1.4fr 1fr;
     }
-  }
-  @media (min-width: 64em) {
     .site-footer__grid {
-      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

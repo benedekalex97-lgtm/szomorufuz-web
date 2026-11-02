@@ -1,0 +1,73 @@
+---
+/** Kis, sötét „azonnali segítség” panel – aloldal-fejlécek mellé. */
+import Icon from '@/components/ui/Icon.astro';
+import { getSiteSettings } from '@/lib/content';
+import { verifiedOnly } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Most történt?',
+  text = 'Hívjon minket – elmondjuk, mi a következő lépés az Ön helyzetében.',
+} = Astro.props;
+const settings = await getSiteSettings();
+const phone = verifiedOnly(settings.primaryPhone);
+---
+
+<aside class="help-panel" aria-label="Azonnali segítség">
+  <p class="help-panel__title">{title}</p>
+  <p class="help-panel__text">{text}</p>
+  {phone ? (
+    <a class="help-panel__link" href={telHref(phone.e164)}>
+      <Icon name="phone" size={18} /> {phone.display}
+    </a>
+  ) : (
+    <>
+      <a class="help-panel__link" href="/elerhetoseg/">
+        <Icon name="phone" size={18} /> Kapcsolat
+      </a>
+      <p class="help-panel__note">A telefonszám jóváhagyás után jelenik meg.</p>
+    </>
+  )}
+</aside>
+
+<style>
+  .help-panel {
+    padding: var(--space-6);
+    background-color: var(--color-ink-bg);
+    color: var(--color-ink-text);
+    max-width: 26rem;
+  }
+  .help-panel__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+  }
+  .help-panel__text {
+    margin-top: var(--space-2);
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+  .help-panel__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    margin-top: var(--space-3);
+    color: var(--color-ink-text);
+    font-weight: var(--weight-medium);
+    text-decoration-color: var(--color-ink-accent);
+  }
+  .help-panel__link:hover {
+    color: var(--palette-white);
+  }
+  .help-panel :focus-visible {
+    outline-color: var(--color-focus-ring-inverse);
+  }
+  .help-panel__note {
+    font-size: 0.8125rem;
+    color: var(--color-ink-muted);
+  }
+</style>

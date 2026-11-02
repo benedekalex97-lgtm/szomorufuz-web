@@ -9,7 +9,9 @@ import { navigation } from '@/content/data/navigation';
 import { offices } from '@/content/data/offices';
 import placeholderPages from '@/content/data/placeholder-pages.json';
 import { pricingCategories } from '@/content/data/pricing';
+import { servicePages } from '@/content/data/service-pages';
 import { serviceCategories, services } from '@/content/data/services';
+import { teendok } from '@/content/data/teendok';
 import { siteSettings } from '@/content/data/site-settings';
 import type {
   ContentPage,
@@ -18,6 +20,7 @@ import type {
   Navigation,
   Office,
   PricingCategory,
+  ServicePage,
   Service,
   ServiceCategory,
   SiteSettings,
@@ -31,6 +34,12 @@ export const getServiceCategories = async (): Promise<ServiceCategory[]> => serv
 export const getPricingCategories = async (): Promise<PricingCategory[]> => pricingCategories;
 export const getOffices = async (): Promise<Office[]> => offices;
 export const getFaqItems = async (): Promise<FaqItem[]> => faqItems;
+export const getServicePage = async (slug: string): Promise<ServicePage> => {
+  const page = servicePages.find((p) => p.slug === slug);
+  if (!page) throw new Error(`Ismeretlen szolgáltatásoldal: ${slug}`);
+  return page;
+};
+export const getTeendok = async () => teendok;
 
 export const getPlaceholderPages = async (): Promise<ContentPage[]> =>
   placeholderPages.map((p) => ({

@@ -1,0 +1,155 @@
+---
+/**
+ * Az öt iroda tipográfiai listája: a kerület római száma a hangsúly.
+ * Cím, telefon, nyitvatartás csak ellenőrzötten (review módban jelölve).
+ */
+import Icon from '@/components/ui/Icon.astro';
+import PendingBadge from '@/components/ui/PendingBadge.astro';
+import type { Office } from '@/content/types';
+import { publishable } from '@/lib/facts';
+import { formatAddress, formatHours, telHref } from '@/lib/format';
+
+interface Props {
+  offices: Office[];
+  headingLevel?: 3 | 4;
+}
+const { offices, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+
+const split = (name: string) => {
+  const m = name.match(/^([IVXL]+\.)\s*kerület\s*–\s*(.+)$/);
+  return m ? { numeral: m[1], street: m[2] } : { numeral: '', street: name };
+};
+---
+
+<ul class="offices" role="list">
+  {offices.map((office) => {
+    const { numeral, street } = split(office.name);
+    const address = publishable(office.address);
+    const phones = publishable(office.phones);
+    const hours = publishable(office.openingHours);
+    const map = publishable(office.mapUrl);
+    return (
+      <li class="office">
+        <span class="office__numeral" aria-hidden="true">
+          {numeral}
+        </span>
+        <div class="office__text">
+          <Heading class="office__name">
+            <span class="visually-hidden">{numeral} kerület, </span>
+            {street}
+          </Heading>
+          {address || phones || hours ? (
+            <div class="office__details">
+              {address && (
+                <p>
+                  {formatAddress(address.value)}
+                  {address.pending && <PendingBadge />}
+                </p>
+              )}
+              {phones && (
+                <p class="office__phones">
+                  {phones.value.map((p) =>
+                    phones.pending ? (
+                      <span>{p.display}</span>
+                    ) : (
+                      <a href={telHref(p.e164)}>{p.display}</a>
+                    ),
+                  )}
+                  {phones.pending && <PendingBadge />}
+                </p>
+              )}
+              {hours && (
+                <p>
+                  {hours.value.map((r) => formatHours(r)).join(', ')}
+                  {hours.pending && <PendingBadge />}
+                </p>
+              )}
+              {map && (
+                <a href={map.value} class="office__map" target="_blank" rel="noopener noreferrer">
+                  Útvonalterv
+                  <span class="visually-hidden"> – {street}, új lapon nyílik</span>
+                  <Icon name="external-link" size={14} />
+                </a>
+              )}
+            </div>
+          ) : (
+            <p class="office__pending">Cím és nyitvatartás jóváhagyás után</p>
+          )}
+        </div>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .offices {
+    display: grid;
+    padding: 0;
+    list-style: none;
+  }
+  .office {
+    display: grid;
+    grid-template-columns: 4.25rem 1fr;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding-block: var(--space-5);
+    border-top: 1px solid rgb(184 170 152 / 0.8);
+  }
+  .office__numeral {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent-decor);
+    letter-spacing: 0.02em;
+  }
+  .office__name {
+    font-size: var(--text-xl);
+    font-weight: 400;
+  }
+  .office__details,
+  .office__pending {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .office__details > * + * {
+    margin-top: var(--space-1);
+  }
+  .office__phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .office__pending {
+    font-style: italic;
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+  }
+  .office__map {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: 2.75rem;
+    font-weight: var(--weight-medium);
+  }
+
+  @media (min-width: 64em) {
+    .offices {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-6);
+      border-top: 1px solid var(--color-text);
+    }
+    .office {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      padding-top: var(--space-6);
+      border-top: 0;
+    }
+    .office__numeral {
+      font-size: 3.5rem;
+    }
+  }
+</style>

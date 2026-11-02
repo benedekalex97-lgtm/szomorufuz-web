@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 
 import Footer from '@/components/layout/Footer.astro';
+import DemoNotice from '@/components/layout/DemoNotice.astro';
 import Header from '@/components/layout/Header.astro';
 import MobileCallBar from '@/components/layout/MobileCallBar.astro';
 import SkipLink from '@/components/layout/SkipLink.astro';
@@ -45,6 +46,21 @@ const structuredData = [...organizationJsonLd(settings), ...jsonLd];
       type="font/woff2"
       crossorigin
     />
+    <!-- A magyar ő/ű a latin-ext fájlban van: szinte minden bekezdés igényli -->
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-ext-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/newsreader-latin-wght-italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <Seo seo={seo} />
     <meta name="theme-color" content="#f7f5f0" />
     <meta name="format-detection" content="telephone=no" />
@@ -62,6 +78,7 @@ const structuredData = [...organizationJsonLd(settings), ...jsonLd];
         </p>
       </aside>
     )}
+    <DemoNotice />
     <Header />
     <main id="tartalom" tabindex="-1">
       <slot />

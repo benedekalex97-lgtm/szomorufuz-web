@@ -50,6 +50,16 @@
   --color-notice-bg: #f1ece2;
   --color-notice-border: var(--palette-stone-600);
 
+  /* Sötét (szénszürke) sáv – kontrasztok a #292825 háttéren */
+  --color-ink-bg: var(--palette-deep-charcoal);
+  --color-ink-text: var(--palette-warm-ivory); /* 11.74:1 */
+  --color-ink-muted: #d9cfbf; /* 9.57:1 */
+  --color-ink-accent: #c2a988; /* 6.55:1 – bronz sötét háttéren */
+  --color-ink-line: #4a4741;
+
+  /* Papír-tónusok a szekcióritmushoz */
+  --color-paper: #f3f0e9;
+
   /* ---- Tipográfia ---- */
   --font-heading: 'Newsreader Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --font-body:
@@ -65,6 +75,7 @@
   --text-2xl: clamp(1.625rem, 1.4rem + 1vw, 2.125rem); /* 26–34px */
   --text-3xl: clamp(2rem, 1.6rem + 1.8vw, 3rem); /* 32–48px */
   --text-4xl: clamp(2.375rem, 1.8rem + 2.6vw, 3.75rem); /* 38–60px */
+  --text-display: clamp(2.625rem, 1.55rem + 4.6vw, 5.5rem); /* 42–88px – csak a hero */
 
   --leading-tight: 1.15;
   --leading-snug: 1.3;
@@ -96,13 +107,13 @@
 
   /* ---- Konténerek ---- */
   --container-narrow: 46rem; /* 736px – szöveges tartalom */
-  --container-default: 72rem; /* 1152px */
+  --container-default: 80rem; /* 1280px */
   --container-wide: 82rem; /* 1312px */
 
   /* ---- Formák ---- */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 14px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
   --radius-pill: 999px;
 
   --border-width: 1px;
@@ -115,7 +126,8 @@
   /* ---- Interakció ---- */
   --tap-target: 48px; /* WCAG 2.2: min. 24px; mi kényelmesebb 48px-et célzunk */
   --duration-fast: 120ms;
-  --duration-base: 200ms;
+  --duration-base: 220ms;
+  --duration-slow: 600ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 
   /* ---- Rétegek ---- */

@@ -1,0 +1,117 @@
+---
+/** Sötét záró sáv: a segítségkérés két útja. Telefonszám csak ellenőrzötten. */
+import Willow from '@/components/brand/Willow.astro';
+import Button from '@/components/ui/Button.astro';
+import { getSiteSettings } from '@/lib/content';
+import { verifiedOnly } from '@/lib/facts';
+import { telHref } from '@/lib/format';
+
+interface Props {
+  title?: string;
+  intro?: string;
+  id?: string;
+}
+const {
+  title = 'Ha most szüksége van ránk',
+  intro = 'Hívjon minket, vagy keresse fel valamelyik irodánkat. Türelemmel segítünk eligazodni.',
+  id = 'kapcsolat',
+} = Astro.props;
+const settings = await getSiteSettings();
+const phone = verifiedOnly(settings.primaryPhone);
+const availability = verifiedOnly(settings.phoneAvailability);
+---
+
+<section id={id} class="cta" aria-labelledby={`${id}-cim`}>
+  <div class="cta__art" aria-hidden="true">
+    <Willow variant="band" seed={11} />
+  </div>
+  <div class="container cta__inner">
+    <div class="cta__text">
+      <p class="eyebrow cta__eyebrow">Segítség</p>
+      <h2 id={`${id}-cim`} class="cta__title">
+        {title}
+      </h2>
+      <p class="cta__intro">{intro}</p>
+    </div>
+    <div class="cta__actions">
+      {phone ? (
+        <Button href={telHref(phone.e164)} variant="inverse" size="lg" icon="phone">
+          Hívás: {phone.display}
+        </Button>
+      ) : (
+        <Button href="/elerhetoseg/" variant="inverse" size="lg" icon="phone">
+          Telefonos segítség
+        </Button>
+      )}
+      <Button
+        href="/teendok-halaleset-utan/"
+        variant="inverse-outline"
+        size="lg"
+        icon="arrow-right"
+        iconPosition="end"
+      >
+        Teendők haláleset esetén
+      </Button>
+      {availability && <p class="cta__meta">{availability}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--section-space);
+    background-color: var(--color-ink-bg);
+    color: var(--color-ink-text);
+    border-bottom: 1px solid var(--color-ink-line);
+  }
+  .cta__art {
+    position: absolute;
+    left: -8rem;
+    bottom: -4rem;
+    width: min(30rem, 90vw);
+    opacity: 0.18;
+    pointer-events: none;
+    --willow-stem: var(--color-ink-accent);
+    --willow-leaf: var(--color-ink-accent);
+  }
+  .cta__inner {
+    position: relative;
+    display: grid;
+    gap: var(--space-10);
+  }
+  .cta__text > * + * {
+    margin-top: var(--space-4);
+  }
+  .cta__eyebrow {
+    color: var(--color-ink-accent);
+  }
+  .cta__title {
+    color: var(--color-ink-text);
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    max-width: 16ch;
+  }
+  .cta__intro {
+    color: var(--color-ink-muted);
+    font-size: var(--text-lg);
+    max-width: 34rem;
+  }
+  .cta__actions {
+    display: grid;
+    gap: var(--space-3);
+    align-content: center;
+  }
+  .cta__meta {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+  @media (min-width: 64em) {
+    .cta__inner {
+      grid-template-columns: 1.4fr 1fr;
+      align-items: center;
+      gap: var(--space-16);
+    }
+  }
+</style>

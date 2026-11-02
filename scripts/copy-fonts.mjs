@@ -9,6 +9,8 @@ const FILES = [
   ['inter', 'inter-latin-ext-wght-normal.woff2'],
   ['newsreader', 'newsreader-latin-wght-normal.woff2'],
   ['newsreader', 'newsreader-latin-ext-wght-normal.woff2'],
+  ['newsreader', 'newsreader-latin-wght-italic.woff2'],
+  ['newsreader', 'newsreader-latin-ext-wght-italic.woff2'],
 ];
 const out = new URL('../public/fonts/', import.meta.url);
 mkdirSync(out, { recursive: true });

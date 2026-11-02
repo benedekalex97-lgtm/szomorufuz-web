@@ -20,10 +20,20 @@ const args = Object.fromEntries(
 );
 const DIST = resolve(args.dir ?? 'dist');
 const TAG = args.tag ?? 'strict';
-const SHOT_DIR = resolve('docs/screenshots/phase-1');
+const SHOT_DIR = resolve('docs/screenshots/qa');
 const REPORT = resolve(`docs/qa/browser-qa-${TAG}.json`);
 const WIDTHS = [320, 375, 390, 768, 1024, 1440];
-const A11Y_PAGES = ['/', '/teendok-halaleset-utan/', '/stilus/', '/nem-letezo-oldal/'];
+const A11Y_PAGES = [
+  '/',
+  '/teendok-halaleset-utan/',
+  '/szolgaltatasok/',
+  '/hamvasztasos-temetes/',
+  '/koporsos-temetes/',
+  '/elerhetoseg/',
+  '/arak/',
+  '/stilus/',
+  '/nem-letezo-oldal/',
+];
 
 if (!existsSync(DIST)) {
   console.error(`Nincs ${DIST} – előbb futtasd: npm run build`);

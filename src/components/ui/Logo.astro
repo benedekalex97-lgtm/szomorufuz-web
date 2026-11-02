@@ -53,6 +53,12 @@ const Tag = asLink ? 'a' : 'span';
   .logo--inverse:focus-visible {
     outline-color: var(--color-focus-ring-inverse);
   }
+  /* Kis kijelzőn csak a név: a hero címkéje úgyis megnevezi a szolgáltatást */
+  @media (max-width: 29.99em) {
+    .logo__tagline {
+      display: none;
+    }
+  }
   @media (min-width: 30em) {
     .logo__tagline {
       letter-spacing: 0.14em;

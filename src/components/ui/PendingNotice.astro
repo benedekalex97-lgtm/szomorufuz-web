@@ -1,13 +1,14 @@
 ---
-/** Látható helyőrző ott, ahol ellenőrzött adat még nincs. Nem tartalmaz kitalált értéket. */
+/** Jóváhagyásra váró / ellenőrizetlen tartalom helye. Nem tartalmaz kitalált értéket. */
 interface Props {
   title?: string;
+  tone?: 'light' | 'ink';
   class?: string;
 }
-const { title = 'Ellenőrzésre vár', class: className } = Astro.props;
+const { title = 'Jóváhagyásra vár', tone = 'light', class: className } = Astro.props;
 ---
 
-<div class:list={['pending', className]} role="note">
+<div class:list={['pending', `pending--${tone}`, className]} role="note">
   <p class="pending__title">{title}</p>
   <div class="pending__body">
     <slot />
@@ -17,15 +18,25 @@ const { title = 'Ellenőrzésre vár', class: className } = Astro.props;
 <style>
   .pending {
     padding: var(--space-4) var(--space-5);
-    border: var(--border-width) dashed var(--color-notice-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-notice-bg);
+    border-left: 2px solid var(--color-accent-decor);
+    background-color: rgb(234 229 218 / 0.55);
     font-size: var(--text-sm);
     color: var(--color-text-muted);
   }
   .pending__title {
-    font-weight: var(--weight-semibold);
-    color: var(--color-text);
     margin-bottom: var(--space-1);
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .pending--ink {
+    border-left-color: var(--color-ink-accent);
+    background-color: rgb(234 229 218 / 0.06);
+    color: var(--color-ink-muted);
+  }
+  .pending--ink .pending__title {
+    color: var(--color-ink-accent);
   }
 </style>

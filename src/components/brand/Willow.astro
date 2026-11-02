@@ -1,0 +1,176 @@
+---
+/**
+ * A Szomorúfűz vizuális védjegyeleme: finom vonalas, csüngő ágú szomorúfűz.
+ * Build időben, rögzített „magból” generálódik (determinisztikus), így minden
+ * buildben azonos. Nem logó és nem illusztrált valóság – absztrakt grafikai motívum.
+ *
+ * A levélzet egyetlen szaggatott vonal minden ágon (stroke-dasharray), így a DOM
+ * kicsi marad. Megjelenéskor egyszer „leereszkedik” (maszk-animáció), mozgás-
+ * csökkentés esetén statikus.
+ */
+interface Props {
+  /** Ágak sűrűsége és mérete */
+  variant?: 'hero' | 'band';
+  seed?: number;
+  animate?: boolean;
+  class?: string;
+}
+
+const { variant = 'hero', seed = 7, animate = false, class: className } = Astro.props;
+
+// Determinisztikus PRNG (mulberry32)
+function rng(a: number) {
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const r = rng(seed);
+const between = (min: number, max: number) => min + r() * (max - min);
+const f = (n: number) => Math.round(n);
+
+const gradId = `willow-fade-${variant}-${seed}`;
+const W = 600;
+const H = variant === 'hero' ? 780 : 420;
+const crown = { x: W * 0.5, y: variant === 'hero' ? 96 : 58 };
+const ground = H - 18;
+const boughCount = variant === 'hero' ? 9 : 7;
+
+type Pt = { x: number; y: number };
+const boughs: string[] = [];
+const strands: string[] = [];
+
+// Törzs: enyhén ívelt, a korona alól a talajig
+const trunk = `M${f(crown.x + 14)} ${ground} C ${f(crown.x + 4)} ${f(ground - (ground - crown.y) * 0.45)}, ${f(crown.x + 22)} ${f(crown.y + (ground - crown.y) * 0.4)}, ${f(crown.x)} ${f(crown.y + 26)}`;
+
+for (let i = 0; i < boughCount; i++) {
+  // Legyező: -170°…-10° között, kissé szabálytalanul
+  const t = i / (boughCount - 1);
+  // Aszimmetrikus korona: a jobb oldal kissé hosszabb, mintha a fa enyhén dőlne
+  const angle = (-172 + t * 150 + between(-9, 9)) * (Math.PI / 180);
+  const reach = between(0.55, 1) * (variant === 'hero' ? 270 : 250) * (1 + t * 0.12);
+  const tip: Pt = {
+    x: crown.x + Math.cos(angle) * reach,
+    y: crown.y + Math.sin(angle) * reach * 0.32 + reach * 0.42,
+  };
+  // Felfelé ívelő kontrollpont → boltozatos korona
+  const ctrl: Pt = {
+    x: crown.x + Math.cos(angle) * reach * 0.55,
+    y: crown.y + Math.sin(angle) * reach * 0.42 + 4,
+  };
+  boughs.push(
+    `M${f(crown.x)} ${f(crown.y + 26)} Q ${f(ctrl.x)} ${f(ctrl.y)}, ${f(tip.x)} ${f(tip.y)}`,
+  );
+
+  // Csüngő vesszők a bog mentén
+  const count = Math.round(between(2, variant === 'hero' ? 5 : 4));
+  for (let k = 0; k < count; k++) {
+    // Az első vessző mindig az ág végéről lóg – nincs csupasz ágvég
+    const u = k === 0 ? 1 : between(0.4, 0.95);
+    // Pont a másodfokú Bézier-görbén
+    const sx = (1 - u) ** 2 * crown.x + 2 * (1 - u) * u * ctrl.x + u ** 2 * tip.x;
+    const sy = (1 - u) ** 2 * (crown.y + 26) + 2 * (1 - u) * u * ctrl.y + u ** 2 * tip.y;
+    const maxLen = ground - sy - 6;
+    const len = maxLen * between(0.3, 0.96);
+    const sway = between(-22, 22);
+    const outward = Math.cos(angle) * between(6, 22);
+    strands.push(
+      `M${f(sx)} ${f(sy)} C ${f(sx + outward)} ${f(sy + len * 0.3)}, ${f(sx + sway)} ${f(sy + len * 0.68)}, ${f(sx + sway * 0.6 + outward * 0.4)} ${f(sy + len)}`,
+    );
+  }
+}
+---
+
+<svg
+  class:list={['willow', `willow--${variant}`, animate && 'willow--animate', className]}
+  viewBox={`0 0 ${W} ${H}`}
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+  preserveAspectRatio="xMidYMin meet"
+>
+  <defs>
+    <linearGradient id={gradId} x1="0" y1="0" x2="0" y2={H} gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="currentColor" stop-opacity="0.95"></stop>
+      <stop offset="0.55" stop-color="currentColor" stop-opacity="0.7"></stop>
+      <stop offset="1" stop-color="currentColor" stop-opacity="0.08"></stop>
+    </linearGradient>
+  </defs>
+  <g class="willow__structure">
+    <path d={trunk} class="willow__trunk"></path>
+    {boughs.map((d) => (
+      <path d={d} class="willow__bough" />
+    ))}
+  </g>
+  <g class="willow__stems">
+    {strands.map((d, i) => (
+      <path id={`${gradId}-s${i}`} d={d} />
+    ))}
+  </g>
+  {/* A levélzet ugyanazokat az ágakat használja újra (<use>): az útvonal csak egyszer szerepel */}
+  <g class="willow__leaves" stroke={`url(#${gradId})`}>
+    {strands.map((_, i) => (
+      <use href={`#${gradId}-s${i}`} />
+    ))}
+  </g>
+  {variant === 'hero' && <path class="willow__ground" d={`M${W * 0.18} ${ground} H ${W * 0.82}`} />}
+</svg>
+
+<style>
+  .willow {
+    /* A színátmenet currentColor-ja innen öröklődik */
+    color: var(--willow-leaf, #a8957f);
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .willow__trunk {
+    stroke: var(--willow-stem, var(--color-accent-decor));
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+  .willow__bough {
+    stroke: var(--willow-stem, var(--color-accent-decor));
+    stroke-width: 1;
+    stroke-linecap: round;
+  }
+  .willow__stems {
+    stroke: var(--willow-stem, var(--color-accent-decor));
+    stroke-width: 0.55;
+    opacity: 0.55;
+  }
+  .willow__leaves {
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 2.6 9.5;
+  }
+  .willow__ground {
+    stroke: var(--willow-stem, var(--color-accent-decor));
+    stroke-width: 0.75;
+    opacity: 0.6;
+  }
+
+  /* Egyszeri megjelenés: a lombozat fentről lefelé „ereszkedik le”. */
+  @media (prefers-reduced-motion: no-preference) {
+    .willow--animate {
+      -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 0%;
+      mask-size: 100% 0%;
+      animation: willow-descend 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s forwards;
+    }
+  }
+
+  @keyframes willow-descend {
+    to {
+      -webkit-mask-size: 100% 140%;
+      mask-size: 100% 140%;
+    }
+  }
+</style>

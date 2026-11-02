@@ -1,0 +1,82 @@
+---
+import CtaBand from '@/components/sections/CtaBand.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import ServicePaths from '@/components/sections/ServicePaths.astro';
+import StepList from '@/components/sections/StepList.astro';
+import Button from '@/components/ui/Button.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getHomepage } from '@/lib/content';
+
+const home = await getHomepage();
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Temetkezési szolgáltatások Budapesten',
+    description:
+      'Hamvasztás, hagyományos temetés, hamvak szórása, hajós temetés és búcsúztatás – a lehetőségek és a szervezés menete egy helyen.',
+  }}
+>
+  <PageHero
+    eyebrow="Szolgáltatások"
+    title="A búcsú"
+    titleEmphasis="formái"
+    lead={home.services.intro}
+    breadcrumbs={crumbs}
+    seed={17}
+  />
+
+  <Section id="utak" eyebrow="Két fő út" title="Hamvasztás vagy hagyományos temetés?">
+    <ServicePaths featured={home.services.featured} others={home.services.others} />
+  </Section>
+
+  <Section
+    id="folyamat"
+    eyebrow={home.process.eyebrow}
+    title={home.process.title}
+    intro={home.process.intro}
+    tone="ink"
+  >
+    <StepList steps={home.process.stages} variant="timeline" tone="ink" />
+  </Section>
+
+  <Section
+    id="arak"
+    eyebrow={home.pricing.eyebrow}
+    title={home.pricing.title}
+    tone="paper"
+    layout="split"
+  >
+    <div class="pricing">
+      <p class="pricing__body">{home.pricing.body}</p>
+      <Button
+        href={home.pricing.cta.href}
+        variant="secondary"
+        icon="arrow-right"
+        iconPosition="end"
+      >
+        {home.pricing.cta.label}
+      </Button>
+    </div>
+  </Section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .pricing > * + * {
+    margin-top: var(--space-8);
+  }
+  .pricing__body {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 300;
+    line-height: 1.35;
+    max-width: 32ch;
+  }
+</style>

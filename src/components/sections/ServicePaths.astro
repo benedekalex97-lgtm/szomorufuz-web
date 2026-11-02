@@ -1,0 +1,208 @@
+---
+/**
+ * A két fő út (hamvasztás / hagyományos temetés) szerkesztői párban,
+ * alatta a további szolgáltatások szöveges listája – kártyarács helyett.
+ */
+import LeafMark from '@/components/brand/LeafMark.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ServiceTeaser } from '@/content/types';
+
+interface Props {
+  featured: ServiceTeaser[];
+  others: ServiceTeaser[];
+  othersTitle?: string;
+}
+const { featured, others, othersTitle = 'További lehetőségek' } = Astro.props;
+---
+
+<div class="paths">
+  {featured.length > 0 && (
+    <ul class="paths__featured" role="list">
+      {featured.map((item) => (
+        <li class="path">
+          <h3 class="path__title">
+            <a href={item.href} class="path__link">
+              {item.title}
+            </a>
+          </h3>
+          <p class="path__body">{item.body}</p>
+          {item.points && (
+            <ul class="path__points" role="list">
+              {item.points.map((point) => (
+                <li>
+                  <LeafMark size={12} />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          )}
+          <span class="path__more" aria-hidden="true">
+            Részletek <Icon name="arrow-right" size={16} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <div class:list={['paths__others', featured.length === 0 && 'paths__others--solo']}>
+    <h3 class="paths__others-title">{othersTitle}</h3>
+    <ul class="others" role="list">
+      {others.map((item) => (
+        <li>
+          <a href={item.href} class="other">
+            <span class="other__title">{item.title}</span>
+            <span class="other__body">{item.body}</span>
+            <Icon name="arrow-right" size={18} class="other__icon" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .paths__featured {
+    display: grid;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-text);
+  }
+  .path {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-block: var(--space-8) var(--space-10);
+    border-bottom: 1px solid rgb(184 170 152 / 0.8);
+  }
+  .path__title {
+    font-size: var(--text-4xl);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .path__link {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .path__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .path__link:focus-visible {
+    outline: none;
+  }
+  .path:has(.path__link:focus-visible) {
+    outline: var(--focus-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+  .path__body {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 30rem;
+  }
+  .path__points {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+  .path__points li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .path__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-2);
+    font-weight: var(--weight-medium);
+    color: var(--color-accent-text);
+  }
+  .path__more :global(.icon) {
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .path:hover .path__more :global(.icon) {
+    transform: translateX(4px);
+  }
+  .path:hover .path__link {
+    color: var(--color-accent-text);
+  }
+
+  .paths__others {
+    margin-top: var(--space-12);
+  }
+  .paths__others--solo {
+    margin-top: 0;
+  }
+  .paths__others-title {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+    margin-bottom: var(--space-4);
+  }
+  .others {
+    display: grid;
+    padding: 0;
+    list-style: none;
+  }
+  .other {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-1) var(--space-4);
+    min-height: 4.5rem;
+    padding-block: var(--space-4);
+    border-top: 1px solid rgb(184 170 152 / 0.7);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .other__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+  }
+  .other__body {
+    grid-column: 1;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .other :global(.other__icon) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: var(--color-accent-decor);
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .other:hover {
+    color: var(--color-accent-text);
+  }
+  .other:hover :global(.other__icon) {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 48em) {
+    .paths__featured {
+      grid-template-columns: 1fr 1fr;
+    }
+    .path {
+      padding-inline-end: var(--space-10);
+    }
+    .path + .path {
+      padding-inline: var(--space-10) 0;
+      border-left: 1px solid rgb(184 170 152 / 0.8);
+    }
+    .others {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-10);
+    }
+  }
+  @media (min-width: 75em) {
+    .others {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
