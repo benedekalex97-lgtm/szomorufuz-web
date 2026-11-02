@@ -1,0 +1,150 @@
+{
+  "tag": "review",
+  "base": "/home/user/szomorufuz-web/dist-review",
+  "startedAt": "2026-11-02T13:55:19.323Z",
+  "checks": {
+    "responsive": [
+      {
+        "width": 320,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 10085,
+        "consoleErrors": []
+      },
+      {
+        "width": 375,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 9356,
+        "consoleErrors": []
+      },
+      {
+        "width": 390,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 9339,
+        "consoleErrors": []
+      },
+      {
+        "width": 768,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 6842,
+        "consoleErrors": []
+      },
+      {
+        "width": 1024,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 6308,
+        "consoleErrors": []
+      },
+      {
+        "width": 1440,
+        "overflow": 0,
+        "overflowing": [],
+        "minFont": 12,
+        "smallTargets": [],
+        "height": 6301,
+        "consoleErrors": []
+      }
+    ],
+    "mobileMenu": {
+      "steps": [
+        {
+          "step": "Tab 1",
+          "focused": "Ugrás a tartalomra"
+        }
+      ],
+      "openState": "true",
+      "menuVisible": true,
+      "firstLinkAfterTab": "Főoldal",
+      "closedState": "false",
+      "focusBack": true,
+      "menuHidden": true
+    },
+    "axe": [
+      {
+        "path": "/",
+        "width": 390,
+        "violations": [],
+        "passes": 42,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/teendok-halaleset-utan/",
+        "width": 390,
+        "violations": [],
+        "passes": 39,
+        "incomplete": []
+      },
+      {
+        "path": "/teendok-halaleset-utan/",
+        "width": 1440,
+        "violations": [],
+        "passes": 37,
+        "incomplete": []
+      },
+      {
+        "path": "/stilus/",
+        "width": 390,
+        "violations": [],
+        "passes": 45,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/stilus/",
+        "width": 1440,
+        "violations": [],
+        "passes": 45,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/nem-letezo-oldal/",
+        "width": 390,
+        "violations": [],
+        "passes": 39,
+        "incomplete": []
+      },
+      {
+        "path": "/nem-letezo-oldal/",
+        "width": 1440,
+        "violations": [],
+        "passes": 37,
+        "incomplete": []
+      }
+    ],
+    "links": {
+      "checked": 27,
+      "broken": [],
+      "unknownPathStatus": 404
+    }
+  },
+  "finishedAt": "2026-11-02T13:55:36.238Z",
+  "failures": []
+}
