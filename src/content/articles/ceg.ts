@@ -1,3 +1,4 @@
+import { company } from '@/content/data/contact';
 import { priceBlock } from '@/lib/prices';
 
 import type { Article } from '../types';
@@ -147,31 +148,92 @@ export const jogiNyilatkozat: Article = {
  */
 export const adatkezeles: Article = {
   slug: 'adatkezeles',
+  // A régi honlap adatkezelési tájékoztatója más cégnevet és címet tartalmazott, ezért
+  // annak szövegét NEM vettük át (audit SZF-006). Ez a szöveg a tényleges adatfolyamot írja le.
   source: [`${LIVE}/adatkezeles/`],
   section: 'jogi',
   eyebrow: 'Jogi információk',
   title: 'Adatkezelés',
   titleEmphasis: 'és sütik',
-  lead: 'Röviden arról, milyen adatokat kezel ez a weboldal – és milyeneket nem.',
+  lead: 'Milyen adatokat kezel ez a weboldal, mi történik az űrlapokon megadott adatokkal – és mit nem gyűjtünk.',
   seo: {
     title: 'Adatkezelés és sütik',
     description:
-      'Ez a weboldal nem használ sütiket, nem végez látogatottságmérést, és nem gyűjt személyes adatot űrlapon keresztül.',
+      'A weboldal űrlapjain megadott adatok útja, a sütik és a látogatottságmérés hiánya, valamint az érintetti jogok.',
   },
   blocks: [
+    {
+      type: 'callout',
+      title: 'Tervezet',
+      text: 'Ez a tájékoztató az adatkezelő jóváhagyására vár. Az online űrlapokon keresztüli küldés csak a végleges, jóváhagyott tájékoztató közzététele után aktiválható.',
+    },
+    { type: 'h2', text: 'Az adatkezelő', id: 'adatkezelo' },
+    {
+      type: 'facts',
+      items: [
+        { label: 'Név', value: company.legalName },
+        { label: 'Székhely', value: company.seat },
+        { label: 'E-mail', value: company.email },
+        { label: 'Cégjegyzékszám', value: company.registrationNo },
+      ],
+    },
     { type: 'h2', text: 'Ez a weboldal', id: 'weboldal' },
     {
       type: 'list',
       items: [
-        'nem használ sütiket (cookie-kat),',
+        'nem használ sütiket (cookie-kat), és a böngészőben sem tárol adatot,',
         'nem végez látogatottságmérést, és nem tartalmaz hirdetési vagy közösségimédia-követőkódot,',
-        'nem tartalmaz személyes adatot gyűjtő űrlapot,',
-        'a betűtípusokat saját tárhelyről tölti be, külső szolgáltató bevonása nélkül.',
+        'a betűtípusokat saját tárhelyről tölti be, külső szolgáltató bevonása nélkül,',
+        'helyadatot nem kér és nem használ.',
       ],
+    },
+    { type: 'h2', text: 'Az online űrlapok', id: 'urlapok' },
+    {
+      type: 'p',
+      text: 'A weboldalon árajánlatot, telefonos visszahívást vagy tájékoztatást kérhet, illetve üzenetet küldhet. Az űrlapokon megadott adatokat kizárólag a megkeresés megválaszolásához kérjük.',
+    },
+    {
+      type: 'defs',
+      items: [
+        {
+          term: 'Milyen adatokat kérünk',
+          text: 'Az Ön nevét, e-mail címét és telefonszámát; árajánlatkérésnél az elhunyt nevét, a haláleset és a temetés körülményeire vonatkozó válaszokat (például a temetés típusa, a sírhely, az elhunyt jelenlegi helye), valamint az Ön által írt megjegyzést. A kötelező mezőket az űrlap jelöli.',
+        },
+        {
+          term: 'Mi történik az adatokkal',
+          text: 'Az adatok titkosított (HTTPS) kapcsolaton jutnak el a weboldal szerveréhez, amely ellenőrzi, majd e-mailként továbbítja őket az adatkezelő ügyfélszolgálati postafiókjába. A weboldal az űrlapok tartalmát adatbázisban nem tárolja.',
+        },
+        {
+          term: 'Naplózás',
+          text: 'A szerver csak technikai eseményt naplóz (melyik űrlap, sikeres volt-e a küldés, mennyi ideig tartott) – az űrlap tartalmát, az Ön nevét, elérhetőségét vagy IP-címét nem. A visszaélések (tömeges küldés) kiszűréséhez az IP-cím egyirányú, visszafejthetetlen kivonatát legfeljebb 10 percig a szerver memóriájában tartjuk.',
+        },
+        {
+          term: 'Az adatkezelés jogalapja',
+          text: 'Az adatkezelő jóváhagyására vár.',
+        },
+        {
+          term: 'Megőrzési idő',
+          text: 'Az adatkezelő jóváhagyására vár.',
+        },
+        {
+          term: 'Adatfeldolgozók és címzettek',
+          text: 'Az adatkezelő jóváhagyására vár (a weboldal tárhelyszolgáltatója és az e-mail-továbbítás szolgáltatója).',
+        },
+      ],
+    },
+    { type: 'h2', text: 'Az Ön jogai', id: 'jogok' },
+    {
+      type: 'p',
+      text: 'Az általános adatvédelmi rendelet (GDPR) alapján kérhet tájékoztatást a kezelt adatairól, kérheti azok helyesbítését, törlését vagy kezelésük korlátozását, tiltakozhat az adatkezelés ellen, és kérheti adatai hordozását. Kérését a [budapest@temetkezes.hu](mailto:budapest@temetkezes.hu) címre küldheti.',
     },
     {
       type: 'p',
-      text: 'Ha telefonon vagy e-mailben keres meg minket, az Ön által megadott adatokat a Szomorúfűz Temetkezés kezeli. A „Útvonaltervezés” hivatkozások a Google Térkép oldalát nyitják meg új lapon; az ott történő adatkezelésre a Google adatkezelési tájékoztatója irányadó.',
+      text: 'Ha úgy érzi, hogy adatai kezelése sérti a jogait, panaszt tehet a Nemzeti Adatvédelmi és Információszabadság Hatóságnál ([naih.hu](https://naih.hu/)), illetve bírósághoz fordulhat.',
+    },
+    { type: 'h2', text: 'Telefonos és e-mailes megkeresés', id: 'telefon' },
+    {
+      type: 'p',
+      text: 'Ha telefonon vagy e-mailben keres meg minket, az Ön által megadott adatokat a Szomorúfűz Temetkezés kezeli. Az „Útvonaltervezés” hivatkozások a Google Térkép oldalát nyitják meg új lapon; az ott történő adatkezelésre a Google adatkezelési tájékoztatója irányadó.',
     },
     { type: 'h2', text: 'Sütik', id: 'sutik' },
     {
