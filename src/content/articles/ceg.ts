@@ -1,5 +1,4 @@
 import { company } from '@/content/data/contact';
-import { priceBlock } from '@/lib/prices';
 
 import type { Article } from '../types';
 
@@ -249,7 +248,7 @@ export const adatkezeles: Article = {
   related: ['ceginformaciok', 'jogi-nyilatkozat'],
 };
 
-/** Forrás: /urnak/, /termek-adatlapok/, /textiliak/, /sirjelzo/ – képek nélkül (felhasználási jog tisztázatlan). */
+/** Forrás: /urnak/, /termek-adatlapok/ (7 Sephia adatlap), /textiliak/, /sirjelzo/ (terméknevek a régi galéria képcímeiből). Képek: image-register.ts. */
 export const urnak: Article = {
   slug: 'urnak',
   source: [
@@ -286,21 +285,18 @@ export const urnak: Article = {
       type: 'p',
       text: 'Teljesen egyedi gyártású, kézzel festett, fém alapanyagú, kerek, normál méretű díszurnák. Nincs két ugyanolyan alkotás: valamilyen részletben mindig eltérnek egymástól.',
     },
-    priceBlock('sephia-urna', { label: 'Sephia fémurnák ára' }),
+    { type: 'catalog', group: 'sephia' },
+    { type: 'h2', text: 'Textíliák', id: 'textiliak' },
+    { type: 'h3', text: 'Urnaterítők', id: 'urnateritok' },
+    { type: 'catalog', group: 'urnateritok' },
+    { type: 'h3', text: 'Urnaleeresztők', id: 'urnaleeresztok' },
+    { type: 'catalog', group: 'urnaleeresztok' },
+    { type: 'h2', text: 'Sírjelzők', id: 'sirjelzok' },
+    { type: 'catalog', group: 'sirjelzok' },
     {
-      type: 'facts',
-      items: [
-        { label: '0102001', value: 'Fejfa' },
-        { label: '0102002', value: 'Alkonyat' },
-        { label: '0102003', value: 'Cédrus' },
-        { label: '0102004', value: 'Csend' },
-        { label: '0102005', value: 'Erdő' },
-        { label: '0102006', value: 'Liliom' },
-        { label: '0102007', value: 'Vízpart' },
-      ],
+      type: 'p',
+      text: 'A textíliák és sírjelzők választékáról és áráról munkatársaink telefonon tájékoztatják: +36 30 847 1915.',
     },
-    { type: 'h2', text: 'Textíliák és sírjelzők', id: 'textiliak' },
-    { type: 'list', items: ['Urnaterítők', 'Urnaleeresztők', 'Sírjelzők'] },
     { type: 'contact' },
   ],
   related: ['hamvasztas-urnakiadas', 'hamvak-hazavitele', 'hamvak-szorasa-dunaba'],
@@ -324,34 +320,42 @@ export const jogszabalyok: Article = {
       type: 'defs',
       items: [
         {
+          id: 'tv-1999-xliii',
           term: '1999. évi XLIII. törvény a temetőkről és a temetkezésről',
           text: 'Az elhunyt személyek emlékének méltó megőrzése és ápolása, a temetkezés közegészségügyi és kegyeleti rendeltetésének érvényesítése, valamint a temető és temetkezési kultúra fejlesztése érdekében alkotott törvény.',
         },
         {
+          id: 'korm-145-1999',
           term: '145/1999. (X. 1.) Korm. rendelet',
           text: 'A temetőkről és a temetkezésről szóló törvény végrehajtásáról.',
         },
         {
+          id: 'korm-146-1999',
           term: '146/1999. (X. 1.) Korm. rendelet',
           text: 'A Nemzeti Kegyeleti Bizottság szervezetéről.',
         },
         {
+          id: 'bm-eum-im-34-1999',
           term: '34/1999. (IX. 24.) BM-EüM-IM együttes rendelet',
           text: 'Az egészségügyről szóló 1997. évi CLIV. törvénynek a halottakkal kapcsolatos rendelkezései végrehajtásáról, valamint a rendkívüli halál esetén követendő eljárásról.',
         },
         {
+          id: 'tv-2005-xxi',
           term: '2005. évi XXI. törvény',
           text: 'A temetőkről és a temetkezésről szóló 1999. évi XLIII. törvény módosításáról.',
         },
         {
+          id: 'tv-2013-cxxxviii',
           term: '2013. évi CXXXVIII. törvény',
           text: 'A temetőkről és a temetkezésről szóló 1999. évi XLIII. törvény módosításáról (többek között a hamvak hazavitele és a szociális temetés szabályai).',
         },
         {
+          id: 'korm-379-2013',
           term: '379/2013. (X. 25.) Korm. rendelet',
           text: 'A 145/1999. (X. 1.) Korm. rendelet, valamint a 43/1999. (III. 3.) Korm. rendelet módosításáról.',
         },
         {
+          id: 'korm-237-2001',
           term: '237/2001. (XII. 10.) Korm. rendelet',
           text: 'A nemzeti gyászról.',
         },
@@ -359,7 +363,7 @@ export const jogszabalyok: Article = {
     },
     {
       type: 'p',
-      text: 'A jogszabályok mindenkor hatályos szövege a Nemzeti Jogszabálytárban ([njt.hu](https://njt.hu)) érhető el.',
+      text: 'A jogszabályok mindenkor hatályos, hivatalos szövege a Nemzeti Jogszabálytárban ([njt.hu](https://njt.hu)) érhető el – a jogszabály számára (például „1999. évi XLIII. törvény”) keresve. Korábbi honlapunk a jogszabályok egykori szövegét is közölte; ezeket elavulásuk veszélye miatt nem tesszük közzé.',
     },
   ],
   related: ['hamvak-hazavitele', 'szocialis-temetes', 'hamvasztas-menete'],

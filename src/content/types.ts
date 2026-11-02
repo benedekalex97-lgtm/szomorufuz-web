@@ -253,21 +253,23 @@ export interface ContactLine {
 /** Cikk-blokkok a hosszú tájékoztató oldalakhoz. Szövegben: [link](url), **kiemelés**. */
 export type ArticleBlock =
   | { type: 'h2'; text: string; id?: string }
-  | { type: 'h3'; text: string }
+  | { type: 'h3'; text: string; id?: string }
   | { type: 'p'; text: string }
   | { type: 'list'; items: string[]; ordered?: boolean }
   | { type: 'steps'; items: Step[] }
   | { type: 'price'; label: string; value: string; note?: string; condition?: string }
   | { type: 'callout'; title?: string; text: string }
   | { type: 'legal'; source: string; paragraphs: string[] }
-  | { type: 'defs'; items: { term: string; text: string }[] }
+  | { type: 'defs'; items: { term: string; text: string; id?: string }[] }
   | { type: 'facts'; items: { label: string; value: string }[] }
   | { type: 'faq'; items: { q: string; a: string }[] }
   | { type: 'contact' }
   | { type: 'quote-cta'; title?: string }
   | { type: 'quote-request' }
   | { type: 'form'; form: FormId }
-  | { type: 'quote-forms' };
+  | { type: 'quote-forms' }
+  | { type: 'gallery'; group: 'ravatalozo'; title: string; id: string }
+  | { type: 'catalog'; group: 'sephia' | 'sirjelzok' | 'urnateritok' | 'urnaleeresztok' };
 
 export interface Article {
   slug: string;

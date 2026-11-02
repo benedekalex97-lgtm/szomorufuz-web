@@ -3,6 +3,9 @@
 import ContactCard from '@/components/article/ContactCard.astro';
 import QuoteRequest from '@/components/article/QuoteRequest.astro';
 import Form from '@/components/forms/Form.astro';
+import Gallery from '@/components/media/Gallery.astro';
+import ProductCatalog from '@/components/media/ProductCatalog.astro';
+import { approvedImages } from '@/content/data/image-register';
 import QuoteForms from '@/components/forms/QuoteForms.astro';
 import LeafMark from '@/components/brand/LeafMark.astro';
 import StepList from '@/components/sections/StepList.astro';
@@ -34,7 +37,11 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
           </h2>
         );
       case 'h3':
-        return <h3 class="b-h3">{b.text}</h3>;
+        return (
+          <h3 class="b-h3" id={b.id}>
+            {b.text}
+          </h3>
+        );
       case 'p':
         return <p class="b-p" set:html={inline(b.text)} />;
       case 'list':
@@ -93,7 +100,7 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
         return (
           <dl class="b-defs">
             {b.items.map((d) => (
-              <div>
+              <div id={d.id}>
                 <dt>{d.term}</dt>
                 <dd set:html={inline(d.text)} />
               </div>
@@ -159,6 +166,21 @@ const quoteLink = service ? quoteHref(service.id) : '/arajanlat-keres-itt/#urlap
         return <Form form={b.form} service={service} />;
       case 'quote-forms':
         return <QuoteForms />;
+      case 'gallery':
+        return (
+          <Gallery
+            id={b.id}
+            title={b.title}
+            images={approvedImages(b.group).map((i) => ({
+              src: i.target,
+              alt: i.alt,
+              width: i.width,
+              height: i.height,
+            }))}
+          />
+        );
+      case 'catalog':
+        return <ProductCatalog group={b.group} />;
       default:
         return null;
     }

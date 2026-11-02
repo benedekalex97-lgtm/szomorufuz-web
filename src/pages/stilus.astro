@@ -1,5 +1,6 @@
 ---
 /** Belső stílusútmutató – élő dizájnrendszer-referencia. noindex, sitemapen kívül. */
+import Gallery from '@/components/media/Gallery.astro';
 import Accordion from '@/components/ui/Accordion.astro';
 import Button from '@/components/ui/Button.astro';
 import Card from '@/components/ui/Card.astro';
@@ -124,6 +125,25 @@ const iconNames = Object.keys(icons) as IconName[];
     <section aria-labelledby="g-gyik">
       <h2 id="g-gyik">Harmonika</h2>
       <Accordion items={[{ id: 'g1', question: 'Példa kérdés?', answer: 'Példa válasz.' }]} />
+    </section>
+
+    <section aria-labelledby="g-galeria">
+      <h2 id="g-galeria">Galéria (belső tesztminták)</h2>
+      <p>
+        A galéria-komponens tesztje. Az éles oldalakon csak igazolt felhasználási jogú eredeti képek
+        jelennek meg (content/data/image-register.ts); ezek a minták sehol máshol nem szerepelnek.
+      </p>
+      <Gallery
+        id="stilus-galeria"
+        title="Tesztgaléria"
+        headingLevel={3}
+        images={[1, 2, 3].map((i) => ({
+          src: `/stilus/tesztminta-${i}.svg`,
+          alt: `Tesztminta ${i}`,
+          width: 600,
+          height: 400 + i * 20,
+        }))}
+      />
     </section>
 
     <section aria-labelledby="g-ikonok">

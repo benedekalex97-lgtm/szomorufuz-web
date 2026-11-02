@@ -1,0 +1,146 @@
+---
+/**
+ * Termékkatalógus (audit SZF-005). Termékkép csak igazolt felhasználási joggal jelenik
+ * meg; hiányzó eredeti képet nem pótolunk generált vagy stockképpel.
+ */
+import { approvedImages, type ImageGroup, imagesOf } from '@/content/data/image-register';
+import { productTitle, products } from '@/content/data/products';
+import { quoteHref } from '@/forms/definitions';
+import { getPrice, priceValue, vatNote } from '@/lib/prices';
+
+interface Props {
+  group: Exclude<ImageGroup, 'ravatalozo'>;
+}
+const { group } = Astro.props;
+const approved = new Map(approvedImages(group).map((i) => [i.code ?? i.name, i]));
+
+interface Item {
+  id?: string | undefined;
+  name: string;
+  code?: string | undefined;
+  meta: string[];
+  price?: string | undefined;
+  priceNote?: string | null | undefined;
+  href?: string | undefined;
+  hrefLabel?: string | undefined;
+}
+
+const sephiaPrice = getPrice('sephia-urna');
+const items: Item[] =
+  group === 'sephia'
+    ? products.map((p) => ({
+        id: p.slug,
+        name: productTitle(p).replace(` – ${p.code}`, ''),
+        code: p.code,
+        meta: [p.type, p.material, p.size],
+        price: priceValue(sephiaPrice),
+        priceNote: vatNote(sephiaPrice),
+        href: quoteHref('termek', { termek: p.code }),
+        hrefLabel: 'Érdeklődöm',
+      }))
+    : imagesOf(group).map((i) => ({ name: i.name, meta: [] }));
+---
+
+<ul class:list={['catalog', group !== 'sephia' && 'catalog--compact']} role="list">
+  {items.map((item) => {
+    const image = approved.get(item.code ?? item.name);
+    return (
+      <li class="catalog__item" id={item.id}>
+        {image && (
+          <img
+            class="catalog__img"
+            src={image.target}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <p class="catalog__name">{item.name}</p>
+        {item.code && <p class="catalog__code">Termékkód: {item.code}</p>}
+        {item.meta.length > 0 && <p class="catalog__meta">{item.meta.join(' · ')}</p>}
+        {item.price && (
+          <p class="catalog__price">
+            {item.price}
+            {item.priceNote && <span>{item.priceNote}</span>}
+          </p>
+        )}
+        {item.href && (
+          <a class="catalog__link" href={item.href}>
+            {item.hrefLabel}
+            <span class="visually-hidden"> – {item.name}</span>
+          </a>
+        )}
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-4);
+    margin-block: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+  .catalog--compact {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+    gap: var(--space-2);
+  }
+  .catalog__item {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--color-text);
+    background: var(--color-surface);
+    scroll-margin-top: calc(var(--header-height) + var(--space-6));
+  }
+  .catalog--compact .catalog__item {
+    padding: var(--space-3) var(--space-4);
+    border-top-color: var(--color-border-subtle);
+  }
+  .catalog__item:target {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+  .catalog__img {
+    width: 100%;
+    height: auto;
+    margin-bottom: var(--space-3);
+  }
+  .catalog__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+  .catalog--compact .catalog__name {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+  }
+  .catalog__code,
+  .catalog__meta {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .catalog__price {
+    margin-top: var(--space-2);
+    font-weight: var(--weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+  .catalog__price span {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    color: var(--color-text-muted);
+  }
+  .catalog__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    font-weight: var(--weight-medium);
+  }
+</style>

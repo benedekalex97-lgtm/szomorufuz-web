@@ -224,6 +224,7 @@ export const ravatalozoTerem: Article = {
         { label: 'Szombaton', value: 'is vállaljuk a ravatali szertartást' },
       ],
     },
+    { type: 'gallery', group: 'ravatalozo', id: 'galeria', title: 'Képek a ravatalozó teremről' },
     {
       type: 'p',
       text: 'A 60 perces alapidőben benne van a megközelítőleg 30 perces várakozási idő, valamint a búcsúbeszédre és részvétnyilvánításra számítható ugyanennyi idő. A szertartás előtt 15 perccel elhelyezzük az elhunyt urnáját a ravatalozó teremben, így biztosított az érkezők fogadása és a nyugodt várakozás, emlékezés. A búcsúszertartás után halotti tor megrendezésére is lehetőség nyílik – ennek pontos körülményeiről munkatársainktól kaphat felvilágosítást.',
