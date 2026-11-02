@@ -18,6 +18,7 @@
     "qa:browser": "node scripts/qa/browser-qa.mjs",
     "qa:deploy": "node scripts/qa/deploy-qa.mjs",
     "qa:screenshots": "node scripts/qa/screenshots.mjs",
+    "qa:content": "node scripts/qa/content-qa.mjs",
     "verify": "npm run check && npm run lint && npm run format:check && npm run build"
   },
   "dependencies": {

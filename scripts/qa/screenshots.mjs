@@ -10,14 +10,18 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
 const DIST = resolve('dist');
-const OUT = resolve('docs/screenshots/demo');
+const OUT = resolve('docs/screenshots/content');
 const PAGES = [
   ['home', '/', [320, 375, 390, 768, 1024, 1440]],
   ['teendok', '/teendok-halaleset-utan/', [390, 1440]],
   ['szolgaltatasok', '/szolgaltatasok/', [390, 1440]],
-  ['hamvasztas', '/hamvasztasos-temetes/', [390, 1440]],
-  ['hagyomanyos-temetes', '/koporsos-temetes/', [390, 1440]],
+  ['hamvasztasos-temetes', '/hamvasztasos-temetes/', [390, 1440]],
+  ['koporsos-temetes', '/koporsos-temetes/', [390, 1440]],
+  ['arak', '/arak/', [390, 1440]],
+  ['arajanlat', '/arajanlat-keres-itt/', [390, 1440]],
   ['kapcsolat', '/elerhetoseg/', [390, 1440]],
+  ['szukseges-iratok', '/szukseges-iratok/', [390, 1440]],
+  ['ravatalozo-terem', '/ravatalozo-terem/', [390, 1440]],
 ];
 const TYPES = {
   '.html': 'text/html; charset=utf-8',

@@ -26,12 +26,16 @@ const WIDTHS = [320, 375, 390, 768, 1024, 1440];
 const A11Y_PAGES = [
   '/',
   '/teendok-halaleset-utan/',
+  '/szukseges-iratok/',
   '/szolgaltatasok/',
   '/hamvasztasos-temetes/',
   '/koporsos-temetes/',
-  '/elerhetoseg/',
+  '/ravatalozo-terem/',
   '/arak/',
-  '/stilus/',
+  '/arajanlat-keres-itt/',
+  '/elerhetoseg/',
+  '/gyakori-kerdesek/',
+  '/ceginformaciok/',
   '/nem-letezo-oldal/',
 ];
 

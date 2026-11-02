@@ -1,7 +1,7 @@
 {
   "tag": "strict",
   "base": "/home/user/szomorufuz-web/dist",
-  "startedAt": "2026-11-02T16:46:24.933Z",
+  "startedAt": "2026-11-02T17:47:29.392Z",
   "checks": {
     "responsive": [
       {
@@ -16,7 +16,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 10605,
+        "height": 14371,
         "consoleErrors": []
       },
       {
@@ -31,7 +31,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 9902,
+        "height": 13488,
         "consoleErrors": []
       },
       {
@@ -46,7 +46,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 9718,
+        "height": 13161,
         "consoleErrors": []
       },
       {
@@ -61,7 +61,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 7938,
+        "height": 10164,
         "consoleErrors": []
       },
       {
@@ -76,7 +76,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 6858,
+        "height": 8564,
         "consoleErrors": []
       },
       {
@@ -91,7 +91,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 6997,
+        "height": 8236,
         "consoleErrors": []
       }
     ],
@@ -114,7 +114,7 @@
         "path": "/",
         "width": 390,
         "violations": [],
-        "passes": 40,
+        "passes": 43,
         "incomplete": [
           "color-contrast"
         ]
@@ -123,7 +123,7 @@
         "path": "/",
         "width": 1440,
         "violations": [],
-        "passes": 39,
+        "passes": 42,
         "incomplete": [
           "color-contrast"
         ]
@@ -141,14 +141,23 @@
         "path": "/teendok-halaleset-utan/",
         "width": 1440,
         "violations": [],
+        "passes": 40,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/szukseges-iratok/",
+        "width": 390,
+        "violations": [],
         "passes": 41,
         "incomplete": [
           "color-contrast"
         ]
       },
       {
-        "path": "/szolgaltatasok/",
-        "width": 390,
+        "path": "/szukseges-iratok/",
+        "width": 1440,
         "violations": [],
         "passes": 39,
         "incomplete": [
@@ -157,9 +166,18 @@
       },
       {
         "path": "/szolgaltatasok/",
+        "width": 390,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/szolgaltatasok/",
         "width": 1440,
         "violations": [],
-        "passes": 37,
+        "passes": 39,
         "incomplete": [
           "color-contrast"
         ]
@@ -168,7 +186,7 @@
         "path": "/hamvasztasos-temetes/",
         "width": 390,
         "violations": [],
-        "passes": 41,
+        "passes": 42,
         "incomplete": [
           "color-contrast"
         ]
@@ -195,34 +213,34 @@
         "path": "/koporsos-temetes/",
         "width": 1440,
         "violations": [],
+        "passes": 39,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/ravatalozo-terem/",
+        "width": 390,
+        "violations": [],
+        "passes": 42,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/ravatalozo-terem/",
+        "width": 1440,
+        "violations": [],
         "passes": 40,
         "incomplete": [
           "color-contrast"
         ]
       },
       {
-        "path": "/elerhetoseg/",
-        "width": 390,
-        "violations": [],
-        "passes": 39,
-        "incomplete": [
-          "color-contrast"
-        ]
-      },
-      {
-        "path": "/elerhetoseg/",
-        "width": 1440,
-        "violations": [],
-        "passes": 37,
-        "incomplete": [
-          "color-contrast"
-        ]
-      },
-      {
         "path": "/arak/",
         "width": 390,
         "violations": [],
-        "passes": 39,
+        "passes": 42,
         "incomplete": [
           "color-contrast"
         ]
@@ -231,25 +249,77 @@
         "path": "/arak/",
         "width": 1440,
         "violations": [],
-        "passes": 37,
+        "passes": 40,
         "incomplete": [
           "color-contrast"
         ]
       },
       {
-        "path": "/stilus/",
+        "path": "/arajanlat-keres-itt/",
         "width": 390,
         "violations": [],
-        "passes": 45,
+        "passes": 41,
         "incomplete": [
           "color-contrast"
         ]
       },
       {
-        "path": "/stilus/",
+        "path": "/arajanlat-keres-itt/",
         "width": 1440,
         "violations": [],
-        "passes": 45,
+        "passes": 39,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/elerhetoseg/",
+        "width": 390,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/elerhetoseg/",
+        "width": 1440,
+        "violations": [],
+        "passes": 39,
+        "incomplete": []
+      },
+      {
+        "path": "/gyakori-kerdesek/",
+        "width": 390,
+        "violations": [],
+        "passes": 42,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/gyakori-kerdesek/",
+        "width": 1440,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/ceginformaciok/",
+        "width": 390,
+        "violations": [],
+        "passes": 41,
+        "incomplete": [
+          "color-contrast"
+        ]
+      },
+      {
+        "path": "/ceginformaciok/",
+        "width": 1440,
+        "violations": [],
+        "passes": 39,
         "incomplete": [
           "color-contrast"
         ]
@@ -266,17 +336,15 @@
         "width": 1440,
         "violations": [],
         "passes": 37,
-        "incomplete": [
-          "color-contrast"
-        ]
+        "incomplete": []
       }
     ],
     "links": {
-      "checked": 362,
+      "checked": 465,
       "broken": [],
       "unknownPathStatus": 404
     }
   },
-  "finishedAt": "2026-11-02T16:47:14.803Z",
+  "finishedAt": "2026-11-02T17:48:37.884Z",
   "failures": []
 }

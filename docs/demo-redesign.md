@@ -1,5 +1,7 @@
 # Bemutatóverzió – vizuális újratervezés
 
+> **Megjegyzés:** a tartalmat a `fix/content-reconstruction` ág az élő oldal eredeti tartalmával váltotta fel; a jóváhagyási jelölések eltávolítva. Lásd [content-migration.md](content-migration.md).
+
 **Ág:** `design/demo-redesign` (a `phase-1/foundation`-ből) · **Állapot:** bemutatható, noindex, nofollow.
 
 ## Koncepció

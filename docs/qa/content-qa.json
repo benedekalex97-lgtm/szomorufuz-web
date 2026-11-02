@@ -1,0 +1,188 @@
+{
+  "pages": 37,
+  "tel": {
+    "total": 422,
+    "mismatches": [],
+    "unlinked": []
+  },
+  "banned": [],
+  "checks": {
+    "offices": [
+      {
+        "addr": "1064 Budapest, Izabella utca 65.",
+        "tel": "+36 1 919 0170",
+        "mob": "+36 30 847 1915",
+        "ok": true
+      },
+      {
+        "addr": "1123 Budapest, Nagyenyed utca 1.",
+        "tel": "+36 1 919 0886",
+        "mob": "+36 30 203 2300",
+        "ok": true
+      },
+      {
+        "addr": "1146 Budapest, Thököly út 167.",
+        "tel": "+36 1 919 0172",
+        "mob": "+36 30 965 1783",
+        "ok": true
+      },
+      {
+        "addr": "1173 Budapest, Pesti út 41/A.",
+        "tel": "+36 1 919 0171",
+        "mob": "+36 30 313 7920",
+        "ok": true
+      },
+      {
+        "addr": "1204 Budapest, Szivacs utca 5.",
+        "tel": "+36 1 919 0173",
+        "mob": "+36 30 576 7206",
+        "ok": true
+      }
+    ],
+    "central": [
+      {
+        "v": "+36 30 847 1915",
+        "ok": true
+      },
+      {
+        "v": "+36 30 849 3538",
+        "ok": true
+      },
+      {
+        "v": "+36 1 919 0170",
+        "ok": true
+      },
+      {
+        "v": "budapest@temetkezes.hu",
+        "ok": true
+      },
+      {
+        "v": "8:00–16:00",
+        "ok": true
+      }
+    ],
+    "quote": {
+      "mailto": true,
+      "tel": true
+    },
+    "legacy": [
+      {
+        "url": "/",
+        "ok": true
+      },
+      {
+        "url": "/teendok-halaleset-utan/",
+        "ok": true
+      },
+      {
+        "url": "/szukseges-iratok/",
+        "ok": true
+      },
+      {
+        "url": "/hamvasztasos-temetes/",
+        "ok": true
+      },
+      {
+        "url": "/hamvasztas-urnakiadas/",
+        "ok": true
+      },
+      {
+        "url": "/hamvak-hazavitele/",
+        "ok": true
+      },
+      {
+        "url": "/hamvasztas-menete/",
+        "ok": true
+      },
+      {
+        "url": "/hamvak-temetese/",
+        "ok": true
+      },
+      {
+        "url": "/hamvak-szorasa-temeto/",
+        "ok": true
+      },
+      {
+        "url": "/hamvak-szorasa-dunaba/",
+        "ok": true
+      },
+      {
+        "url": "/koporsos-temetes/",
+        "ok": true
+      },
+      {
+        "url": "/ravatalozo-terem/",
+        "ok": true
+      },
+      {
+        "url": "/polgari-bucsuztatas/",
+        "ok": true
+      },
+      {
+        "url": "/fiumei-uti-temeto/",
+        "ok": true
+      },
+      {
+        "url": "/szocialis-temetes/",
+        "ok": true
+      },
+      {
+        "url": "/argarancia/",
+        "ok": true
+      },
+      {
+        "url": "/arajanlat-keres-itt/",
+        "ok": true
+      },
+      {
+        "url": "/arajanlatkeres/",
+        "ok": true
+      },
+      {
+        "url": "/tajekoztatas-keres/",
+        "ok": true
+      },
+      {
+        "url": "/elerhetoseg/",
+        "ok": true
+      },
+      {
+        "url": "/ceginformaciok/",
+        "ok": true
+      },
+      {
+        "url": "/adatkezeles/",
+        "ok": true
+      },
+      {
+        "url": "/jogi-nyilatkozat/",
+        "ok": true
+      },
+      {
+        "url": "/urnak/",
+        "ok": true
+      },
+      {
+        "url": "/jogszabalyok/",
+        "ok": true
+      },
+      {
+        "url": "/gyakori-kerdesek/",
+        "ok": true
+      },
+      {
+        "url": "/ravatalozo-galeria/",
+        "ok": true
+      },
+      {
+        "url": "/termek-adatlapok/",
+        "ok": true
+      },
+      {
+        "url": "/hasznos-linkek/",
+        "ok": true
+      }
+    ]
+  },
+  "failures": []
+}
