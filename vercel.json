@@ -8,7 +8,8 @@
     "deploymentEnabled": {
       "phase-1/foundation": false,
       "main": false,
-      "fix/content-reconstruction": true
+      "fix/content-reconstruction": true,
+      "fix/audit-remediation-2026-11": true
     }
   },
   "headers": [
