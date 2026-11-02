@@ -1,208 +1,221 @@
-import type { Fact, Homepage } from '../types';
-
-const claim = (source: string, note?: string): Fact<true> => ({
-  value: true,
-  status: 'unverified',
-  source,
-  ...(note ? { note } : {}),
-});
+import type { Homepage } from '../types';
 
 /**
- * Főoldal. A hero főüzenete és alcíme a briefből származik (jóváhagyott);
- * minden más szöveg szerkesztői TERVEZET (copyStatus: 'draft'), tényállítást
- * (évszám, ügyfélszám, díj, 0–24, ár, garancia) nem tartalmaz.
+ * Főoldal – a tartalom az élő oldalról (főoldal, Teendők, szolgáltatásoldalak, oldalsáv).
+ * A hero főcíme és alcíme a briefből származik; minden más állítás forrásoldalhoz kötött.
  */
 export const homepage: Homepage = {
   seo: {
-    title: 'Szomorúfűz Temetkezés – segítség a nehéz pillanatokban',
+    title: 'Szomorúfűz Temetkezés Budapest – hamvasztás, temetés',
     description:
-      'Segítünk eligazodni a haláleset utáni teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében. Hamvasztás, hagyományos temetés, budapesti irodák.',
+      'Hamvasztásos és koporsós temetés teljes körű ügyintézéssel, öt budapesti irodában. Információ: +36 30 847 1915, ügyeleti halottszállítás: +36 30 849 3538.',
   },
   hero: {
-    eyebrow: 'Temetkezés · Budapest',
+    eyebrow: 'Szomorúfűz Temetkezés · Budapest',
     title: 'Nincs egyedül',
     titleEmphasis: 'a nehéz pillanatokban.',
-    lead: 'Segítünk eligazodni a szükséges teendőkben, és támogatást nyújtunk a búcsúztatás megszervezésében.',
-    primaryCtaLabel: 'Telefonos segítség',
-    secondaryCta: { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
+    lead: 'Hamvasztásos és koporsós temetés teljes körű ügyintézéssel. Önnek nem szükséges ismernie a hivatali és temetkezési tennivalókat – elintézzük Ön helyett.',
+    secondaryCta: { label: 'Teendők haláleset után', href: '/teendok-halaleset-utan/' },
     paths: [
       {
-        label: 'Ha most történt',
-        title: 'Haláleset történt',
-        body: 'Az első lépések nyugodt sorrendben.',
+        label: 'Haláleset történt',
+        title: 'Teendők haláleset után',
+        body: 'Kórházban, lakáson, közterületen vagy külföldön.',
         href: '/teendok-halaleset-utan/',
       },
       {
-        label: 'Szervezés',
-        title: 'Temetést szervezne',
-        body: 'Hamvasztás, hagyományos temetés, búcsúztatás.',
-        href: '/szolgaltatasok/',
+        label: 'Árajánlat',
+        title: 'Temetési árajánlatkérés',
+        body: 'Telefonon vagy e-mailben, akár 2 órán belül.',
+        href: '/arajanlat-keres-itt/',
       },
       {
-        label: 'Személyesen',
-        title: 'Beszélne velünk',
-        body: 'Telefonon vagy budapesti irodáinkban.',
+        label: 'Irodáink',
+        title: 'Öt budapesti iroda',
+        body: 'Ügyfélfogadás hétfőtől péntekig 8–16 óráig.',
         href: '/elerhetoseg/',
       },
     ],
   },
-  firstSteps: {
-    eyebrow: 'Ha most történt',
-    title: 'Az első órákban',
-    intro:
-      'Egy haláleset után sok kérdés merül fel egyszerre. Nem kell mindenre azonnal választ tudnia – ez a három lépés elég a kezdéshez.',
-    steps: [
+  intro: {
+    eyebrow: 'Tisztelt Hozzátartozó!',
+    title: 'Erre a feladatra cégünk nyújt megoldást',
+    paragraphs: [
+      'A temetkezéssel, hamvasztással kapcsolatos gyakorlati teendők bonyolult rendszerét nem mindenki ismeri. Önnek nem szükséges ismernie a temetés vagy hamvasztás megszervezésével kapcsolatos hivatali és temetkezési tennivalókat – elintézzük Ön helyett.',
+      'Biztosak vagyunk benne, hogy minden felvetődő kérdésére megfelelő választ tudunk adni, és minden elképzelését meg tudjuk valósítani.',
+    ],
+    points: [
       {
-        title: 'Hívjon minket',
-        body: 'Elmondjuk, mi a következő lépés az Ön helyzetében, és mire lesz szükség.',
+        title: 'Teljes körű ügyintézés',
+        body: 'A kórházi ügyintézéstől a halotti anyakönyvi kivonat és a hamvasztási engedély beszerzésén át a temetési időpont foglalásáig.',
       },
       {
-        title: 'Készítse elő az iratokat',
-        body: 'Az elhunyt személyes iratainak listáját részletes útmutatónkban találja.',
+        title: 'Árgarancia',
+        body: 'Ha azonos szolgáltatást máshol kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, még kedvezőbb ajánlatot készítünk.',
       },
       {
-        title: 'Egyeztessünk',
-        body: 'Irodánkban vagy telefonon, az Ön tempójában beszéljük meg a búcsú módját, helyét és idejét.',
+        title: 'Egyforma, kedvező árak',
+        body: 'Nincs egyedi kedvezményrendszerünk: minden ügyfelünknek a lehető legkedvezőbb áron nyújtjuk szolgáltatásainkat.',
       },
     ],
-    cta: { label: 'A teljes útmutató', href: '/teendok-halaleset-utan/' },
-    copyStatus: 'draft',
   },
   services: {
-    eyebrow: 'Szolgáltatások',
-    title: 'A búcsú formái',
+    eyebrow: 'Szolgáltatásaink',
+    title: 'Hamvasztásos és koporsós temetés',
     intro:
-      'Minden család másként búcsúzik. Bemutatjuk a lehetőségeket, a döntés az Öné – és ha bizonytalan, segítünk mérlegelni.',
+      'Hamvasztási szolgáltatás anyakönyv beszerzésével, a hamvak hazavitele, szórása és hajós temetés a Dunán – vagy hagyományos, koporsós temetés budapesti temetőben.',
     featured: [
       {
-        title: 'Hamvasztás',
-        body: 'A hamvasztás után a hamvak elhelyezéséről a család dönt: temetőben, szórással vagy a Dunán is búcsúzhat.',
+        title: 'Hamvasztásos temetés',
+        body: 'Szállítás a hamvasztó üzembe, hamvasztás, a hamvak visszaszállítása irodánkba vagy a temetési helyre.',
         href: '/hamvasztasos-temetes/',
         points: [
-          'Urnás temetés temetőben',
-          'Hamvak szórása',
-          'Búcsú a Dunán',
-          'Az urna hazavitele',
+          'A hamvak hazavitele',
+          'Urnás elhelyezés temetőben vagy altemplomban',
+          'Hamvak szórása szóróparcellában',
+          'Hajós temetés a Dunán',
         ],
       },
       {
-        title: 'Hagyományos temetés',
-        body: 'Koporsós búcsúztatás temetőben, a család kívánsága szerinti szertartással.',
+        title: 'Koporsós temetés',
+        body: 'Hagyományos koporsós temetés budapesti temetőben – vállaljuk az elhunyt vidéki temetőbe szállítását is. Díja 232 288 Ft-tól.',
         href: '/koporsos-temetes/',
         points: [
-          'Ravatalozás és búcsúztatás',
-          'Egyházi vagy polgári szertartás',
-          'Koporsó és kellékek kiválasztása',
-          'Az időpont egyeztetése a temetővel',
+          'Temetési időpont foglalása',
+          'Sírhely-ügyintézés a temetőben',
+          'Koporsók raktárról, akár hétvégén is',
+          'Polgári vagy egyházi búcsúztatás',
         ],
       },
     ],
     others: [
       {
-        title: 'Hamvak szórása',
-        body: 'Búcsú a temető szóróparcellájában.',
+        title: 'Hamvasztás és urnakiadás',
+        body: 'A hamvak kiadása díszurnában.',
+        href: '/hamvasztas-urnakiadas/',
+      },
+      {
+        title: 'Hamvak hazavitele',
+        body: 'Törvényesen, jogi garanciával.',
+        href: '/hamvak-hazavitele/',
+      },
+      {
+        title: 'Hamvak szórása temetőben',
+        body: 'Új köztemető, Óbuda, Pesterzsébet.',
         href: '/hamvak-szorasa-temeto/',
       },
       {
-        title: 'Hajós temetés',
-        body: 'A hamvak szórása a Dunán.',
+        title: 'Hajós temetés a Dunán',
+        body: 'A hamvak szórása hajóról.',
         href: '/hamvak-szorasa-dunaba/',
       },
       {
+        title: 'Hamvak temetése',
+        body: 'Urnafülke, urnasír, templom.',
+        href: '/hamvak-temetese/',
+      },
+      {
+        title: 'Ravatalozó terem',
+        body: 'IX. kerület, Ernő utca.',
+        href: '/ravatalozo-terem/',
+      },
+      {
         title: 'Polgári búcsúztatás',
-        body: 'Személyes, nem egyházi szertartás.',
+        body: 'Temetési beszéd 35 000 Ft-tól.',
         href: '/polgari-bucsuztatas/',
       },
       {
-        title: 'Ravatalozó',
-        body: 'Méltó helyszín a búcsúhoz.',
-        href: '/ravatalozo-terem/',
+        title: 'Urnák, kegyeleti kellékek',
+        body: 'Díszurnák, textíliák, sírjelzők.',
+        href: '/urnak/',
       },
     ],
     cta: { label: 'Minden szolgáltatás', href: '/szolgaltatasok/' },
-    copyStatus: 'draft',
   },
-  process: {
-    eyebrow: 'Ügyintézés',
-    title: 'Hogyan zajlik a közös munka?',
+  situations: {
+    eyebrow: 'Teendők haláleset után',
+    title: 'Önnek egyetlen lényeges dolga van',
     intro:
-      'Az első beszélgetéstől a búcsú napjáig végigkísérjük a folyamatot, és minden lépésnél elmondjuk, mi következik.',
-    stages: [
+      'Mielőbb felvenni munkatársunkkal a kapcsolatot – hogy a feleslegesen felmerülő költségeket minimalizálni tudjuk. A teendők attól függnek, hol történt a haláleset:',
+    items: [
       {
-        title: 'Első beszélgetés',
-        body: 'Meghallgatjuk, mi történt, és elmondjuk a következő lépéseket.',
+        title: 'Kórházban',
+        body: 'Az osztályon kapja meg a személyes tárgyakat és a zárójelentést; a patológiára általában felesleges elfáradnia.',
+        href: '/teendok-halaleset-utan/#korhaz',
       },
       {
-        title: 'Személyes egyeztetés',
-        body: 'Közösen kiválasztjuk a búcsú formáját, helyszínét és időpontját, és átbeszéljük a költségeket.',
+        title: 'Lakáson',
+        body: 'Ügyeleti halottszállításunkkal: csak a szállítási és a naponkénti hűtési díjat alkalmazzuk.',
+        href: '/teendok-halaleset-utan/#lakas',
       },
       {
-        title: 'Ügyintézés',
-        body: 'Elvégezzük a temetés megszervezéséhez szükséges lépéseket, és jelezzük, ha valamire szükségünk van Öntől.',
+        title: 'Közterületen',
+        body: 'A Rendőrség gondoskodik a szállításról; a szükséges temetési engedélyt is beszerezzük.',
+        href: '/teendok-halaleset-utan/#kozterulet',
       },
       {
-        title: 'A búcsú napja',
-        body: 'A szertartás a megbeszéltek szerint zajlik, hogy Ön a búcsúra figyelhessen.',
+        title: 'Külföldön',
+        body: 'Megszervezzük a hazaszállítást és a szükséges engedélyek beszerzését.',
+        href: '/teendok-halaleset-utan/#kulfold',
       },
     ],
-    copyStatus: 'draft',
+    cta: { label: 'A részletes teendők', href: '/teendok-halaleset-utan/' },
   },
-  pricing: {
-    eyebrow: 'Költségek',
-    title: 'Előre, érthetően',
-    body: 'A költségekről a döntés előtt, tételesen tájékoztatjuk. A szolgáltatások árát és tartalmát bemutató árlista jóváhagyás után kerül az Árak oldalra.',
-    cta: { label: 'Árak és költségek', href: '/arak/' },
-    copyStatus: 'draft',
+  handled: {
+    eyebrow: 'Ügyintézés',
+    title: 'Amit elintézünk Ön helyett',
+    intro: 'Cégünk teljes körűen elintézi a haláleset bekövetkezte utáni teendőket.',
+    items: [
+      'Kórházi ügyintézés',
+      'A halotti anyakönyvi kivonat beszerzése',
+      'A hamvasztási engedély beszerzése',
+      'A meglévő sírhely előkészítése és az ügyintézés a temetőben',
+      'Temetési időpont foglalása az Ön elvárásai szerint',
+      'A síremlék bontása vagy a sírköves munkálatok, például a név és az évszámok bevésése',
+    ],
   },
-  about: {
-    eyebrow: 'A Szomorúfűzről',
-    quote: 'A búcsú méltósága a figyelemben rejlik: abban, hogy meghallgatjuk, és időt hagyunk.',
-    principles: [
+  prices: {
+    eyebrow: 'Árak',
+    title: 'Publikált áraink',
+    intro:
+      'A konkrét temetésre díjmentes, minden kötelezettségtől mentes, tételes árajánlatot adunk – és az ajánlatban szereplő áron végezzük el a szolgáltatást.',
+    items: [
       {
-        title: 'Érthető tájékoztatás',
-        body: 'A lehetőségeket és a költségeket előre, közérthetően mondjuk el.',
+        label: 'Koporsós temetés',
+        value: '232 288 Ft-tól',
+        note: '27% ÁFA-val',
+        href: '/koporsos-temetes/',
       },
       {
-        title: 'Az Ön tempójában',
-        body: 'Nem sürgetjük a döntéseket. Annyi időt adunk, amennyire szüksége van.',
+        label: 'Ravatalozó terem',
+        value: '65 000 Ft-tól',
+        note: '27% ÁFA-val',
+        href: '/ravatalozo-terem/',
       },
       {
-        title: 'Személyes jelenlét',
-        body: 'Telefonon és irodáinkban is munkatársainkkal beszél, nem automatával.',
-      },
-    ],
-    facts: [
-      {
-        title: 'Öt budapesti iroda',
-        body: 'A város több pontján személyesen is felkereshet minket.',
-        fact: claim('Szomorufuz-webaudit: reports/seo-audit.md 6.1'),
-      },
-      {
-        title: 'Saját ravatalozó terem',
-        body: 'Méltó, nyugodt helyszín a búcsúhoz.',
-        fact: claim(
-          'Szomorufuz-webaudit: reports/seo-audit.md 3. (/ravatalozo-terem/)',
-          'Jelenleg is működik? Hol található (IX. ker., Ernő u.)?',
-        ),
+        label: 'Polgári búcsúztatás',
+        value: '35 000 Ft-tól',
+        note: 'temetési beszéd',
+        href: '/polgari-bucsuztatas/',
       },
     ],
-    copyStatus: 'draft',
+    cta: { label: 'Árak és árgarancia', href: '/arak/' },
   },
   offices: {
     eyebrow: 'Irodáink',
-    title: 'Budapest öt pontján',
-    intro:
-      'Személyesen is felkereshet minket. A pontos címek és a nyitvatartás jóváhagyás után kerülnek fel.',
-    cta: { label: 'Kapcsolat és irodák', href: '/elerhetoseg/' },
+    title: 'Öt budapesti iroda',
+    intro: 'Ügyfélfogadás hétfőtől péntekig 8:00–16:00 óra között; szombaton és vasárnap zárva.',
+    cta: { label: 'Elérhetőségek és megközelítés', href: '/elerhetoseg/' },
   },
   faq: {
     eyebrow: 'Kérdések',
     title: 'Gyakori kérdések',
-    intro: 'Rövid válaszok azokra a kérdésekre, amelyek a legtöbbször felmerülnek.',
+    intro: 'Rövid válaszok a leggyakoribb kérdésekre.',
     cta: { label: 'Összes kérdés', href: '/gyakori-kerdesek/' },
   },
   contact: {
-    title: 'Ha most szüksége van ránk',
-    intro: 'Hívjon minket, vagy keresse fel valamelyik irodánkat. Türelemmel segítünk eligazodni.',
+    title: 'Hívjon minket bizalommal',
+    intro:
+      'Információ 6:00 és 22:00 óra között, ügyeleti halottszállítás, vagy személyesen öt budapesti irodánkban.',
   },
 };

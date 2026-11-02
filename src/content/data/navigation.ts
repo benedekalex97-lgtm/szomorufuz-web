@@ -1,39 +1,37 @@
 import type { Navigation } from '../types';
 
-/**
- * Útvonalak: a meglévő, SEO-értékes URL-eket megtartjuk (strategy/redirect-map.csv),
- * új URL csak új oldalnál keletkezik (/arak/, /irodak/, /rolunk/, /szolgaltatasok/, /tudnivalok/).
- */
+/** A meglévő, SEO-értékes URL-ek változatlanok (strategy/redirect-map.csv). */
 export const navigation: Navigation = {
   header: [
-    { label: 'Teendők', href: '/teendok-halaleset-utan/', description: 'Teendők haláleset esetén' },
+    { label: 'Teendők', href: '/teendok-halaleset-utan/', description: 'Teendők haláleset után' },
     { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
     { label: 'Árak', href: '/arak/' },
-    { label: 'Irodáink', href: '/irodak/' },
-    { label: 'Rólunk', href: '/rolunk/' },
+    { label: 'Árajánlat', href: '/arajanlat-keres-itt/', description: 'Árajánlat kérés' },
+    { label: 'Tudnivalók', href: '/tudnivalok/' },
     { label: 'Kapcsolat', href: '/elerhetoseg/' },
   ],
   primary: [
     { label: 'Főoldal', href: '/' },
-    { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
+    { label: 'Teendők haláleset után', href: '/teendok-halaleset-utan/' },
     { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
-    { label: 'Árak', href: '/arak/' },
-    { label: 'Irodáink', href: '/irodak/' },
+    { label: 'Árak és árgarancia', href: '/arak/' },
+    { label: 'Árajánlat kérés', href: '/arajanlat-keres-itt/' },
     { label: 'Tudnivalók', href: '/tudnivalok/' },
     { label: 'Rólunk', href: '/rolunk/' },
-    { label: 'Kapcsolat', href: '/elerhetoseg/' },
+    { label: 'Kapcsolat és irodák', href: '/elerhetoseg/' },
   ],
   footerImportant: [
-    { label: 'Teendők haláleset esetén', href: '/teendok-halaleset-utan/' },
+    { label: 'Teendők haláleset után', href: '/teendok-halaleset-utan/' },
     { label: 'Szükséges iratok', href: '/szukseges-iratok/' },
-    { label: 'Szolgáltatások', href: '/szolgaltatasok/' },
-    { label: 'Árak', href: '/arak/' },
+    { label: 'A hamvasztás menete', href: '/hamvasztas-menete/' },
+    { label: 'Szociális temetés', href: '/szocialis-temetes/' },
+    { label: 'Jogszabályok', href: '/jogszabalyok/' },
     { label: 'Gyakori kérdések', href: '/gyakori-kerdesek/' },
   ],
   footerLegal: [
-    { label: 'Adatkezelési tájékoztató', href: '/adatkezeles/' },
-    { label: 'Sütiinformációk', href: '/suti-tajekoztato/' },
-    { label: 'Impresszum', href: '/ceginformaciok/' },
-    { label: 'ÁSZF', href: '/a-sz-f/' },
+    { label: 'Céginformációk', href: '/ceginformaciok/' },
+    { label: 'Adatkezelés és sütik', href: '/adatkezeles/' },
+    { label: 'Jogi nyilatkozat', href: '/jogi-nyilatkozat/' },
+    { label: 'Rólunk', href: '/rolunk/' },
   ],
 };
