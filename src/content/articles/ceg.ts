@@ -1,3 +1,5 @@
+import { company } from '@/content/data/contact';
+
 import type { Article } from '../types';
 
 const LIVE = 'https://www.budapest-temetkezes.hu';
@@ -145,31 +147,92 @@ export const jogiNyilatkozat: Article = {
  */
 export const adatkezeles: Article = {
   slug: 'adatkezeles',
+  // A régi honlap adatkezelési tájékoztatója más cégnevet és címet tartalmazott, ezért
+  // annak szövegét NEM vettük át (audit SZF-006). Ez a szöveg a tényleges adatfolyamot írja le.
   source: [`${LIVE}/adatkezeles/`],
   section: 'jogi',
   eyebrow: 'Jogi információk',
   title: 'Adatkezelés',
   titleEmphasis: 'és sütik',
-  lead: 'Röviden arról, milyen adatokat kezel ez a weboldal – és milyeneket nem.',
+  lead: 'Milyen adatokat kezel ez a weboldal, mi történik az űrlapokon megadott adatokkal – és mit nem gyűjtünk.',
   seo: {
     title: 'Adatkezelés és sütik',
     description:
-      'Ez a weboldal nem használ sütiket, nem végez látogatottságmérést, és nem gyűjt személyes adatot űrlapon keresztül.',
+      'A weboldal űrlapjain megadott adatok útja, a sütik és a látogatottságmérés hiánya, valamint az érintetti jogok.',
   },
   blocks: [
+    {
+      type: 'callout',
+      title: 'Tervezet',
+      text: 'Ez a tájékoztató az adatkezelő jóváhagyására vár. Az online űrlapokon keresztüli küldés csak a végleges, jóváhagyott tájékoztató közzététele után aktiválható.',
+    },
+    { type: 'h2', text: 'Az adatkezelő', id: 'adatkezelo' },
+    {
+      type: 'facts',
+      items: [
+        { label: 'Név', value: company.legalName },
+        { label: 'Székhely', value: company.seat },
+        { label: 'E-mail', value: company.email },
+        { label: 'Cégjegyzékszám', value: company.registrationNo },
+      ],
+    },
     { type: 'h2', text: 'Ez a weboldal', id: 'weboldal' },
     {
       type: 'list',
       items: [
-        'nem használ sütiket (cookie-kat),',
+        'nem használ sütiket (cookie-kat), és a böngészőben sem tárol adatot,',
         'nem végez látogatottságmérést, és nem tartalmaz hirdetési vagy közösségimédia-követőkódot,',
-        'nem tartalmaz személyes adatot gyűjtő űrlapot,',
-        'a betűtípusokat saját tárhelyről tölti be, külső szolgáltató bevonása nélkül.',
+        'a betűtípusokat saját tárhelyről tölti be, külső szolgáltató bevonása nélkül,',
+        'helyadatot nem kér és nem használ.',
       ],
+    },
+    { type: 'h2', text: 'Az online űrlapok', id: 'urlapok' },
+    {
+      type: 'p',
+      text: 'A weboldalon árajánlatot, telefonos visszahívást vagy tájékoztatást kérhet, illetve üzenetet küldhet. Az űrlapokon megadott adatokat kizárólag a megkeresés megválaszolásához kérjük.',
+    },
+    {
+      type: 'defs',
+      items: [
+        {
+          term: 'Milyen adatokat kérünk',
+          text: 'Az Ön nevét, e-mail címét és telefonszámát; árajánlatkérésnél az elhunyt nevét, a haláleset és a temetés körülményeire vonatkozó válaszokat (például a temetés típusa, a sírhely, az elhunyt jelenlegi helye), valamint az Ön által írt megjegyzést. A kötelező mezőket az űrlap jelöli.',
+        },
+        {
+          term: 'Mi történik az adatokkal',
+          text: 'Az adatok titkosított (HTTPS) kapcsolaton jutnak el a weboldal szerveréhez, amely ellenőrzi, majd e-mailként továbbítja őket az adatkezelő ügyfélszolgálati postafiókjába. A weboldal az űrlapok tartalmát adatbázisban nem tárolja.',
+        },
+        {
+          term: 'Naplózás',
+          text: 'A szerver csak technikai eseményt naplóz (melyik űrlap, sikeres volt-e a küldés, mennyi ideig tartott) – az űrlap tartalmát, az Ön nevét, elérhetőségét vagy IP-címét nem. A visszaélések (tömeges küldés) kiszűréséhez az IP-cím egyirányú, visszafejthetetlen kivonatát legfeljebb 10 percig a szerver memóriájában tartjuk.',
+        },
+        {
+          term: 'Az adatkezelés jogalapja',
+          text: 'Az adatkezelő jóváhagyására vár.',
+        },
+        {
+          term: 'Megőrzési idő',
+          text: 'Az adatkezelő jóváhagyására vár.',
+        },
+        {
+          term: 'Adatfeldolgozók és címzettek',
+          text: 'Az adatkezelő jóváhagyására vár (a weboldal tárhelyszolgáltatója és az e-mail-továbbítás szolgáltatója).',
+        },
+      ],
+    },
+    { type: 'h2', text: 'Az Ön jogai', id: 'jogok' },
+    {
+      type: 'p',
+      text: 'Az általános adatvédelmi rendelet (GDPR) alapján kérhet tájékoztatást a kezelt adatairól, kérheti azok helyesbítését, törlését vagy kezelésük korlátozását, tiltakozhat az adatkezelés ellen, és kérheti adatai hordozását. Kérését a [budapest@temetkezes.hu](mailto:budapest@temetkezes.hu) címre küldheti.',
     },
     {
       type: 'p',
-      text: 'Ha telefonon vagy e-mailben keres meg minket, az Ön által megadott adatokat a Szomorúfűz Temetkezés kezeli. A „Útvonaltervezés” hivatkozások a Google Térkép oldalát nyitják meg új lapon; az ott történő adatkezelésre a Google adatkezelési tájékoztatója irányadó.',
+      text: 'Ha úgy érzi, hogy adatai kezelése sérti a jogait, panaszt tehet a Nemzeti Adatvédelmi és Információszabadság Hatóságnál ([naih.hu](https://naih.hu/)), illetve bírósághoz fordulhat.',
+    },
+    { type: 'h2', text: 'Telefonos és e-mailes megkeresés', id: 'telefon' },
+    {
+      type: 'p',
+      text: 'Ha telefonon vagy e-mailben keres meg minket, az Ön által megadott adatokat a Szomorúfűz Temetkezés kezeli. Az „Útvonaltervezés” hivatkozások a Google Térkép oldalát nyitják meg új lapon; az ott történő adatkezelésre a Google adatkezelési tájékoztatója irányadó.',
     },
     { type: 'h2', text: 'Sütik', id: 'sutik' },
     {
@@ -185,7 +248,7 @@ export const adatkezeles: Article = {
   related: ['ceginformaciok', 'jogi-nyilatkozat'],
 };
 
-/** Forrás: /urnak/, /termek-adatlapok/, /textiliak/, /sirjelzo/ – képek nélkül (felhasználási jog tisztázatlan). */
+/** Forrás: /urnak/, /termek-adatlapok/ (7 Sephia adatlap), /textiliak/, /sirjelzo/ (terméknevek a régi galéria képcímeiből). Képek: image-register.ts. */
 export const urnak: Article = {
   slug: 'urnak',
   source: [
@@ -222,26 +285,18 @@ export const urnak: Article = {
       type: 'p',
       text: 'Teljesen egyedi gyártású, kézzel festett, fém alapanyagú, kerek, normál méretű díszurnák. Nincs két ugyanolyan alkotás: valamilyen részletben mindig eltérnek egymástól.',
     },
+    { type: 'catalog', group: 'sephia' },
+    { type: 'h2', text: 'Textíliák', id: 'textiliak' },
+    { type: 'h3', text: 'Urnaterítők', id: 'urnateritok' },
+    { type: 'catalog', group: 'urnateritok' },
+    { type: 'h3', text: 'Urnaleeresztők', id: 'urnaleeresztok' },
+    { type: 'catalog', group: 'urnaleeresztok' },
+    { type: 'h2', text: 'Sírjelzők', id: 'sirjelzok' },
+    { type: 'catalog', group: 'sirjelzok' },
     {
-      type: 'price',
-      label: 'Sephia fémurnák ára',
-      value: '23 900 Ft',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t.',
+      type: 'p',
+      text: 'A textíliák és sírjelzők választékáról és áráról munkatársaink telefonon tájékoztatják: +36 30 847 1915.',
     },
-    {
-      type: 'facts',
-      items: [
-        { label: '0102001', value: 'Fejfa' },
-        { label: '0102002', value: 'Alkonyat' },
-        { label: '0102003', value: 'Cédrus' },
-        { label: '0102004', value: 'Csend' },
-        { label: '0102005', value: 'Erdő' },
-        { label: '0102006', value: 'Liliom' },
-        { label: '0102007', value: 'Vízpart' },
-      ],
-    },
-    { type: 'h2', text: 'Textíliák és sírjelzők', id: 'textiliak' },
-    { type: 'list', items: ['Urnaterítők', 'Urnaleeresztők', 'Sírjelzők'] },
     { type: 'contact' },
   ],
   related: ['hamvasztas-urnakiadas', 'hamvak-hazavitele', 'hamvak-szorasa-dunaba'],
@@ -265,34 +320,42 @@ export const jogszabalyok: Article = {
       type: 'defs',
       items: [
         {
+          id: 'tv-1999-xliii',
           term: '1999. évi XLIII. törvény a temetőkről és a temetkezésről',
           text: 'Az elhunyt személyek emlékének méltó megőrzése és ápolása, a temetkezés közegészségügyi és kegyeleti rendeltetésének érvényesítése, valamint a temető és temetkezési kultúra fejlesztése érdekében alkotott törvény.',
         },
         {
+          id: 'korm-145-1999',
           term: '145/1999. (X. 1.) Korm. rendelet',
           text: 'A temetőkről és a temetkezésről szóló törvény végrehajtásáról.',
         },
         {
+          id: 'korm-146-1999',
           term: '146/1999. (X. 1.) Korm. rendelet',
           text: 'A Nemzeti Kegyeleti Bizottság szervezetéről.',
         },
         {
+          id: 'bm-eum-im-34-1999',
           term: '34/1999. (IX. 24.) BM-EüM-IM együttes rendelet',
           text: 'Az egészségügyről szóló 1997. évi CLIV. törvénynek a halottakkal kapcsolatos rendelkezései végrehajtásáról, valamint a rendkívüli halál esetén követendő eljárásról.',
         },
         {
+          id: 'tv-2005-xxi',
           term: '2005. évi XXI. törvény',
           text: 'A temetőkről és a temetkezésről szóló 1999. évi XLIII. törvény módosításáról.',
         },
         {
+          id: 'tv-2013-cxxxviii',
           term: '2013. évi CXXXVIII. törvény',
           text: 'A temetőkről és a temetkezésről szóló 1999. évi XLIII. törvény módosításáról (többek között a hamvak hazavitele és a szociális temetés szabályai).',
         },
         {
+          id: 'korm-379-2013',
           term: '379/2013. (X. 25.) Korm. rendelet',
           text: 'A 145/1999. (X. 1.) Korm. rendelet, valamint a 43/1999. (III. 3.) Korm. rendelet módosításáról.',
         },
         {
+          id: 'korm-237-2001',
           term: '237/2001. (XII. 10.) Korm. rendelet',
           text: 'A nemzeti gyászról.',
         },
@@ -300,7 +363,7 @@ export const jogszabalyok: Article = {
     },
     {
       type: 'p',
-      text: 'A jogszabályok mindenkor hatályos szövege a Nemzeti Jogszabálytárban ([njt.hu](https://njt.hu)) érhető el.',
+      text: 'A jogszabályok mindenkor hatályos, hivatalos szövege a Nemzeti Jogszabálytárban ([njt.hu](https://njt.hu)) érhető el – a jogszabály számára (például „1999. évi XLIII. törvény”) keresve. Korábbi honlapunk a jogszabályok egykori szövegét is közölte; ezeket elavulásuk veszélye miatt nem tesszük közzé.',
     },
   ],
   related: ['hamvak-hazavitele', 'szocialis-temetes', 'hamvasztas-menete'],
@@ -369,7 +432,7 @@ export const gyik: Article = {
         },
         {
           q: 'Van saját ravatalozójuk?',
-          a: 'Igen, exkluzívan berendezett, légkondicionált ravatalozó termünk a IX. kerületben, az Ernő utcában található. Díja 65 000 Ft-tól; szombaton is vállaljuk a ravatali szertartást. Részletek: [Ravatalozó terem](/ravatalozo-terem/).',
+          a: 'Igen, exkluzívan berendezett, légkondicionált ravatalozó termünk a IX. kerületben, az Ernő utcában található. A díjra egyedi árajánlatot adunk; szombaton is vállaljuk a ravatali szertartást. Részletek: [Ravatalozó terem](/ravatalozo-terem/).',
         },
       ],
     },

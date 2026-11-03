@@ -1,0 +1,2100 @@
+{
+  "pages": [
+    {
+      "name": "fooldal",
+      "path": "/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "fooldal",
+      "path": "/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "fooldal",
+      "path": "/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "fooldal",
+      "path": "/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "teendok",
+      "path": "/teendok-halaleset-utan/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "teendok",
+      "path": "/teendok-halaleset-utan/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "teendok",
+      "path": "/teendok-halaleset-utan/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "teendok",
+      "path": "/teendok-halaleset-utan/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arajanlat",
+      "path": "/arajanlat-keres-itt/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arajanlat",
+      "path": "/arajanlat-keres-itt/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arajanlat",
+      "path": "/arajanlat-keres-itt/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arajanlat",
+      "path": "/arajanlat-keres-itt/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "elerhetoseg",
+      "path": "/elerhetoseg/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "elerhetoseg",
+      "path": "/elerhetoseg/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "elerhetoseg",
+      "path": "/elerhetoseg/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "elerhetoseg",
+      "path": "/elerhetoseg/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arak",
+      "path": "/arak/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arak",
+      "path": "/arak/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arak",
+      "path": "/arak/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "arak",
+      "path": "/arak/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "urnak",
+      "path": "/urnak/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "urnak",
+      "path": "/urnak/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "urnak",
+      "path": "/urnak/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "urnak",
+      "path": "/urnak/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "ravatalozo",
+      "path": "/ravatalozo-terem/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "ravatalozo",
+      "path": "/ravatalozo-terem/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "ravatalozo",
+      "path": "/ravatalozo-terem/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "ravatalozo",
+      "path": "/ravatalozo-terem/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "szolgaltatasok",
+      "path": "/szolgaltatasok/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "szolgaltatasok",
+      "path": "/szolgaltatasok/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "szolgaltatasok",
+      "path": "/szolgaltatasok/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "szolgaltatasok",
+      "path": "/szolgaltatasok/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "tudnivalok",
+      "path": "/tudnivalok/",
+      "width": 320,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "tudnivalok",
+      "path": "/tudnivalok/",
+      "width": 390,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": true,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "tudnivalok",
+      "path": "/tudnivalok/",
+      "width": 768,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    },
+    {
+      "name": "tudnivalok",
+      "path": "/tudnivalok/",
+      "width": 1440,
+      "overflow": 0,
+      "small24": 0,
+      "under48": [],
+      "under48Count": 0,
+      "h1": 1,
+      "lang": "hu",
+      "robots": "noindex, nofollow",
+      "canonical": false,
+      "viewport": "width=device-width, initial-scale=1",
+      "callbarVisible": false,
+      "headerSticky": "sticky"
+    }
+  ],
+  "checks": [
+    {
+      "name": "fooldal@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "fooldal@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "fooldal@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "fooldal@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "fooldal@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "fooldal@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "fooldal@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "fooldal@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "fooldal@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "fooldal@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "fooldal@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "fooldal@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "fooldal@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "fooldal@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "fooldal@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "teendok@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "teendok@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "teendok@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "teendok@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "teendok@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "teendok@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "teendok@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "teendok@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "teendok@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "teendok@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "teendok@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "teendok@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "teendok@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "teendok@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arajanlat@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arajanlat@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "arajanlat@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arajanlat@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arajanlat@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "arajanlat@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arajanlat@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arajanlat@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "arajanlat@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arajanlat@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arajanlat@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arajanlat@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "arajanlat@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arajanlat@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "elerhetoseg@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "elerhetoseg@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "elerhetoseg@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "elerhetoseg@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "elerhetoseg@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "elerhetoseg@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "elerhetoseg@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "elerhetoseg@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "elerhetoseg@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "elerhetoseg@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "elerhetoseg@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "elerhetoseg@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "elerhetoseg@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "elerhetoseg@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arak@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arak@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "arak@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arak@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arak@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "arak@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arak@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arak@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "arak@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "arak@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "arak@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "arak@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "arak@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "arak@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "urnak@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "urnak@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "urnak@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "urnak@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "urnak@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "urnak@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "urnak@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "urnak@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "urnak@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "urnak@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "urnak@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "urnak@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "urnak@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "urnak@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "ravatalozo@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "ravatalozo@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "ravatalozo@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "ravatalozo@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "ravatalozo@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "ravatalozo@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "ravatalozo@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "ravatalozo@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "ravatalozo@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "ravatalozo@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "ravatalozo@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "ravatalozo@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "ravatalozo@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "ravatalozo@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "szolgaltatasok@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "szolgaltatasok@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "szolgaltatasok@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "szolgaltatasok@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "szolgaltatasok@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "szolgaltatasok@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "szolgaltatasok@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "szolgaltatasok@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "szolgaltatasok@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "szolgaltatasok@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "szolgaltatasok@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "szolgaltatasok@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "szolgaltatasok@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szolgaltatasok@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@320: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@320: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "tudnivalok@320: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@320: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "tudnivalok@320: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@320: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "tudnivalok@320: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@320: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@390: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@390: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "tudnivalok@390: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@390: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "tudnivalok@390: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@390: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "tudnivalok@390: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@390: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@768: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@768: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "tudnivalok@768: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@768: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "tudnivalok@768: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@768: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "tudnivalok@768: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@768: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@1440: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@1440: egy H1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "tudnivalok@1440: 24×24 alatti célpont nincs",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "tudnivalok@1440: noindex, nofollow",
+      "ok": true,
+      "detail": "noindex, nofollow"
+    },
+    {
+      "name": "tudnivalok@1440: lang=hu, viewport, nincs canonical",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@1440: hívósáv csak mobilon",
+      "ok": true,
+      "detail": "false"
+    },
+    {
+      "name": "tudnivalok@1440: konzolhiba nincs",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "tudnivalok@1440: axe WCAG 2.2 AA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobilmenü: Enter nyitja",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobilmenü: Escape zárja",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "mobilmenü: fókusz vissza a gombra",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "horgony /teendok-halaleset-utan/#kulfold a fejléc alatt látszik",
+      "ok": true,
+      "detail": "{\"top\":176.46875,\"header\":69}"
+    },
+    {
+      "name": "horgony /elerhetoseg/#zugloi-iroda a fejléc alatt látszik",
+      "ok": true,
+      "detail": "{\"top\":175.5625,\"header\":69}"
+    },
+    {
+      "name": "horgony /urnak/#csend-0102004 a fejléc alatt látszik",
+      "ok": true,
+      "detail": "{\"top\":176.375,\"header\":69}"
+    },
+    {
+      "name": "horgony /hamvasztas-menete/#dokumentumok a fejléc alatt látszik",
+      "ok": true,
+      "detail": "{\"top\":175.875,\"header\":69}"
+    },
+    {
+      "name": "helyzetválasztó: 4 opció",
+      "ok": true,
+      "detail": "[\"#korhaz\",\"#lakas\",\"#kozterulet\",\"#kulfold\"]"
+    },
+    {
+      "name": "lábléc irodalinkek: mind létező kártya",
+      "ok": true,
+      "detail": "5 link, hiányzó: "
+    },
+    {
+      "name": "nincs helyhozzáférés-kérés",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "200% nagyítás /: nincs túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "200% nagyítás /arajanlat-keres-itt/: nincs túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "200% nagyítás /elerhetoseg/: nincs túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "csökkentett mozgás: nincs futó animáció",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "billentyűzet: látható fókuszjelzés",
+      "ok": true,
+      "detail": "solid 3px"
+    }
+  ],
+  "startedAt": "2026-11-02T22:06:28.311Z",
+  "finishedAt": "2026-11-02T22:07:26.440Z",
+  "failures": []
+}

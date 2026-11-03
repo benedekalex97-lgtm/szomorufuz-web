@@ -1,0 +1,231 @@
+{
+  "base": "helyi emulátor",
+  "results": [
+    {
+      "name": "általános űrlap látható",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "csak egy változat látszik",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "üres beküldés: hibaösszesítő megjelenik",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "üres beküldés: fókusz az összesítőn",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "üres beküldés: kötelező mezők hibái (≥ 10)",
+      "ok": true,
+      "detail": "10"
+    },
+    {
+      "name": "üres beküldés: nem ment kérés a szerverre",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "összesítő link a mezőre fókuszál",
+      "ok": true,
+      "detail": "temetes_tipusa"
+    },
+    {
+      "name": "hibás e-mail jelzése",
+      "ok": true,
+      "detail": "Kérjük, érvényes e-mail címet adjon meg (például nev@example.com)."
+    },
+    {
+      "name": "hibás mező aria-invalid",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "adatok megmaradnak hiba után",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sikeres beküldés: visszaigazolás",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sikeres beküldés: fókusz a visszaigazoláson",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "dupla kattintás: egyetlen POST",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "dry-run jelzés a visszaigazolásban",
+      "ok": true,
+      "detail": "Köszönjük!Tesztüzem: az adatok formailag rendben vannak, de az üzenetet NEM továbbítottuk. Valódi megkeresés esetén kérjük, hívja a +36 30 847 1915-ös számot.Sürgős esetben hívjon minket: +36 30 847 1915 (6:00 és 22:00 óra között hívható)."
+    },
+    {
+      "name": "konzolhiba nélkül",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "változat: hamvasztasos-temetes",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=hamvasztasos-temetes előkitöltés=true"
+    },
+    {
+      "name": "változat: hamvasztas-urnakiadas",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=hamvasztas-urnakiadas előkitöltés=true"
+    },
+    {
+      "name": "változat: hamvak-hazavitele",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=hamvak-hazavitele előkitöltés=true"
+    },
+    {
+      "name": "változat: koporsos-temetes",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=koporsos-temetes előkitöltés=true"
+    },
+    {
+      "name": "változat: hamvak-szorasa-temeto",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=hamvak-szorasa-temeto előkitöltés=true"
+    },
+    {
+      "name": "változat: hamvak-szorasa-dunaba",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=hamvak-szorasa-dunaba előkitöltés=true"
+    },
+    {
+      "name": "változat: ravatalozo-terem",
+      "ok": true,
+      "detail": "látható=true db=1 rejtett=ravatalozo-terem előkitöltés=true"
+    },
+    {
+      "name": "termék előkiválasztása kóddal",
+      "ok": true,
+      "detail": "Cédrus Sephia kézzel festett fémurna – 0102003"
+    },
+    {
+      "name": "szerverhiba: üzenet a státuszrégióban",
+      "ok": true,
+      "detail": "Az üzenetet most nem tudtuk továbbítani."
+    },
+    {
+      "name": "szerverhiba: nincs sikerüzenet",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szerverhiba: adatok megmaradtak",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "szerverhiba: gomb újra aktív",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hálózati hiba: üzenet",
+      "ok": true,
+      "detail": "Nem sikerült kapcsolódni a szerverhez. Adatait megőriztük – kérjük, próbálja újra, vagy hívjon minket: +36 30 847 1915."
+    },
+    {
+      "name": "visszahivas: sikeres (dry-run) beküldés",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "kapcsolat: sikeres (dry-run) beküldés",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "billentyűzet: Tab a következő mezőre",
+      "ok": true,
+      "detail": "telefon"
+    },
+    {
+      "name": "billentyűzet: Enter → ellenőrzés",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /arajanlat-keres-itt/ @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /arajanlat-keres-itt/ @390 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /arajanlat-keres-itt/ @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /arajanlat-keres-itt/ @1440 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /elerhetoseg/ @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /elerhetoseg/ @390 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /elerhetoseg/ @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /elerhetoseg/ @1440 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /tajekoztatas-keres/ @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /tajekoztatas-keres/ @390 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /tajekoztatas-keres/ @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "axe: /tajekoztatas-keres/ @1440 (hibaállapot)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "JS nélkül: szerveroldali válaszoldal",
+      "ok": true,
+      "detail": "KöszönjükTesztüzem: az adatok formailag rendben vannak, de az üzenetet NEM továbbítottuk. Valódi megkeresés esetén kérjü"
+    }
+  ],
+  "failures": []
+}

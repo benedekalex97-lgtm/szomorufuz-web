@@ -1,3 +1,5 @@
+import { priceBlock } from '@/lib/prices';
+
 import type { Article } from '../types';
 
 const LIVE = 'https://www.budapest-temetkezes.hu';
@@ -23,34 +25,24 @@ export const arak: Article = {
   seo: {
     title: 'Temetési árak – koporsós temetés, ravatalozó',
     description:
-      'Koporsós temetés 232 288 Ft-tól, ravatalozó terem 65 000 Ft-tól, polgári búcsúztatás 35 000 Ft-tól (27% ÁFA-val). Árgarancia és díjmentes árajánlat.',
+      'Koporsós temetés 232 288 Ft-tól (27% ÁFA-val), polgári búcsúztatás 35 000 Ft-tól. Ravatalozó teremre és hamvasztásra egyedi árajánlat. Árgarancia, díjmentes ajánlat.',
   },
   blocks: [
     { type: 'h2', text: 'Publikált áraink', id: 'arak' },
-    {
-      type: 'price',
-      label: 'Koporsós temetési díj',
-      value: '232 288 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. Részletek: [Koporsós temetés](/koporsos-temetes/)',
-    },
-    {
-      type: 'price',
-      label: 'Ravatalozó terem díja',
-      value: '65 000 Ft-tól',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. Részletek és feltételek: [Ravatalozó terem](/ravatalozo-terem/)',
-    },
-    {
-      type: 'price',
+    priceBlock('koporsos-temetes', {
+      extraNote: 'Részletek: [Koporsós temetés](/koporsos-temetes/)',
+    }),
+    priceBlock('ravatalozo-terem', {
+      extraNote: 'Részletek: [Ravatalozó terem](/ravatalozo-terem/)',
+    }),
+    priceBlock('polgari-bucsuztatas', {
       label: 'Polgári búcsúztatás',
-      value: '35 000 Ft-tól',
-      note: 'Részletek: [Polgári búcsúztatás](/polgari-bucsuztatas/)',
-    },
-    {
-      type: 'price',
+      extraNote: 'Részletek: [Polgári búcsúztatás](/polgari-bucsuztatas/)',
+    }),
+    priceBlock('sephia-urna', {
       label: 'Sephia kézzel festett fém díszurnák',
-      value: '23 900 Ft',
-      note: 'Az ár tartalmazza a 27%-os ÁFA-t. A választék: [Urnák és kegyeleti kellékek](/urnak/)',
-    },
+      extraNote: 'A választék: [Urnák és kegyeleti kellékek](/urnak/)',
+    }),
     { type: 'h2', text: 'Hamvasztásos temetés', id: 'hamvasztas' },
     {
       type: 'p',
@@ -77,7 +69,7 @@ export const argarancia: Article = {
   seo: {
     title: 'Árgarancia – írásos temetési árajánlat',
     description:
-      'Árgarancia feltételei: ha azonos szolgáltatást kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, még kedvezőbb ajánlatot készítünk.',
+      'Árgarancia: ha azonos szolgáltatást kedvezőbb áron talál, és az írásos ajánlatot eljuttatja hozzánk, mindent megteszünk, hogy még kedvezőbb ajánlatot készítsünk.',
   },
   blocks: [
     { type: 'h2', text: 'A garancia feltételei', id: 'feltetelek' },
@@ -108,7 +100,7 @@ export const argarancia: Article = {
   related: ['arak', 'arajanlat-keres-itt'],
 };
 
-/** Forrás: /arajanlat-keres-itt/ (és a duplikált /arajanlatkeres/). Űrlap helyett telefon és e-mail. */
+/** Forrás: /arajanlat-keres-itt/ (és a duplikált /arajanlatkeres/). Az eredeti űrlapok kérdéseivel. */
 export const arajanlatKeres: Article = {
   slug: 'arajanlat-keres-itt',
   source: [`${LIVE}/arajanlat-keres-itt/`, `${LIVE}/arajanlatkeres/`],
@@ -116,7 +108,7 @@ export const arajanlatKeres: Article = {
   eyebrow: 'Árajánlat',
   title: 'Árajánlat',
   titleEmphasis: 'kérés',
-  lead: 'Kérjen tőlünk díjmentes, minden kötelezettségtől mentes árajánlatot hamvasztásos vagy koporsós temetésre – telefonon vagy e-mailben, akár 2 órán belül.',
+  lead: 'Kérjen tőlünk díjmentes, minden kötelezettségtől mentes árajánlatot hamvasztásos vagy koporsós temetésre – az alábbi űrlapon, telefonon vagy e-mailben, akár 2 órán belül.',
   seo: {
     title: 'Temetési árajánlat kérés – hamvasztás, koporsós',
     description:
@@ -127,12 +119,14 @@ export const arajanlatKeres: Article = {
       type: 'p',
       text: 'Az általunk adott árajánlatokra garanciát vállalunk, hogy csak a kifejezetten szükséges szolgáltatásokat tartalmazzák. Fontos: jelölje meg, hogy **hamvasztásos** vagy **koporsós** temetésre kéri a szertartási költségkalkulációt.',
     },
-    { type: 'quote-request' },
+    { type: 'quote-forms' },
+    { type: 'h2', text: 'Telefonon vagy e-mailben', id: 'telefon' },
+    { type: 'contact' },
   ],
   related: ['arak', 'argarancia', 'hamvasztasos-temetes', 'koporsos-temetes'],
 };
 
-/** Forrás: /tajekoztatas-keres/ – visszahívás-kérés űrlap helyett közvetlen elérhetőség. */
+/** Forrás: /tajekoztatas-keres/ – telefonos visszahívás kérése (az eredeti form_1973 mezőivel). */
 export const tajekoztatasKeres: Article = {
   slug: 'tajekoztatas-keres',
   source: [`${LIVE}/tajekoztatas-keres/`],
@@ -149,8 +143,10 @@ export const tajekoztatasKeres: Article = {
   blocks: [
     {
       type: 'p',
-      text: 'Hívja munkatársunkat az alábbi telefonszámok egyikén, vagy írjon nekünk e-mailt – munkatársaink a lehető leghamarabb válaszolnak felvetődő kérdéseire.',
+      text: 'Adja meg elérhetőségét, és munkatársunk az Önnek megfelelő időben telefonon megkeresi. Ha inkább Ön hívna, az alábbi telefonszámokon is elér minket.',
     },
+    { type: 'form', form: 'visszahivas' },
+    { type: 'h2', text: 'Közvetlen elérhetőség', id: 'elerhetoseg' },
     { type: 'contact' },
   ],
   related: ['arajanlat-keres-itt', 'teendok-halaleset-utan'],

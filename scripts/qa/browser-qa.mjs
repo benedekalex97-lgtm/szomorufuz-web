@@ -18,7 +18,7 @@ const args = Object.fromEntries(
     .filter(Boolean)
     .map((a) => a.trim().split(/\s+/)),
 );
-const DIST = resolve(args.dir ?? 'dist');
+const DIST = resolve(args.dir ?? 'dist/client');
 const TAG = args.tag ?? 'strict';
 const SHOT_DIR = resolve('docs/screenshots/qa');
 const REPORT = resolve(`docs/qa/browser-qa-${TAG}.json`);

@@ -1,7 +1,7 @@
 {
   "tag": "strict",
-  "base": "/home/user/szomorufuz-web/dist",
-  "startedAt": "2026-11-02T17:47:29.392Z",
+  "base": "/home/user/szomorufuz-web/dist/client",
+  "startedAt": "2026-11-02T22:04:26.954Z",
   "checks": {
     "responsive": [
       {
@@ -16,7 +16,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 14371,
+        "height": 14811,
         "consoleErrors": []
       },
       {
@@ -31,7 +31,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 13488,
+        "height": 13802,
         "consoleErrors": []
       },
       {
@@ -46,7 +46,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 13161,
+        "height": 13475,
         "consoleErrors": []
       },
       {
@@ -61,7 +61,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 10164,
+        "height": 10411,
         "consoleErrors": []
       },
       {
@@ -76,7 +76,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 8564,
+        "height": 8814,
         "consoleErrors": []
       },
       {
@@ -91,7 +91,7 @@
         ],
         "minFont": 12,
         "smallTargets": [],
-        "height": 8236,
+        "height": 8464,
         "consoleErrors": []
       }
     ],
@@ -114,7 +114,7 @@
         "path": "/",
         "width": 390,
         "violations": [],
-        "passes": 43,
+        "passes": 44,
         "incomplete": [
           "color-contrast"
         ]
@@ -123,7 +123,7 @@
         "path": "/",
         "width": 1440,
         "violations": [],
-        "passes": 42,
+        "passes": 43,
         "incomplete": [
           "color-contrast"
         ]
@@ -258,7 +258,7 @@
         "path": "/arajanlat-keres-itt/",
         "width": 390,
         "violations": [],
-        "passes": 41,
+        "passes": 46,
         "incomplete": [
           "color-contrast"
         ]
@@ -267,7 +267,7 @@
         "path": "/arajanlat-keres-itt/",
         "width": 1440,
         "violations": [],
-        "passes": 39,
+        "passes": 46,
         "incomplete": [
           "color-contrast"
         ]
@@ -276,7 +276,7 @@
         "path": "/elerhetoseg/",
         "width": 390,
         "violations": [],
-        "passes": 41,
+        "passes": 46,
         "incomplete": [
           "color-contrast"
         ]
@@ -285,8 +285,10 @@
         "path": "/elerhetoseg/",
         "width": 1440,
         "violations": [],
-        "passes": 39,
-        "incomplete": []
+        "passes": 46,
+        "incomplete": [
+          "color-contrast"
+        ]
       },
       {
         "path": "/gyakori-kerdesek/",
@@ -340,11 +342,11 @@
       }
     ],
     "links": {
-      "checked": 465,
+      "checked": 504,
       "broken": [],
       "unknownPathStatus": 404
     }
   },
-  "finishedAt": "2026-11-02T17:48:37.884Z",
+  "finishedAt": "2026-11-02T22:05:35.354Z",
   "failures": []
 }

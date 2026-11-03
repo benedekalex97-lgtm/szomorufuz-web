@@ -1,4 +1,5 @@
 ---
+import Form from '@/components/forms/Form.astro';
 import LeafList from '@/components/sections/LeafList.astro';
 import OfficeList from '@/components/sections/OfficeList.astro';
 import PageHero from '@/components/sections/PageHero.astro';
@@ -72,6 +73,17 @@ const lines = [central.info, central.transport, central.office];
     intro="Minden irodánk saját vezetékes és mobil telefonszámon is elérhető."
     tone="alt"
   >
+    <nav class="office-jump" aria-label="Ugrás irodára">
+      <ul role="list">
+        {offices.map((o) => (
+          <li>
+            <a href={`#${o.slug}`}>
+              {o.name} <span>({o.numeral} ker.)</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
     <OfficeList offices={offices} detailed />
   </Section>
 
@@ -88,7 +100,18 @@ const lines = [central.info, central.transport, central.office];
     <p class="parking">{izabellaParking}</p>
   </Section>
 
+  <Section
+    id="uzenet"
+    eyebrow="Írjon nekünk"
+    title="Üzenet küldése"
+    intro="Kérdését vagy kérését az alábbi űrlapon is elküldheti; munkatársunk a megadott elérhetőségen válaszol. Sürgős esetben kérjük, hívjon minket."
+    layout="split"
+  >
+    <Form form="kapcsolat" headingLevel={3} title="Kapcsolatfelvételi űrlap" />
+  </Section>
+
   <CtaBand
+    phones={false}
     id="arajanlat-cta"
     title="Kérjen díjmentes árajánlatot"
     intro="Telefonon vagy e-mailben, akár 2 órán belül – hamvasztásos vagy koporsós temetésre."
@@ -152,5 +175,34 @@ const lines = [central.info, central.transport, central.office];
   }
   .parking {
     color: var(--color-text-muted);
+  }
+  .office-jump ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+  .office-jump a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+  .office-jump a:hover {
+    border-color: var(--color-text);
+  }
+  .office-jump span {
+    margin-inline-start: var(--space-1);
+    color: var(--color-text-muted);
+    font-weight: var(--weight-regular);
   }
 </style>

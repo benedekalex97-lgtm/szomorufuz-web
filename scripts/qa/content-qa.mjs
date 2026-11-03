@@ -8,7 +8,7 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
-const DIST = resolve('dist');
+const DIST = resolve('dist/client');
 const files = [];
 const walk = (d) =>
   readdirSync(d).forEach((f) => {
@@ -113,11 +113,12 @@ if (/0[–-]24/.test(homeText + contactText)) fail.push('0–24 állítás szere
 // 4. árajánlatkérés
 const quote = readFileSync(join(DIST, 'arajanlat-keres-itt/index.html'), 'utf8');
 report.checks.quote = {
-  mailto: /href="mailto:budapest@temetkezes\.hu\?subject=/.test(quote),
+  form: /<form[^>]+data-form="arajanlat"/.test(quote),
+  mailto: /href="mailto:budapest@temetkezes\.hu"/.test(quote),
   tel: /href="tel:\+36308471915"/.test(quote),
 };
-if (!report.checks.quote.mailto || !report.checks.quote.tel)
-  fail.push('Árajánlatkérés: hiányzó mailto/tel');
+if (!report.checks.quote.form || !report.checks.quote.mailto || !report.checks.quote.tel)
+  fail.push('Árajánlatkérés: hiányzó űrlap / mailto / tel');
 
 // 5. a régi oldal fontos URL-jei
 const LEGACY = [
@@ -151,8 +152,16 @@ const LEGACY = [
   '/termek-adatlapok/',
   '/hasznos-linkek/',
 ];
+// Átirányítás a Vercel routing-konfigurációban (az adapter ide írja az Astro-átirányításokat)
+const VERCEL_CONFIG = resolve('.vercel/output/config.json');
+const redirectRoutes = existsSync(VERCEL_CONFIG)
+  ? JSON.parse(readFileSync(VERCEL_CONFIG, 'utf8')).routes.filter(
+      (r) => r.status && r.headers?.Location,
+    )
+  : [];
+const redirected = (u) => redirectRoutes.some((r) => new RegExp(r.src).test(u) && r.status === 301);
 report.checks.legacy = LEGACY.map((u) => {
-  const ok = existsSync(join(DIST, u, 'index.html'));
+  const ok = existsSync(join(DIST, u, 'index.html')) || redirected(u);
   if (!ok) fail.push(`Régi URL hiányzik: ${u}`);
   return { url: u, ok };
 });

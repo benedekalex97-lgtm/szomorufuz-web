@@ -9,13 +9,21 @@ interface Props {
   title?: string;
   intro?: string;
   id?: string;
+  /**
+   * false: a telefonszámok nélküli, rövid változat (audit SZF-014) – olyan oldalakon,
+   * ahol a számok már szerepelnek (gyorssegély-panel, mobil hívósáv, oldalsáv).
+   */
+  phones?: boolean;
 }
 const {
-  title = 'Hívjon minket bizalommal',
-  intro = 'Információ 6:00 és 22:00 óra között, ügyeleti halottszállítás, vagy személyesen öt budapesti irodánkban.',
+  phones = true,
+  title = phones ? 'Hívjon minket bizalommal' : 'Segíthetünk?',
+  intro = phones
+    ? 'Információ 6:00 és 22:00 óra között, ügyeleti halottszállítás, vagy személyesen öt budapesti irodánkban.'
+    : 'Kérjen díjmentes árajánlatot, vagy nézze át a haláleset utáni teendőket. Minden elérhetőségünk és öt irodánk az Elérhetőség oldalon.',
   id = 'kapcsolat',
 } = Astro.props;
-const lines = [central.info, central.transport, central.office];
+const lines = phones ? [central.info, central.transport, central.office] : [];
 ---
 
 <section id={id} class="cta" aria-labelledby={`${id}-cim`}>
@@ -53,6 +61,16 @@ const lines = [central.info, central.transport, central.office];
           </dd>
         </div>
       ))}
+      {!phones && (
+        <div>
+          <dt>Elérhetőség</dt>
+          <dd>
+            <a href="/elerhetoseg/" class="cta__email">
+              Telefonszámok és irodák
+            </a>
+          </dd>
+        </div>
+      )}
       <div>
         <dt>E-mail</dt>
         <dd>

@@ -62,6 +62,7 @@ Egy adat jóváhagyása: a `src/content/data/*.ts` fájlban `status: 'verified'`
 - [Vercel felülvizsgálati deployment](docs/deployment.md)
 - [Bemutatóverzió – vizuális újratervezés](docs/demo-redesign.md)
 - **[Tartalommigráció: régi → új oldal, ellentmondások](docs/content-migration.md)**
+- **[Audit-javítás 2026-11 (SZF-001…015): árak, űrlapok, képek, URL-ek, QA](docs/audit-remediation-2026-11.md)**
 - Élő stílusútmutató: `/stilus/` (noindex)
 
 ## Munkafolyamat

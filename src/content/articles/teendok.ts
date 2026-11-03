@@ -10,13 +10,23 @@ export const teendok: Article = {
   eyebrow: 'Útmutató',
   title: 'Teendők',
   titleEmphasis: 'haláleset után',
-  lead: 'Önnek egyetlen lényeges dolga van: mielőbb felvenni munkatársunkkal a kapcsolatot. A többi teendőt – a kórházi ügyintézéstől a temetési időpont foglalásáig – elintézzük Ön helyett.',
+  lead: 'Önnek egyetlen lényeges dolga van: mielőbb felvenni munkatársunkkal a kapcsolatot. A többi teendő nagy részét – a kórházi ügyintézéstől a temetési időpont foglalásáig – elintézzük Ön helyett.',
   seo: {
     title: 'Teendők haláleset után – kórházban, lakáson, külföldön',
     description:
       'Mi a teendő haláleset után kórházban, lakáson, közterületen vagy külföldön? Teljes körű ügyintézés a Szomorúfűz Temetkezéssel. Információ: +36 30 847 1915.',
   },
   blocks: [
+    {
+      type: 'jump',
+      label: 'Hol történt a haláleset?',
+      items: [
+        { href: '#korhaz', label: 'Kórházban', text: 'Egészségügyi intézményben' },
+        { href: '#lakas', label: 'Lakáson', text: 'Otthon történt haláleset' },
+        { href: '#kozterulet', label: 'Közterületen', text: 'Utcán, nyilvános helyen' },
+        { href: '#kulfold', label: 'Külföldön', text: 'Teendők külföldi haláleset után' },
+      ],
+    },
     { type: 'h2', text: 'Miért fontos mielőbb jelezni a halálesetet?', id: 'miert-fontos' },
     {
       type: 'p',
@@ -31,9 +41,14 @@ export const teendok: Article = {
       type: 'list',
       items: [
         'a kórházi ügyintézést,',
-        'a halotti anyakönyvi kivonat beszerzését,',
+        'a halotti anyakönyvi kivonat kérelmezését az Ön meghatalmazásával,',
         'az esetleges hamvasztási engedély beszerzését.',
       ],
+    },
+    {
+      type: 'callout',
+      title: 'Amire szükségünk lesz',
+      text: 'Ehhez eredetiben a Halottvizsgálati Bizonyítványra, az elhunyt személyi igazolványára és – ha volt – lakcímkártyájára, valamint az Ön által aláírt meghatalmazásra van szükség. A születési, házassági vagy a házastárs halotti anyakönyvi kivonatának beszerzését jogszabályi okokból nem tudjuk vállalni. Részletek: [Szükséges iratok](/szukseges-iratok/).',
     },
     {
       type: 'p',

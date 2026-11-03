@@ -1,3 +1,5 @@
+import type { FormId } from '@/forms/definitions';
+
 /**
  * Tartalomtípusok – a későbbi Sanity-sémák előképe (docs/content-model.md).
  *
@@ -212,12 +214,19 @@ export interface Homepage {
     items: ServiceTeaser[];
     cta: Link;
   };
-  handled: { eyebrow: string; title: string; intro: string; items: string[] };
+  handled: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    items: string[];
+    /** Rövid pontosítás a szükséges iratokról (SZF-013) */
+    note?: string;
+  };
   prices: {
     eyebrow: string;
     title: string;
     intro: string;
-    items: { label: string; value: string; note: string; href: string }[];
+    items: { label: string; value: string; note: string; href: string; quote?: boolean }[];
     cta: Link;
   };
   offices: { eyebrow: string; title: string; intro: string; cta: Link };
@@ -251,19 +260,25 @@ export interface ContactLine {
 /** Cikk-blokkok a hosszú tájékoztató oldalakhoz. Szövegben: [link](url), **kiemelés**. */
 export type ArticleBlock =
   | { type: 'h2'; text: string; id?: string }
-  | { type: 'h3'; text: string }
+  | { type: 'h3'; text: string; id?: string }
   | { type: 'p'; text: string }
   | { type: 'list'; items: string[]; ordered?: boolean }
   | { type: 'steps'; items: Step[] }
-  | { type: 'price'; label: string; value: string; note?: string }
+  | { type: 'price'; label: string; value: string; note?: string; condition?: string }
   | { type: 'callout'; title?: string; text: string }
   | { type: 'legal'; source: string; paragraphs: string[] }
-  | { type: 'defs'; items: { term: string; text: string }[] }
+  | { type: 'defs'; items: { term: string; text: string; id?: string }[] }
   | { type: 'facts'; items: { label: string; value: string }[] }
   | { type: 'faq'; items: { q: string; a: string }[] }
   | { type: 'contact' }
   | { type: 'quote-cta'; title?: string }
-  | { type: 'quote-request' };
+  | { type: 'quote-request' }
+  | { type: 'form'; form: FormId }
+  | { type: 'quote-forms' }
+  | { type: 'jump'; label: string; items: { href: string; label: string; text?: string }[] }
+  | { type: 'toc'; label?: string }
+  | { type: 'gallery'; group: 'ravatalozo'; title: string; id: string }
+  | { type: 'catalog'; group: 'sephia' | 'sirjelzok' | 'urnateritok' | 'urnaleeresztok' };
 
 export interface Article {
   slug: string;
@@ -274,6 +289,8 @@ export interface Article {
   title: string;
   titleEmphasis?: string;
   lead: string;
+  /** Kártyákon megjelenő rövid leírás (teljes mondat); hiányában a lead első mondata */
+  excerpt?: string;
   seo: SeoMetadata;
   blocks: ArticleBlock[];
   /** Kapcsolódó cikkek (slug) */

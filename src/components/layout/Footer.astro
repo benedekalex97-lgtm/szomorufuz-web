@@ -77,7 +77,7 @@ const services = [
         <ul class="site-footer__list" role="list">
           {offices.map((office) => (
             <li>
-              <a href="/elerhetoseg/">{office.name}</a>
+              <a href={`/elerhetoseg/#${office.slug}`}>{office.name}</a>
             </li>
           ))}
         </ul>
@@ -223,8 +223,9 @@ const services = [
     list-style: none;
   }
   .site-footer__list a {
-    display: inline-block;
-    padding-block: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
   }
   .site-footer__bottom {
     display: flex;
@@ -244,8 +245,9 @@ const services = [
     list-style: none;
   }
   .site-footer__legal a {
-    display: inline-block;
-    padding-block: var(--space-2);
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
     color: var(--color-ink-muted);
   }
   .site-footer__copy {

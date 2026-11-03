@@ -3,47 +3,15 @@
   "framework": "astro",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
   "trailingSlash": true,
   "git": {
     "deploymentEnabled": {
       "phase-1/foundation": false,
       "main": false,
-      "fix/content-reconstruction": true
+      "fix/content-reconstruction": true,
+      "fix/audit-remediation-2026-11": true
     }
   },
-  "redirects": [
-    {
-      "source": "/arajanlatkeres/",
-      "destination": "/arajanlat-keres-itt/",
-      "permanent": true
-    },
-    {
-      "source": "/irodak/",
-      "destination": "/elerhetoseg/#irodak",
-      "permanent": true
-    },
-    {
-      "source": "/suti-tajekoztato/",
-      "destination": "/adatkezeles/#sutik",
-      "permanent": true
-    },
-    {
-      "source": "/ravatalozo-galeria/",
-      "destination": "/ravatalozo-terem/",
-      "permanent": true
-    },
-    {
-      "source": "/termek-adatlapok/",
-      "destination": "/urnak/",
-      "permanent": true
-    },
-    {
-      "source": "/hasznos-linkek/",
-      "destination": "/jogszabalyok/",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -1,0 +1,213 @@
+---
+/**
+ * Akadálymentes képgaléria nagyítással (audit SZF-004).
+ * - Bélyegképek: lusta betöltés, fix méret (nincs elrendeződés-ugrás), valódi alt szöveg.
+ * - Nagyítás natív <dialog>-ban: Escape bezár, a fókusz visszatér a megnyitó gombra,
+ *   ←/→ lapoz, a sorszám élő régióban hangzik el. Animáció nincs.
+ * Csak igazolt felhasználási jogú képet kap (content/data/image-register.ts).
+ */
+interface GalleryImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string | undefined;
+}
+interface Props {
+  id: string;
+  title: string;
+  images: GalleryImage[];
+  headingLevel?: 2 | 3;
+}
+const { id, title, images, headingLevel = 2 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+{images.length > 0 && (
+  <section class="gallery" id={id} aria-labelledby={`${id}-cim`} data-gallery>
+    <Heading class="gallery__title" id={`${id}-cim`}>
+      {title}
+    </Heading>
+    <ul class="gallery__grid" role="list">
+      {images.map((img, i) => (
+        <li>
+          <button type="button" class="gallery__thumb" data-gallery-open={i}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="visually-hidden"> – nagyítás</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <dialog class="gallery__dialog" aria-labelledby={`${id}-dialog-cim`} data-gallery-dialog>
+      <p class="visually-hidden" id={`${id}-dialog-cim`}>
+        {title} – nagyított kép
+      </p>
+      <figure class="gallery__figure">
+        <img data-gallery-img alt="" />
+        <figcaption data-gallery-caption />
+      </figure>
+      <div class="gallery__controls">
+        <button type="button" class="gallery__btn" data-gallery-prev>
+          ← Előző kép
+        </button>
+        <span class="gallery__count" data-gallery-count aria-live="polite" />
+        <button type="button" class="gallery__btn" data-gallery-next>
+          Következő kép →
+        </button>
+        <button type="button" class="gallery__btn gallery__close" data-gallery-close>
+          Bezárás
+        </button>
+      </div>
+      <script
+        type="application/json"
+        data-gallery-data
+        set:html={JSON.stringify(images).replace(/</g, '\\u003c')}
+      />
+    </dialog>
+  </section>
+)}
+
+<script>
+  interface Img {
+    src: string;
+    alt: string;
+    caption?: string;
+  }
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
+    const dialog = root.querySelector<HTMLDialogElement>('[data-gallery-dialog]');
+    const img = root.querySelector<HTMLImageElement>('[data-gallery-img]');
+    const caption = root.querySelector<HTMLElement>('[data-gallery-caption]');
+    const count = root.querySelector<HTMLElement>('[data-gallery-count]');
+    const data = root.querySelector<HTMLElement>('[data-gallery-data]');
+    if (!dialog || !img || !caption || !count || !data) return;
+    const images = JSON.parse(data.textContent ?? '[]') as Img[];
+    let index = 0;
+    let opener: HTMLElement | null = null;
+
+    const show = (i: number) => {
+      index = (i + images.length) % images.length;
+      const item = images[index];
+      if (!item) return;
+      img.src = item.src;
+      img.alt = item.alt;
+      caption.textContent = item.caption ?? item.alt;
+      count.textContent = `${index + 1} / ${images.length}`;
+    };
+
+    root.querySelectorAll<HTMLButtonElement>('[data-gallery-open]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        opener = btn;
+        show(Number(btn.dataset['galleryOpen']));
+        dialog.showModal();
+        root.querySelector<HTMLButtonElement>('[data-gallery-close]')?.focus();
+      });
+    });
+    root.querySelector('[data-gallery-prev]')?.addEventListener('click', () => show(index - 1));
+    root.querySelector('[data-gallery-next]')?.addEventListener('click', () => show(index + 1));
+    root.querySelector('[data-gallery-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+    // Kattintás a háttérre bezár
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    // Escape (natív) és Bezárás után a fókusz visszatér
+    dialog.addEventListener('close', () => opener?.focus());
+  });
+</script>
+
+<style>
+  .gallery {
+    margin-block: var(--space-10);
+  }
+  .gallery__title {
+    font-size: var(--text-2xl);
+    font-weight: 350;
+  }
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+  .gallery__thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface);
+    cursor: zoom-in;
+  }
+  .gallery__thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .gallery__thumb:hover {
+    border-color: var(--color-text);
+  }
+  .gallery__dialog {
+    width: min(64rem, 100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+    padding: var(--space-4);
+    border: 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .gallery__dialog::backdrop {
+    background: rgb(41 40 37 / 0.85);
+  }
+  .gallery__figure img {
+    display: block;
+    width: 100%;
+    max-height: calc(100dvh - 12rem);
+    object-fit: contain;
+  }
+  .gallery__figure figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .gallery__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-3);
+  }
+  .gallery__btn {
+    min-height: 3rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    cursor: pointer;
+  }
+  .gallery__btn:hover {
+    border-color: var(--color-text);
+  }
+  .gallery__close {
+    margin-inline-start: auto;
+    background: var(--color-action-primary-bg);
+    color: var(--color-action-primary-text);
+  }
+  .gallery__count {
+    font-variant-numeric: tabular-nums;
+    font-size: var(--text-sm);
+  }
+</style>

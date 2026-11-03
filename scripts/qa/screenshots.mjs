@@ -9,7 +9,7 @@ import { extname, join, resolve } from 'node:path';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 
-const DIST = resolve('dist');
+const DIST = resolve('dist/client');
 const OUT = resolve('docs/screenshots/content');
 const PAGES = [
   ['home', '/', [320, 375, 390, 768, 1024, 1440]],

@@ -1,0 +1,437 @@
+{
+  "rows": [
+    {
+      "path": "/",
+      "note": "Főoldal",
+      "status": 200,
+      "location": null,
+      "final": "/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/teendok-halaleset-utan/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/teendok-halaleset-utan/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/szukseges-iratok/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/szukseges-iratok/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvasztasos-temetes/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvasztasos-temetes/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvasztas-urnakiadas/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvasztas-urnakiadas/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvak-hazavitele/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvak-hazavitele/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvasztas-menete/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvasztas-menete/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvak-temetese/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvak-temetese/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvak-szorasa-temeto/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvak-szorasa-temeto/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hamvak-szorasa-dunaba/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/hamvak-szorasa-dunaba/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/koporsos-temetes/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/koporsos-temetes/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/ravatalozo-terem/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/ravatalozo-terem/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/polgari-bucsuztatas/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/polgari-bucsuztatas/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/fiumei-uti-temeto/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/fiumei-uti-temeto/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/szocialis-temetes/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/szocialis-temetes/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/argarancia/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/argarancia/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/arajanlat-keres-itt/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/arajanlat-keres-itt/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/tajekoztatas-keres/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/tajekoztatas-keres/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/elerhetoseg/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/elerhetoseg/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/ceginformaciok/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/ceginformaciok/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/adatkezeles/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/adatkezeles/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/jogi-nyilatkozat/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/jogi-nyilatkozat/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/urnak/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/urnak/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/jogszabalyok/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/jogszabalyok/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/gyakori-kerdesek/",
+      "note": "",
+      "status": 200,
+      "location": null,
+      "final": "/gyakori-kerdesek/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/arajanlatkeres/",
+      "note": "duplikátum",
+      "status": 301,
+      "location": "/arajanlat-keres-itt/",
+      "final": "/arajanlat-keres-itt/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/irodak/",
+      "note": "",
+      "status": 301,
+      "location": "/elerhetoseg/#irodak",
+      "final": "/elerhetoseg/#irodak",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/suti-tajekoztato/",
+      "note": "",
+      "status": 301,
+      "location": "/adatkezeles/#sutik",
+      "final": "/adatkezeles/#sutik",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/ravatalozo-galeria/",
+      "note": "",
+      "status": 301,
+      "location": "/ravatalozo-terem/",
+      "final": "/ravatalozo-terem/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/termek-adatlapok/",
+      "note": "",
+      "status": 301,
+      "location": "/urnak/",
+      "final": "/urnak/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/hasznos-linkek/",
+      "note": "",
+      "status": 301,
+      "location": "/jogszabalyok/",
+      "final": "/jogszabalyok/",
+      "finalStatus": 200,
+      "anchor": null
+    },
+    {
+      "path": "/sirjelzo/",
+      "note": "SZF-007",
+      "status": 301,
+      "location": "/urnak/#sirjelzok",
+      "final": "/urnak/#sirjelzok",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/textiliak/",
+      "note": "SZF-007",
+      "status": 301,
+      "location": "/urnak/#textiliak",
+      "final": "/urnak/#textiliak",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/visszajelzes-kuldese/",
+      "note": "SZF-007 / SZF-012",
+      "status": 301,
+      "location": "/elerhetoseg/#uzenet",
+      "final": "/elerhetoseg/#uzenet",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/fejfa-sephia-kezzel-festett-femurna-0102001/517/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#fejfa-0102001",
+      "final": "/urnak/#fejfa-0102001",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/alkonyat-sephia-kezzel-festett-urna-0102002/1312/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#alkonyat-0102002",
+      "final": "/urnak/#alkonyat-0102002",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/cedrus-sephia-kezzel-festett-femurna-0102003/1313/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#cedrus-0102003",
+      "final": "/urnak/#cedrus-0102003",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/csend-sephia-kezzel-festett-femurna-0102004/1317/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#csend-0102004",
+      "final": "/urnak/#csend-0102004",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/erdo-sephia-kezzel-festett-femurna-0102005/1318/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#erdo-0102005",
+      "final": "/urnak/#erdo-0102005",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/liliom-sephia-kezzel-festett-femurna-0102006/1319/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#liliom-0102006",
+      "final": "/urnak/#liliom-0102006",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/termek-adatlapok/vizpart-sephia-kezzel-festett-femurna-0102007/1320/",
+      "note": "SZF-007 termékadatlap",
+      "status": 301,
+      "location": "/urnak/#vizpart-0102007",
+      "final": "/urnak/#vizpart-0102007",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/1999-evi-xliii-torveny-a-temetokrol-es-a-temetkezesrol/24177/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#tv-1999-xliii",
+      "final": "/jogszabalyok/#tv-1999-xliii",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/145-1999-x-1-korm-rendelet-a-temetokrol-es-a-temetkezesrol/24178/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#korm-145-1999",
+      "final": "/jogszabalyok/#korm-145-1999",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/146-1999-x-1-korm-rendelet-a-nemzeti-kegyeleti-bizottsag-szervezeterol/24179/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#korm-146-1999",
+      "final": "/jogszabalyok/#korm-146-1999",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/2005-evi-xxi-torveny/24180/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#tv-2005-xxi",
+      "final": "/jogszabalyok/#tv-2005-xxi",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/34-1999-ix-24-bm-eum-im-egyuttes-rendelet/24181/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#bm-eum-im-34-1999",
+      "final": "/jogszabalyok/#bm-eum-im-34-1999",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/2013-evi-cxxxviii-torveny/24182/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#tv-2013-cxxxviii",
+      "final": "/jogszabalyok/#tv-2013-cxxxviii",
+      "finalStatus": 200,
+      "anchor": true
+    },
+    {
+      "path": "/jogszabalyok/379-2013-x-25-korm-rendelet/24183/",
+      "note": "SZF-007 jogszabály",
+      "status": 301,
+      "location": "/jogszabalyok/#korm-379-2013",
+      "final": "/jogszabalyok/#korm-379-2013",
+      "finalStatus": 200,
+      "anchor": true
+    }
+  ],
+  "failures": []
+}
