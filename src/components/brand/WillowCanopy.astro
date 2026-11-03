@@ -1,0 +1,177 @@
+---
+/**
+ * Beágyazott Szomorúfűz-lombkorona (mobil és tablet „lombfüggöny”).
+ * Geometria és koncepció: src/lib/canopy.ts. Az asztali korona önálló SVG-fájlokból
+ * töltődik be (src/pages/media/canopy-[layer].svg.ts), hogy mobilon ne növelje a HTML-t.
+ *
+ * Mozgás (csak prefers-reduced-motion: no-preference): az ágak felrajzolódnak, majd a
+ * vesszők levélről levélre leereszkednek; kb. 2 s után nyugalmi állapot. Csökkentett
+ * mozgásnál a teljes kép azonnal, statikusan látszik.
+ */
+import { type CanopyVariant, generateCanopy, strandStyle } from '@/lib/canopy';
+
+interface Props {
+  variant?: CanopyVariant;
+  seed?: number;
+  animate?: boolean;
+  class?: string;
+}
+
+const { variant = 'valance', seed = 7, animate = true, class: className } = Astro.props;
+const { W, H, boughs, back, front, accent } = generateCanopy(variant, seed);
+const isHero = variant === 'hero';
+const uid = `canopy-${variant}-${seed}`;
+const style = strandStyle;
+---
+
+<div
+  class:list={['canopy', `canopy--${variant}`, animate && 'canopy--animate', className]}
+  aria-hidden="true"
+>
+  {back.length > 0 && (
+    <svg
+      class="canopy__layer canopy__layer--back"
+      viewBox={`0 0 ${W} ${H}`}
+      fill="none"
+      preserveAspectRatio="xMaxYMin slice"
+    >
+      <defs>
+        <linearGradient
+          id={`${uid}-fade-b`}
+          x1="0"
+          y1="0"
+          x2="0"
+          y2={H}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stop-color="currentColor" stop-opacity="0.5" />
+          <stop offset="0.6" stop-color="currentColor" stop-opacity="0.3" />
+          <stop offset="1" stop-color="currentColor" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <g stroke={`url(#${uid}-fade-b)`} fill={`url(#${uid}-fade-b)`}>
+        {back.map((s) => (
+          <g class="strand" style={style(s)}>
+            <path class="strand__stem" d={s.stem} />
+            <path class="strand__leaves" d={s.leaves} />
+          </g>
+        ))}
+      </g>
+    </svg>
+  )}
+  <svg
+    class="canopy__layer canopy__layer--front"
+    viewBox={`0 0 ${W} ${H}`}
+    fill="none"
+    preserveAspectRatio="xMaxYMin slice"
+  >
+    <defs>
+      <linearGradient
+        id={`${uid}-fade-f`}
+        x1="0"
+        y1="0"
+        x2="0"
+        y2={H}
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" stop-color="currentColor" stop-opacity="0.95" />
+        <stop offset={isHero ? '0.55' : '0.5'} stop-color="currentColor" stop-opacity="0.7" />
+        <stop offset="1" stop-color="currentColor" stop-opacity="0.04" />
+      </linearGradient>
+    </defs>
+    <g class="canopy__boughs">
+      {boughs.map((b) => (
+        <path class="bough" d={b.d} style={`--delay:${b.delay}ms;--len:${b.len}`} />
+      ))}
+    </g>
+    <g stroke={`url(#${uid}-fade-f)`} fill={`url(#${uid}-fade-f)`}>
+      {front.map((s) => (
+        <g class="strand" style={style(s)}>
+          <path class="strand__stem" d={s.stem} />
+          <path class="strand__leaves" d={s.leaves} />
+        </g>
+      ))}
+    </g>
+    {accent && (
+      <g class="strand strand--accent" style={style(accent)}>
+        <path class="strand__stem" d={accent.stem} />
+        <path class="strand__leaves" d={accent.leaves} />
+      </g>
+    )}
+  </svg>
+</div>
+
+<style>
+  .canopy {
+    position: relative;
+    color: var(--canopy-leaf, #a8957f);
+  }
+  .canopy__layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .bough {
+    stroke: var(--canopy-stem, var(--color-accent-decor));
+    stroke-width: 1;
+    stroke-linecap: round;
+    opacity: 0.85;
+  }
+  .strand__stem {
+    /* a csoport kitöltése csak a levelekre vonatkozik – a nyitott görbe ne kapjon kitöltést */
+    fill: none;
+    stroke-width: 0.6;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  /* A levelek kitöltött formák – körvonal nélkül */
+  .strand__leaves {
+    stroke: none;
+  }
+  .strand--accent {
+    color: var(--color-accent-text);
+  }
+  .strand--accent .strand__stem {
+    stroke: var(--color-accent-text);
+    stroke-width: 0.9;
+    opacity: 0.9;
+  }
+  .strand--accent .strand__leaves {
+    fill: var(--color-accent-text);
+    opacity: 0.75;
+  }
+
+  /* ---------- Mozgás ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Az ág és a szár felrajzolódik (a hossz build időben számolt: --len) */
+    .canopy--animate .bough,
+    .canopy--animate .strand__stem {
+      stroke-dasharray: calc(var(--len) * 1px) calc(var(--len) * 1px);
+      stroke-dashoffset: calc(var(--len) * 1px);
+      animation: canopy-draw var(--dur, 1400ms) var(--ease-out) var(--delay, 0ms) both;
+    }
+    .canopy--animate .bough {
+      --dur: 1500ms;
+    }
+    /* A levélsor fentről lefelé tárul fel, kissé a szár mögött lemaradva */
+    .canopy--animate .strand__leaves {
+      clip-path: inset(0 0 100% 0);
+      animation: canopy-unveil var(--dur, 1400ms) var(--ease-out) calc(var(--delay, 0ms) + 120ms)
+        both;
+    }
+  }
+
+  @keyframes canopy-unveil {
+    to {
+      clip-path: inset(0 0 -2% 0);
+    }
+  }
+
+  @keyframes canopy-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

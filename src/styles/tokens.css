@@ -130,6 +130,19 @@
   --duration-slow: 600ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 
+  /* ---- Mozgás (motion design rendszer) ----
+   * Belépés/kilépés: --ease-out · képernyőn belüli mozgás, vonalrajz: --ease-in-out ·
+   * panel (mobilmenü): --ease-drawer. A UI-visszajelzés 300 ms alatt marad; a hosszabb
+   * „szerkesztői” időtartamok csak a ritkán látott belépőkre (hero, szekciók) valók. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-press: 160ms;
+  --duration-exit: 160ms;
+  --duration-reveal: 900ms;
+  --duration-draw: 1400ms;
+  --stagger: 70ms;
+
   /* ---- Rétegek ---- */
   --z-header: 50;
   --z-callbar: 40;
