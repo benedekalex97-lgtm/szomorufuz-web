@@ -18,7 +18,7 @@ const faqBlock = articleBySlug('gyakori-kerdesek')?.blocks.find((b) => b.type ==
 const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6) : [];
 ---
 
-<BaseLayout seo={home.seo}>
+<BaseLayout seo={home.seo} reveal>
   <HeroSection hero={home.hero} />
 
   <Section

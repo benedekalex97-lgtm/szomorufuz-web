@@ -1,0 +1,47 @@
+---
+/**
+ * Görgetési belépések (főoldal). Beágyazott szkript a <body> végén: hálózati kérés
+ * nélkül, az első kirajzolás előtt fut, így nincs „villanás”.
+ *
+ * - Minden szekciófejléc és tartalomcsoport EGYSZER lép be, amikor a nézetbe ér.
+ * - JS nélkül, vagy ha nincs IntersectionObserver, minden azonnal látszik.
+ * - A görgetést nem befolyásolja; nyomtatáskor minden látszik.
+ * A mozgás a global.css „Görgetési belépések” részében van.
+ */
+---
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-motion="reveal"]');
+    if (!root) return;
+    const HEADS = '.section__header, .intro__head';
+    const GROUPS =
+      '.situations, .paths__featured, .others, .handled, .prices, .offices, .principles';
+    const els = [...root.querySelectorAll(`${HEADS}, ${GROUPS}`)];
+    const show = (el) => el.setAttribute('data-revealed', '');
+    const showAll = () => els.forEach(show);
+    try {
+      if (!('IntersectionObserver' in window)) return showAll();
+      // Csoporton belüli lépcsőzés: a sorszám az elemen magán (nem öröklődő változó)
+      for (const el of els) {
+        if (el.matches(GROUPS)) {
+          [...el.children].forEach((c, i) => c.style.setProperty('--i', String(Math.min(i, 6))));
+        }
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            show(e.target);
+            io.unobserve(e.target);
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
+      );
+      els.forEach((el) => io.observe(el));
+      addEventListener('beforeprint', showAll);
+    } catch {
+      showAll();
+    }
+  })();
+</script>

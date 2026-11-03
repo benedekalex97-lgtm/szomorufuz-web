@@ -143,12 +143,18 @@ strong {
     scroll-behavior: auto;
   }
 
+  /* Csökkentett mozgás = kevesebb és szelídebb mozgás, nem nulla: a kulcskockás
+     animációk azonnal véget érnek, átmenet csak nem-mozgató tulajdonságon marad
+     (átlátszóság, szín) – elmozdulás, méretezés, forgatás nincs. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-property:
+      opacity, color, background-color, border-color, outline-color, text-decoration-color, fill,
+      stroke !important;
   }
 }
 
@@ -207,4 +213,77 @@ strong {
 
 .stack > * + * {
   margin-top: var(--stack-space, var(--space-4));
+}
+
+/* ---------- Görgetési belépések (főoldal, src/components/motion/RevealScript.astro) ----------
+ * Csak .js alatt rejt (JS nélkül minden látszik). Egyszer fut, a natív görgetést nem
+ * érinti. A fejléc elemei lépcsőzve emelkednek, a címke vonala felrajzolódik; a
+ * tartalomcsoportok elemei 70 ms-onként követik egymást. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) > *,
+  .js
+    [data-motion='reveal']
+    :is(.situations, .paths__featured, .others, .handled, .prices, .offices, .principles)
+    > * {
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 900ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * var(--stagger));
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head):not([data-revealed]) > *,
+  .js
+    [data-motion='reveal']
+    :is(.situations, .paths__featured, .others, .handled, .prices, .offices, .principles):not(
+      [data-revealed]
+    )
+    > * {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) > :nth-child(2) {
+    --i: 1;
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) > :nth-child(3) {
+    --i: 2;
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) > :nth-child(n + 4) {
+    --i: 3;
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) .eyebrow::before {
+    transform-origin: left center;
+    transition: transform 1000ms var(--ease-in-out) 120ms;
+  }
+  .js
+    [data-motion='reveal']
+    :is(.section__header, .intro__head):not([data-revealed])
+    .eyebrow::before {
+    transform: scaleX(0);
+  }
+}
+
+/* Csökkentett mozgás: csak halványodás, elmozdulás nélkül */
+@media (prefers-reduced-motion: reduce) {
+  .js [data-motion='reveal'] :is(.section__header, .intro__head) > *,
+  .js
+    [data-motion='reveal']
+    :is(.situations, .paths__featured, .others, .handled, .prices, .offices, .principles)
+    > * {
+    transition: opacity 400ms ease;
+  }
+  .js [data-motion='reveal'] :is(.section__header, .intro__head):not([data-revealed]) > *,
+  .js
+    [data-motion='reveal']
+    :is(.situations, .paths__featured, .others, .handled, .prices, .offices, .principles):not(
+      [data-revealed]
+    )
+    > * {
+    opacity: 0;
+  }
+}
+
+@media print {
+  .js [data-motion='reveal'] * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

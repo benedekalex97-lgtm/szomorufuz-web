@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
 import MobileCallBar from '@/components/layout/MobileCallBar.astro';
 import SkipLink from '@/components/layout/SkipLink.astro';
+import RevealScript from '@/components/motion/RevealScript.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Seo from '@/components/seo/Seo.astro';
 import { allowIndexing, contentMode, SITE_LANG } from '@/config/site';
@@ -15,9 +16,11 @@ import { organizationJsonLd } from '@/lib/seo';
 interface Props {
   seo: SeoMetadata;
   jsonLd?: Record<string, unknown>[];
+  /** Görgetési belépések a szekciókon (csak a főoldalon) */
+  reveal?: boolean;
 }
 
-const { seo, jsonLd = [] } = Astro.props;
+const { seo, jsonLd = [], reveal = false } = Astro.props;
 const settings = await getSiteSettings();
 const structuredData = [...organizationJsonLd(settings), ...jsonLd];
 ---
@@ -78,11 +81,12 @@ const structuredData = [...organizationJsonLd(settings), ...jsonLd];
       </aside>
     )}
     <Header />
-    <main id="tartalom" tabindex="-1">
+    <main id="tartalom" tabindex="-1" data-motion={reveal ? 'reveal' : undefined}>
       <slot />
     </main>
     <Footer />
     <MobileCallBar />
+    {reveal && <RevealScript />}
   </body>
 </html>
 
