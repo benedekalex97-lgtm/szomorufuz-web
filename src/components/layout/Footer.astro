@@ -1,5 +1,5 @@
 ---
-import Willow from '@/components/brand/Willow.astro';
+import CanopyCorner from '@/components/brand/CanopyCorner.astro';
 import Logo from '@/components/ui/Logo.astro';
 import { central, company, officeHours } from '@/content/data/contact';
 import { getNavigation, getOffices } from '@/lib/content';
@@ -18,7 +18,7 @@ const services = [
 
 <footer class="site-footer">
   <div class="site-footer__art" aria-hidden="true">
-    <Willow variant="band" seed={23} />
+    <CanopyCorner palette="ink" />
   </div>
   <div class="container container--wide site-footer__inner">
     <div class="site-footer__top">
@@ -112,13 +112,13 @@ const services = [
   }
   .site-footer__art {
     position: absolute;
-    top: -2rem;
-    right: -6rem;
-    width: min(34rem, 80vw);
-    opacity: 0.22;
+    top: 0;
+    right: 0;
+    width: min(26rem, 64vw);
+    opacity: 0.18;
     pointer-events: none;
-    --willow-stem: var(--color-ink-accent);
-    --willow-leaf: var(--color-ink-accent);
+    -webkit-mask-image: linear-gradient(to left, #000 40%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 40%, transparent 100%);
   }
   .site-footer__inner {
     position: relative;

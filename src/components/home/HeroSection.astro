@@ -1,6 +1,6 @@
 ---
 import WillowCanopy from '@/components/brand/WillowCanopy.astro';
-import { canopyLayerSvg, contentHash, generateCanopy } from '@/lib/canopy';
+import { canopySrc } from '@/lib/canopy';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { Homepage } from '@/content/types';
@@ -13,10 +13,7 @@ interface Props {
 const { hero } = Astro.props;
 
 // Asztali korona: két önálló SVG-réteg, csak ≥ 64em-en töltődik le (mobilon 0 bájt).
-// A ?v= a tartalom hash-e – a fájl így hosszú ideig gyorsítótárazható.
-const canopy = generateCanopy('hero', 7);
-const layerSrc = (layer: 'back' | 'front') =>
-  `/media/canopy-${layer}.svg?v=${contentHash(canopyLayerSvg(canopy, layer))}`;
+const layerSrc = (layer: 'back' | 'front') => canopySrc(`hero-${layer}`);
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
 ---
 

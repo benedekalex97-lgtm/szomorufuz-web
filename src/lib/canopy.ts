@@ -10,7 +10,8 @@
  * Két kimenet: a mobil „lombfüggöny” beágyazott SVG (WillowCanopy.astro), az asztali
  * korona két önálló, gyorsítótárazható SVG-fájl (src/pages/media/canopy-[layer].svg.ts).
  */
-export type CanopyVariant = 'hero' | 'valance';
+/** hero: főoldali asztali korona · valance: mobil lombfüggöny · corner: kisebb sarokkorona (aloldalak, CTA, lábléc) */
+export type CanopyVariant = 'hero' | 'valance' | 'corner';
 export type Pt = { x: number; y: number };
 
 export interface Bough {
@@ -45,6 +46,9 @@ export interface Canopy {
 
 export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
   const isHero = variant === 'hero';
+  const isCorner = variant === 'corner';
+  // a hero és a sarok-korona azonos szerkezetű; a sarok arányosan kisebb
+  const isTall = variant !== 'valance';
   // ---------- determinisztikus PRNG (mulberry32) ----------
   function rng(a: number) {
     return () => {
@@ -62,8 +66,10 @@ export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
   /** Rövid számalak: 1 tizedes, felesleges nulla és vezető nulla nélkül */
   const num = (v: number) => String(n1(v)).replace(/^(-?)0\./, '$1.');
 
-  const W = isHero ? 720 : 420;
-  const H = isHero ? 880 : 180;
+  const W = isCorner ? 480 : isHero ? 720 : 420;
+  const H = isCorner ? 560 : isHero ? 880 : 180;
+  const sx = W / 720;
+  const sy = H / 880;
 
   /** Másodfokú Bézier-pont */
   const quad = (a: Pt, c: Pt, b: Pt, t: number): Pt => ({
@@ -106,15 +112,15 @@ export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
     const t = i / (boughCount - 1);
     // Az ág a képen kívülről, a felső perem közelében érkezik, vízszintesen fut,
     // majd a vége kecsesen lehajlik. Mindkét szakasz a képen belül látszik.
-    const a: Pt = isHero
-      ? { x: W + between(30, 110), y: between(-60, 10) + t * 30 }
+    const a: Pt = isTall
+      ? { x: W + between(30, 110) * sx, y: (between(-60, 10) + t * 30) * sy }
       : { x: W + between(10, 40), y: between(-16, 4) };
-    const b: Pt = isHero
-      ? { x: W * (0.06 + 0.72 * t) + between(-20, 20), y: between(190, 330) - t * 70 }
+    const b: Pt = isTall
+      ? { x: W * (0.06 + 0.72 * t) + between(-20, 20) * sx, y: (between(190, 330) - t * 70) * sy }
       : { x: W * (0.04 + 0.8 * t) + between(-10, 10), y: between(56, 84) - t * 12 };
     const c: Pt = {
       x: lerp(a.x, b.x, between(0.78, 0.92)),
-      y: a.y + between(isHero ? -50 : -14, isHero ? -10 : -2),
+      y: a.y + (isTall ? between(-50, -10) * sy : between(-14, -2)),
     };
     boughs.push({
       d: `M${n1(a.x)} ${n1(a.y)} Q ${n1(c.x)} ${n1(c.y)}, ${n1(b.x)} ${n1(b.y)}`,
@@ -138,7 +144,7 @@ export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
     // Kitöltött, keskeny lándzsás levelek (mandula-forma), lefelé-kifelé állva,
     // váltakozó oldalon; a csúcs felé rövidülnek. Vesszőnként egyetlen útvonal.
     const parts: string[] = [];
-    const spacing = isHero ? 9 : 7.5;
+    const spacing = isTall ? 9 : 7.5;
     const count = Math.max(4, Math.round(len / spacing));
     for (let k = 0; k < count; k++) {
       // szabálytalan ritmus: kis szórás a helyzetben, néha kimarad egy levél
@@ -180,13 +186,13 @@ export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
       for (let k = 0; k < perBough; k++) {
         const u = lerp(0.38, 1, (k + between(0.1, 0.9)) / perBough);
         const origin = quad(bough.a, bough.c, bough.b, u);
-        if (origin.y < (isHero ? -10 : -4)) continue;
+        if (origin.y < (isTall ? -10 : -4)) continue;
         // a hosszak erősen eltérnek: sok rövidebb és néhány nagyon hosszú vessző
         const depth = lerp(depthRange[0], depthRange[1], r() ** 1.6);
         const len = (H - origin.y) * depth;
         const { stem, stemLen, leaves } = makeStrand(origin, len, between(-18, 6), leafScale);
         const delay = Math.round(bough.delay + 200 + u * 360 + between(0, 260));
-        const dur = Math.round(1100 + depth * (isHero ? 900 : 500));
+        const dur = Math.round(1100 + depth * (isTall ? 900 : 500));
         out.push({
           stem,
           stemLen,
@@ -204,7 +210,11 @@ export function generateCanopy(variant: CanopyVariant, seed = 7): Canopy {
   }
 
   const back = isHero ? strandsFor(2, [0.25, 0.75], 0.8, 0.6) : [];
-  const front = isHero ? strandsFor(3, [0.25, 1], 0.95, 1) : strandsFor(4, [0.3, 1], 0.72, 0);
+  const front = isHero
+    ? strandsFor(3, [0.25, 1], 0.95, 1)
+    : isCorner
+      ? strandsFor(3, [0.3, 1], 0.85, 0)
+      : strandsFor(4, [0.3, 1], 0.72, 0);
 
   // Kísérő (bronz) vessző – csak asztali nézetben: a hero aljáig ér, ott találkozik
   // a szolgáltatás-sáv vonalával.
@@ -294,4 +304,50 @@ export function contentHash(text: string): string {
     h = Math.imul(h, 16777619);
   }
   return (h >>> 0).toString(36);
+}
+
+/** Színvilágok a statikus (animálatlan) sarok-koronához */
+const PALETTES = {
+  paper: { stem: '#89745d', leaf: '#a8957f' },
+  ink: { stem: '#c2a988', leaf: '#c2a988' },
+} as const;
+export type CanopyPalette = keyof typeof PALETTES;
+
+/**
+ * Statikus sarok-korona önálló SVG-ként (aloldal-hero, CTA-sáv, lábléc). Animáció nélkül:
+ * ezek minden oldalon megjelennek – a mozgás a ritkán látott főoldali hero-é.
+ */
+export function canopyStaticSvg(c: Canopy, palette: CanopyPalette): string {
+  const { stem, leaf } = PALETTES[palette];
+  const strands = [...c.back, ...c.front]
+    .map((s) => `<path class="s" d="${s.stem}"/><path class="l" d="${s.leaves}"/>`)
+    .join('');
+  const boughs = c.boughs.map((b) => `<path class="b" d="${b.d}"/>`).join('');
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${c.W} ${c.H}" width="${c.W}" height="${c.H}" fill="none" preserveAspectRatio="xMaxYMin slice">` +
+    `<style>.b{fill:none;stroke:${stem};stroke-width:1;stroke-linecap:round;opacity:.85}.s{fill:none;stroke-width:.6;stroke-linecap:round;opacity:.6}.l{stroke:none}</style>` +
+    `<defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="${c.H}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${leaf}" stop-opacity=".95"/><stop offset=".55" stop-color="${leaf}" stop-opacity=".65"/><stop offset="1" stop-color="${leaf}" stop-opacity="0"/></linearGradient></defs>` +
+    boughs +
+    `<g stroke="url(#f)" fill="url(#f)">${strands}</g>` +
+    `</svg>`
+  );
+}
+
+/** A /media/ alatt kiszolgált korona-fájlok neve → tartalom */
+export function canopyFiles(): Record<string, string> {
+  const hero = generateCanopy('hero', 7);
+  const corner = generateCanopy('corner', 11);
+  return {
+    'hero-back': canopyLayerSvg(hero, 'back'),
+    'hero-front': canopyLayerSvg(hero, 'front'),
+    'corner-paper': canopyStaticSvg(corner, 'paper'),
+    'corner-ink': canopyStaticSvg(corner, 'ink'),
+  };
+}
+
+/** Verziózott URL (?v=tartalom-hash) – a fájl így hosszan gyorsítótárazható */
+export function canopySrc(name: string): string {
+  const svg = canopyFiles()[name];
+  if (!svg) throw new Error(`Ismeretlen korona-fájl: ${name}`);
+  return `/media/canopy-${name}.svg?v=${contentHash(svg)}`;
 }

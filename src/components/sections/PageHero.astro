@@ -1,6 +1,6 @@
 ---
 /** Aloldal-fejléc: morzsamenü, címke, kétsoros cím dőlt kiemeléssel, bevezető. */
-import Willow from '@/components/brand/Willow.astro';
+import CanopyCorner from '@/components/brand/CanopyCorner.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import type { Link } from '@/content/types';
 
@@ -10,14 +10,15 @@ interface Props {
   titleEmphasis?: string | undefined;
   lead: string;
   breadcrumbs: Link[];
+  /** Elavult (a korábbi generált fához) – figyelmen kívül hagyva */
   seed?: number;
 }
-const { eyebrow, title, titleEmphasis, lead, breadcrumbs, seed = 5 } = Astro.props;
+const { eyebrow, title, titleEmphasis, lead, breadcrumbs } = Astro.props;
 ---
 
 <header class="page-hero">
   <div class="page-hero__art" aria-hidden="true">
-    <Willow variant="band" seed={seed} animate />
+    <CanopyCorner eager />
   </div>
   <div class="container page-hero__inner">
     <Breadcrumbs items={breadcrumbs} />
@@ -41,13 +42,22 @@ const { eyebrow, title, titleEmphasis, lead, breadcrumbs, seed = 5 } = Astro.pro
     padding-block: var(--space-6) var(--space-16);
     border-bottom: 1px solid rgb(184 170 152 / 0.7);
   }
+  /* A korona a jobb felső sarokból lóg be, a szöveg felé és lefelé feloldódva */
   .page-hero__art {
     position: absolute;
     top: 0;
-    right: -4rem;
-    width: min(26rem, 70vw);
-    opacity: 0.5;
+    right: 0;
+    width: min(24rem, 64vw);
+    opacity: 0.55;
     pointer-events: none;
+    -webkit-mask-image: linear-gradient(to left, #000 45%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 45%, transparent 100%);
+  }
+  @media (min-width: 64em) {
+    .page-hero__art {
+      width: 34rem;
+      opacity: 1;
+    }
   }
   .page-hero__inner {
     position: relative;

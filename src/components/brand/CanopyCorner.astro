@@ -1,0 +1,36 @@
+---
+/**
+ * Statikus Szomorúfűz-sarokkorona (aloldal-hero, CTA-sáv, lábléc).
+ * Gyorsítótárazható SVG-fájl (/media/canopy-corner-*.svg) – minden oldalon azonos,
+ * így a böngésző egyszer tölti le. Animáció nincs: a mozgás a főoldali hero-é.
+ */
+import { type CanopyPalette, canopySrc } from '@/lib/canopy';
+
+interface Props {
+  palette?: CanopyPalette;
+  /** A hajtás feletti elhelyezésnél (aloldal-hero) ne legyen lusta betöltés */
+  eager?: boolean;
+  class?: string;
+}
+const { palette = 'paper', eager = false, class: className } = Astro.props;
+---
+
+<img
+  class:list={['canopy-corner', className]}
+  src={canopySrc(`corner-${palette}`)}
+  alt=""
+  width="480"
+  height="560"
+  decoding="async"
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority="low"
+/>
+
+<style>
+  .canopy-corner {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+</style>
