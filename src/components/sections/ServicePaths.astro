@@ -122,13 +122,35 @@ const { featured, others, othersTitle = 'További lehetőségek' } = Astro.props
     color: var(--color-accent-text);
   }
   .path__more :global(.icon) {
-    transition: transform var(--duration-base) var(--ease-standard);
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .path:hover .path__more :global(.icon) {
-    transform: translateX(4px);
+  .path__link {
+    transition: color var(--duration-base) ease;
   }
-  .path:hover .path__link {
-    color: var(--color-accent-text);
+  /* A kártya tetején bronz vonal rajzolódik – a hero vonalnyelvét követi */
+  .path::before {
+    content: '';
+    position: absolute;
+    inset: -1px 0 auto;
+    height: 2px;
+    background-color: var(--color-accent-decor);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 300ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .path:hover .path__more :global(.icon) {
+      transform: translateX(4px);
+    }
+    .path:hover .path__link {
+      color: var(--color-accent-text);
+    }
+    .path:hover::before {
+      transform: scaleX(1);
+    }
+  }
+  .path:has(.path__link:focus-visible)::before {
+    transform: scaleX(1);
   }
 
   .paths__others {
@@ -175,13 +197,15 @@ const { featured, others, othersTitle = 'További lehetőségek' } = Astro.props
     grid-column: 2;
     grid-row: 1 / span 2;
     color: var(--color-accent-decor);
-    transition: transform var(--duration-base) var(--ease-standard);
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .other:hover {
-    color: var(--color-accent-text);
-  }
-  .other:hover :global(.other__icon) {
-    transform: translateX(4px);
+  @media (hover: hover) and (pointer: fine) {
+    .other:hover {
+      color: var(--color-accent-text);
+    }
+    .other:hover :global(.other__icon) {
+      transform: translateX(4px);
+    }
   }
 
   @media (min-width: 48em) {

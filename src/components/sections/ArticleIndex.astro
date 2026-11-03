@@ -55,13 +55,15 @@ const { items } = Astro.props;
     grid-column: 2;
     grid-row: 1 / span 2;
     color: var(--color-accent-decor);
-    transition: transform var(--duration-base) var(--ease-standard);
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .entry:hover .entry__title {
-    color: var(--color-accent-text);
-  }
-  .entry:hover :global(.entry__icon) {
-    transform: translateX(4px);
+  @media (hover: hover) and (pointer: fine) {
+    .entry:hover .entry__title {
+      color: var(--color-accent-text);
+    }
+    .entry:hover :global(.entry__icon) {
+      transform: translateX(4px);
+    }
   }
   @media (min-width: 64em) {
     .index {
