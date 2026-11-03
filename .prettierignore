@@ -7,3 +7,5 @@ docs/qa
 dist-review
 dist-prod
 .vercel
+.claude/skills
+skills-lock.json
