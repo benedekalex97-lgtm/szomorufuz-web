@@ -152,10 +152,10 @@ for (const width of [390, 1440]) {
     if (!(opened && closed && focusBack && nav.navigatedTo === '/arak/'))
       fail.push('Mobilmenü / navigáció hibás');
   } else {
-    await page.locator('.site-nav a', { hasText: 'Irodáink' }).click();
+    await page.locator('.site-nav a', { hasText: 'Kapcsolat' }).click();
     await page.waitForLoadState('networkidle');
     nav = { navigatedTo: new URL(page.url()).pathname };
-    if (nav.navigatedTo !== '/irodak/') fail.push('Asztali navigáció hibás');
+    if (nav.navigatedTo !== '/elerhetoseg/') fail.push('Asztali navigáció hibás');
   }
 
   report.checks.browser.push({

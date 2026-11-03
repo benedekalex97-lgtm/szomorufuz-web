@@ -5,8 +5,6 @@ import Button from '@/components/ui/Button.astro';
 import Card from '@/components/ui/Card.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { icons, type IconName } from '@/components/ui/icons.generated';
-import PendingBadge from '@/components/ui/PendingBadge.astro';
-import PendingNotice from '@/components/ui/PendingNotice.astro';
 import TextField from '@/components/ui/TextField.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
@@ -121,16 +119,6 @@ const iconNames = Object.keys(icons) as IconName[];
         />
         <TextField id="demo-letiltott" label="Letiltott mező" disabled />
       </div>
-    </section>
-
-    <section aria-labelledby="g-jelolesek">
-      <h2 id="g-jelolesek">Jelölések</h2>
-      <PendingNotice>
-        <p>Helyőrző ellenőrizetlen adat helyén.</p>
-      </PendingNotice>
-      <p>
-        Ellenőrizetlen érték review módban <PendingBadge />
-      </p>
     </section>
 
     <section aria-labelledby="g-gyik">

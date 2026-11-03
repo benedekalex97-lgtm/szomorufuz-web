@@ -15,16 +15,17 @@ npm run dev           # http://localhost:4321
 
 ## Parancsok
 
-| Parancs              | Mit csinál                                                       |
-| -------------------- | ---------------------------------------------------------------- |
-| `npm run dev`        | Fejlesztői szerver                                               |
-| `npm run build`      | Statikus build a `dist/` mappába                                 |
-| `npm run preview`    | A build helyi kiszolgálása                                       |
-| `npm run check`      | TypeScript / Astro típusellenőrzés (strict)                      |
-| `npm run lint`       | ESLint (TypeScript + Astro + akadálymentességi szabályok)        |
-| `npm run format`     | Prettier formázás                                                |
-| `npm run verify`     | check + lint + formázás-ellenőrzés + build (commit előtt)        |
-| `npm run qa:browser` | Playwright + axe-core: képernyőképek, túlcsordulás, menü, linkek |
+| Parancs              | Mit csinál                                                            |
+| -------------------- | --------------------------------------------------------------------- |
+| `npm run dev`        | Fejlesztői szerver                                                    |
+| `npm run build`      | Statikus build a `dist/` mappába                                      |
+| `npm run preview`    | A build helyi kiszolgálása                                            |
+| `npm run check`      | TypeScript / Astro típusellenőrzés (strict)                           |
+| `npm run lint`       | ESLint (TypeScript + Astro + akadálymentességi szabályok)             |
+| `npm run format`     | Prettier formázás                                                     |
+| `npm run verify`     | check + lint + formázás-ellenőrzés + build (commit előtt)             |
+| `npm run qa:browser` | Playwright + axe-core: képernyőképek, túlcsordulás, menü, linkek      |
+| `npm run qa:content` | Tartalmi QA: tel: linkek, tiltott feliratok, irodaadatok, régi URL-ek |
 
 Review-módú build (az ellenőrizetlen adatok jelölve látszanak, belső átnézéshez):
 
@@ -60,6 +61,7 @@ Egy adat jóváhagyása: a `src/content/data/*.ts` fájlban `status: 'verified'`
 - [Nyitott kérdések, hiányzó adatok](docs/open-questions.md)
 - [Vercel felülvizsgálati deployment](docs/deployment.md)
 - [Bemutatóverzió – vizuális újratervezés](docs/demo-redesign.md)
+- **[Tartalommigráció: régi → új oldal, ellentmondások](docs/content-migration.md)**
 - Élő stílusútmutató: `/stilus/` (noindex)
 
 ## Munkafolyamat

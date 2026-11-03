@@ -1,29 +1,25 @@
 ---
-/**
- * Rögzített alsó hívássáv mobilon (audit: UX-01). CSAK ellenőrzött számmal jelenik meg –
- * kitalált vagy ellenőrizetlen számot soha nem tesz kattinthatóvá.
- */
+/** Rögzített alsó hívássáv mobilon (audit UX-01): információ és ügyeleti halottszállítás. */
 import Icon from '@/components/ui/Icon.astro';
-import { getSiteSettings } from '@/lib/content';
-import { verifiedOnly } from '@/lib/facts';
+import { central } from '@/content/data/contact';
 import { telHref } from '@/lib/format';
-
-const settings = await getSiteSettings();
-const phone = verifiedOnly(settings.primaryPhone);
-const availability = verifiedOnly(settings.phoneAvailability);
 ---
 
-{phone && (
-  <aside class="callbar" aria-label="Gyors telefonos kapcsolat">
-    <a class="callbar__link" href={telHref(phone.e164)}>
-      <Icon name="phone" size={20} />
-      <span>
-        <span class="callbar__label">Hívás most</span>
-        {availability && <span class="callbar__meta">{availability}</span>}
-      </span>
-    </a>
-  </aside>
-)}
+<aside class="callbar" aria-label="Gyors telefonos kapcsolat">
+  <a class="callbar__link callbar__link--primary" href={telHref(central.info.phone.e164)}>
+    <Icon name="phone" size={18} />
+    <span>
+      <span class="callbar__label">Információ</span>
+      <span class="callbar__meta">{central.info.phone.display}</span>
+    </span>
+  </a>
+  <a class="callbar__link" href={telHref(central.transport.phone.e164)}>
+    <span>
+      <span class="callbar__label">Halottszállítás</span>
+      <span class="callbar__meta">{central.transport.phone.display}</span>
+    </span>
+  </a>
+</aside>
 
 <style>
   .callbar {
@@ -31,29 +27,43 @@ const availability = verifiedOnly(settings.phoneAvailability);
     inset-inline: 0;
     bottom: 0;
     z-index: var(--z-callbar);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-2);
     padding: var(--space-2) var(--gutter) calc(var(--space-2) + env(safe-area-inset-bottom));
-    background-color: var(--color-bg);
-    border-top: var(--border-width) solid var(--color-border-subtle);
+    background-color: rgb(247 245 240 / 0.97);
+    border-top: 1px solid rgb(184 170 152 / 0.7);
   }
   :global(body:has(.callbar)) {
-    --callbar-height: calc(4.5rem + env(safe-area-inset-bottom));
+    --callbar-height: calc(4.25rem + env(safe-area-inset-bottom));
   }
   .callbar__link {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-3);
-    min-height: 3.25rem;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-action-primary-bg);
-    color: var(--color-action-primary-text);
-    font-weight: var(--weight-semibold);
+    gap: var(--space-2);
+    min-height: 3rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-text);
+    color: var(--color-text);
     text-decoration: none;
+    line-height: 1.15;
+  }
+  .callbar__link--primary {
+    background-color: var(--color-action-primary-bg);
+    border-color: var(--color-action-primary-bg);
+    color: var(--color-action-primary-text);
+  }
+  .callbar__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.04em;
   }
   .callbar__meta {
     display: block;
-    font-size: var(--text-xs);
-    font-weight: var(--weight-regular);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
   }
   @media (min-width: 48em) {
     .callbar {

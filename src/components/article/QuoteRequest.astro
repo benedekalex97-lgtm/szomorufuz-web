@@ -1,0 +1,123 @@
+---
+/**
+ * Működő árajánlatkérés űrlap nélkül: telefon vagy előkitöltött e-mail (mailto).
+ * Nincs backend → nincs látszólag működő, adatot el nem küldő űrlap.
+ */
+import LeafList from '@/components/sections/LeafList.astro';
+import Button from '@/components/ui/Button.astro';
+import { central } from '@/content/data/contact';
+import { telHref } from '@/lib/format';
+import { quoteMailto } from '@/lib/inline';
+
+interface Props {
+  id?: string;
+}
+const { id = 'arajanlat' } = Astro.props;
+const mailto = quoteMailto(central.email);
+---
+
+<section class="quote" id={id} aria-labelledby={`${id}-cim`}>
+  <h2 id={`${id}-cim`} class="quote__title">
+    Kérjen díjmentes árajánlatot
+  </h2>
+  <div class="quote__grid">
+    <div class="quote__col">
+      <p class="quote__label">Telefonon</p>
+      <a class="quote__phone" href={telHref(central.info.phone.e164)}>
+        {central.info.phone.display}
+      </a>
+      <p class="quote__note">
+        {central.info.label} – {central.info.note}
+      </p>
+      <a class="quote__phone quote__phone--sm" href={telHref(central.office.phone.e164)}>
+        {central.office.phone.display}
+      </a>
+      <p class="quote__note">{central.office.label}</p>
+    </div>
+    <div class="quote__col">
+      <p class="quote__label">E-mailben</p>
+      <p class="quote__text">
+        Az alábbi gomb megnyitja levelezőprogramját egy előre kitöltött kérdéssorral – csak
+        válaszoljon a kérdésekre, és küldje el.
+      </p>
+      <Button href={mailto} icon="mail">
+        Árajánlat kérése e-mailben
+      </Button>
+      <p class="quote__note">
+        Címünk: <a href={`mailto:${central.email}`}>{central.email}</a>
+      </p>
+    </div>
+  </div>
+  <div class="quote__checklist">
+    <p class="quote__label">Pontos ajánlathoz ezekre lesz szükségünk</p>
+    <LeafList
+      items={[
+        'hamvasztásos vagy koporsós temetést szeretne-e,',
+        'hová kerülnek a hamvak vagy a koporsó (budapesti vagy vidéki temető, altemplom, hazavitel, szórás),',
+        'van-e már sírhely,',
+        'hol történt a haláleset, és hol található most az elhunyt,',
+        'e-mailben vagy telefonos visszahívással kéri-e az ajánlatot.',
+      ]}
+    />
+  </div>
+</section>
+
+<style>
+  .quote {
+    margin-block: var(--space-12);
+    padding: var(--space-8) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-top: 1px solid var(--color-text);
+  }
+  .quote__title {
+    font-size: var(--text-2xl);
+    font-weight: 350;
+  }
+  .quote__grid {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+  }
+  .quote__col > * + * {
+    margin-top: var(--space-2);
+  }
+  .quote__label {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .quote__phone {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .quote__phone--sm {
+    font-size: var(--text-xl);
+  }
+  .quote__phone:hover {
+    color: var(--color-accent-text);
+  }
+  .quote__note,
+  .quote__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .quote__checklist {
+    margin-top: var(--space-8);
+  }
+  @media (min-width: 48em) {
+    .quote {
+      padding: var(--space-10);
+    }
+    .quote__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,37 +1,33 @@
 ---
-/** Kis, sötét „azonnali segítség” panel – aloldal-fejlécek mellé. */
+/** Sötét „azonnali segítség” panel – a központi számokkal (szerepük szerint). */
 import Icon from '@/components/ui/Icon.astro';
-import { getSiteSettings } from '@/lib/content';
-import { verifiedOnly } from '@/lib/facts';
+import { central } from '@/content/data/contact';
 import { telHref } from '@/lib/format';
 
 interface Props {
   title?: string;
-  text?: string;
 }
-const {
-  title = 'Most történt?',
-  text = 'Hívjon minket – elmondjuk, mi a következő lépés az Ön helyzetében.',
-} = Astro.props;
-const settings = await getSiteSettings();
-const phone = verifiedOnly(settings.primaryPhone);
+const { title = 'Haláleset történt?' } = Astro.props;
 ---
 
 <aside class="help-panel" aria-label="Azonnali segítség">
   <p class="help-panel__title">{title}</p>
-  <p class="help-panel__text">{text}</p>
-  {phone ? (
-    <a class="help-panel__link" href={telHref(phone.e164)}>
-      <Icon name="phone" size={18} /> {phone.display}
-    </a>
-  ) : (
-    <>
-      <a class="help-panel__link" href="/elerhetoseg/">
-        <Icon name="phone" size={18} /> Kapcsolat
-      </a>
-      <p class="help-panel__note">A telefonszám jóváhagyás után jelenik meg.</p>
-    </>
-  )}
+  <p class="help-panel__text">
+    Vegye fel velünk mielőbb a kapcsolatot – a többit elintézzük Ön helyett.
+  </p>
+  <dl class="help-panel__lines">
+    {[central.info, central.transport].map((line) => (
+      <div>
+        <dt>{line.label}</dt>
+        <dd>
+          <a class="help-panel__link" href={telHref(line.phone.e164)}>
+            <Icon name="phone" size={18} /> {line.phone.display}
+          </a>
+          {line.note && <span class="help-panel__note">{line.note}</span>}
+        </dd>
+      </div>
+    ))}
+  </dl>
 </aside>
 
 <style>
@@ -50,15 +46,28 @@ const phone = verifiedOnly(settings.primaryPhone);
     color: var(--color-ink-muted);
     font-size: var(--text-sm);
   }
+  .help-panel__lines > div {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-ink-line);
+  }
+  .help-panel__lines dt {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-accent);
+  }
   .help-panel__link {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     min-height: var(--tap-target);
-    margin-top: var(--space-3);
     color: var(--color-ink-text);
-    font-weight: var(--weight-medium);
-    text-decoration-color: var(--color-ink-accent);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
   }
   .help-panel__link:hover {
     color: var(--palette-white);
@@ -67,7 +76,8 @@ const phone = verifiedOnly(settings.primaryPhone);
     outline-color: var(--color-focus-ring-inverse);
   }
   .help-panel__note {
-    font-size: 0.8125rem;
+    display: block;
+    font-size: var(--text-sm);
     color: var(--color-ink-muted);
   }
 </style>

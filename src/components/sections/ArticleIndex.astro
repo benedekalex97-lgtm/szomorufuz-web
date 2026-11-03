@@ -1,0 +1,72 @@
+---
+/** Cikkek szerkesztői listája (gyűjtőoldalakhoz): cím + az eredeti bevezető első mondata. */
+import Icon from '@/components/ui/Icon.astro';
+import type { Article } from '@/content/types';
+
+interface Props {
+  items: Article[];
+}
+const { items } = Astro.props;
+const firstSentence = (s: string) => s.split(/(?<=[.!?])\s/)[0] ?? s;
+---
+
+<ul class="index" role="list">
+  {items.map((a) => (
+    <li>
+      <a href={`/${a.slug}/`} class="entry">
+        <span class="entry__title">{[a.title, a.titleEmphasis].filter(Boolean).join(' ')}</span>
+        <span class="entry__body">{firstSentence(a.lead)}</span>
+        <Icon name="arrow-right" size={18} class="entry__icon" />
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .index {
+    display: grid;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-text);
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    height: 100%;
+    padding-block: var(--space-6);
+    border-bottom: 1px solid rgb(184 170 152 / 0.8);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .entry__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 350;
+    line-height: 1.2;
+  }
+  .entry__body {
+    grid-column: 1;
+    color: var(--color-text-muted);
+    max-width: 40rem;
+  }
+  .entry :global(.entry__icon) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: var(--color-accent-decor);
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+  .entry:hover .entry__title {
+    color: var(--color-accent-text);
+  }
+  .entry:hover :global(.entry__icon) {
+    transform: translateX(4px);
+  }
+  @media (min-width: 64em) {
+    .index {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-12);
+    }
+  }
+</style>

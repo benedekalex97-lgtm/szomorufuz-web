@@ -6,8 +6,44 @@
   "outputDirectory": "dist",
   "trailingSlash": true,
   "git": {
-    "deploymentEnabled": false
+    "deploymentEnabled": {
+      "phase-1/foundation": false,
+      "main": false,
+      "fix/content-reconstruction": true
+    }
   },
+  "redirects": [
+    {
+      "source": "/arajanlatkeres/",
+      "destination": "/arajanlat-keres-itt/",
+      "permanent": true
+    },
+    {
+      "source": "/irodak/",
+      "destination": "/elerhetoseg/#irodak",
+      "permanent": true
+    },
+    {
+      "source": "/suti-tajekoztato/",
+      "destination": "/adatkezeles/#sutik",
+      "permanent": true
+    },
+    {
+      "source": "/ravatalozo-galeria/",
+      "destination": "/ravatalozo-terem/",
+      "permanent": true
+    },
+    {
+      "source": "/termek-adatlapok/",
+      "destination": "/urnak/",
+      "permanent": true
+    },
+    {
+      "source": "/hasznos-linkek/",
+      "destination": "/jogszabalyok/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

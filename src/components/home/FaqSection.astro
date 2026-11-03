@@ -1,17 +1,16 @@
 ---
 import Accordion from '@/components/ui/Accordion.astro';
-import PendingNotice from '@/components/ui/PendingNotice.astro';
 import Section from '@/components/ui/Section.astro';
-import type { FaqItem, Homepage } from '@/content/types';
+import type { Homepage } from '@/content/types';
+import { inline } from '@/lib/inline';
 
 interface Props {
   data: Homepage['faq'];
-  items: FaqItem[];
+  items: { q: string; a: string }[];
   id?: string;
   tone?: 'default' | 'alt' | 'paper';
 }
 const { data, items, id = 'gyik', tone = 'paper' } = Astro.props;
-const isDemo = items.some((item) => item.copyStatus !== 'approved');
 ---
 
 <Section
@@ -22,16 +21,9 @@ const isDemo = items.some((item) => item.copyStatus !== 'approved');
   tone={tone}
   layout="split"
 >
-  <Fragment slot="header-extra">
-    {isDemo && (
-      <PendingNotice title="Mintatartalom">
-        <p>
-          A kérdések és válaszok demonstrációs célúak; a végleges szöveg jóváhagyás után kerül ide.
-        </p>
-      </PendingNotice>
-    )}
-  </Fragment>
-  <Accordion items={items} />
+  <Accordion
+    items={items.map((f, i) => ({ id: `f${i}`, question: f.q, answer: inline(f.a), html: true }))}
+  />
   <p class="faq__cta">
     <a href={data.cta.href}>{data.cta.label}</a>
   </p>

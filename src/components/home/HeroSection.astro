@@ -3,17 +3,13 @@ import Willow from '@/components/brand/Willow.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { Homepage } from '@/content/types';
-import { getSiteSettings } from '@/lib/content';
-import { verifiedOnly } from '@/lib/facts';
+import { central } from '@/content/data/contact';
 import { telHref } from '@/lib/format';
 
 interface Props {
   hero: Homepage['hero'];
 }
 const { hero } = Astro.props;
-const settings = await getSiteSettings();
-const phone = verifiedOnly(settings.primaryPhone);
-const availability = verifiedOnly(settings.phoneAvailability);
 ---
 
 <section class="hero" aria-labelledby="hero-cim">
@@ -27,15 +23,9 @@ const availability = verifiedOnly(settings.phoneAvailability);
       <p class="hero__lead">{hero.lead}</p>
 
       <div class="hero__actions">
-        {phone ? (
-          <Button href={telHref(phone.e164)} icon="phone" size="lg">
-            {hero.primaryCtaLabel}: {phone.display}
-          </Button>
-        ) : (
-          <Button href="/elerhetoseg/" icon="phone" size="lg">
-            {hero.primaryCtaLabel}
-          </Button>
-        )}
+        <Button href={telHref(central.info.phone.e164)} icon="phone" size="lg">
+          Hívás: {central.info.phone.display}
+        </Button>
         <Button
           href={hero.secondaryCta.href}
           variant="secondary"
@@ -46,7 +36,18 @@ const availability = verifiedOnly(settings.phoneAvailability);
           {hero.secondaryCta.label}
         </Button>
       </div>
-      {availability && <p class="hero__meta">{availability}</p>}
+
+      <dl class="hero__lines">
+        {[central.info, central.transport, central.office].map((line) => (
+          <div>
+            <dt>{line.label}</dt>
+            <dd>
+              <a href={telHref(line.phone.e164)}>{line.phone.display}</a>
+              {line.note && <span>{line.note}</span>}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </div>
 
     <div class="hero__art" aria-hidden="true">
@@ -113,9 +114,46 @@ const availability = verifiedOnly(settings.phoneAvailability);
     gap: var(--space-3);
     padding-top: var(--space-2);
   }
-  .hero__meta {
+  .hero__lines {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgb(184 170 152 / 0.7);
+    max-width: 40rem;
+  }
+  .hero__lines dt {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent-text);
+  }
+  .hero__lines dd a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero__lines dd a:hover {
+    color: var(--color-accent-text);
+  }
+  .hero__lines dd span {
+    display: block;
     font-size: var(--text-sm);
     color: var(--color-text-muted);
+  }
+  @media (min-width: 40em) {
+    .hero__lines {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    /* Egy vonalba kerüljenek a számok akkor is, ha a címke két sorba törik */
+    .hero__lines dt {
+      min-height: 2.9em;
+    }
   }
 
   /* Mobilon a fa halványan a cím mögött, jobbra igazítva */

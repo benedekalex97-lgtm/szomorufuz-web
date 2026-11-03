@@ -2,7 +2,6 @@
 import '@/styles/global.css';
 
 import Footer from '@/components/layout/Footer.astro';
-import DemoNotice from '@/components/layout/DemoNotice.astro';
 import Header from '@/components/layout/Header.astro';
 import MobileCallBar from '@/components/layout/MobileCallBar.astro';
 import SkipLink from '@/components/layout/SkipLink.astro';
@@ -78,7 +77,6 @@ const structuredData = [...organizationJsonLd(settings), ...jsonLd];
         </p>
       </aside>
     )}
-    <DemoNotice />
     <Header />
     <main id="tartalom" tabindex="-1">
       <slot />

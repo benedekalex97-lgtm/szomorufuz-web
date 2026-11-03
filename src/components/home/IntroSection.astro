@@ -1,0 +1,79 @@
+---
+import PrinciplesList from '@/components/sections/PrinciplesList.astro';
+import type { Homepage } from '@/content/types';
+
+interface Props {
+  data: Homepage['intro'];
+}
+const { data } = Astro.props;
+---
+
+<section id="bemutatkozas" class="intro" aria-labelledby="bemutatkozas-cim">
+  <div class="container">
+    <div class="intro__grid">
+      <div>
+        <p class="eyebrow">{data.eyebrow}</p>
+        <h2 id="bemutatkozas-cim" class="intro__title">
+          {data.title}
+        </h2>
+      </div>
+      <div class="intro__text">
+        {data.paragraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+        <p class="intro__more">
+          <a href="/rolunk/">Rólunk</a>
+        </p>
+      </div>
+    </div>
+    <div class="intro__points">
+      <PrinciplesList items={data.points} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-block: var(--section-space);
+  }
+  .intro__grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+  .intro__title {
+    margin-top: var(--space-4);
+    font-size: var(--text-4xl);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.1;
+    max-width: 14ch;
+  }
+  .intro__text > p {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .intro__text > p:first-child {
+    color: var(--color-text);
+  }
+  .intro__text > p + p {
+    margin-top: var(--space-4);
+  }
+  .intro__more a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+  }
+  .intro__points {
+    margin-top: var(--space-16);
+  }
+  @media (min-width: 64em) {
+    .intro__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-16);
+      align-items: start;
+    }
+  }
+</style>

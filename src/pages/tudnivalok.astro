@@ -1,0 +1,53 @@
+---
+import CtaBand from '@/components/sections/CtaBand.astro';
+import ArticleIndex from '@/components/sections/ArticleIndex.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import HelpPanel from '@/components/sections/HelpPanel.astro';
+import Section from '@/components/ui/Section.astro';
+import { articleBySlug } from '@/content/articles';
+import type { Article } from '@/content/types';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const pick = (slugs: string[]) =>
+  slugs.map((s) => articleBySlug(s)).filter((a): a is Article => Boolean(a));
+const ugyintezes = pick(['teendok-halaleset-utan', 'szukseges-iratok', 'gyakori-kerdesek']);
+const tajekoztatok = pick([
+  'hamvasztas-menete',
+  'hamvak-hazavitele',
+  'szocialis-temetes',
+  'fiumei-uti-temeto',
+  'jogszabalyok',
+]);
+const crumbs = [
+  { label: 'Főoldal', href: '/' },
+  { label: 'Tudnivalók', href: '/tudnivalok/' },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'Tudnivalók temetésről és hamvasztásról',
+    description:
+      'Teendők haláleset után, szükséges iratok, a hamvasztás menete, a hamvak hazavitele, szociális temetés és a vonatkozó jogszabályok.',
+  }}
+>
+  <PageHero
+    eyebrow="Tudnivalók"
+    title="Tájékoztatók"
+    titleEmphasis="és ügyintézés"
+    lead="Részletes, gyakorlati tájékoztatás a haláleset utáni teendőkről, a szükséges iratokról és a temetkezés jogszabályi hátteréről."
+    breadcrumbs={crumbs}
+    seed={23}
+  >
+    <HelpPanel slot="aside" />
+  </PageHero>
+
+  <Section id="ugyintezes" eyebrow="Ügyintézés" title="Haláleset után">
+    <ArticleIndex items={ugyintezes} />
+  </Section>
+  <Section id="tajekoztatok" eyebrow="Tájékoztatók" title="Részletes ismertetők" tone="alt">
+    <ArticleIndex items={tajekoztatok} />
+  </Section>
+
+  <CtaBand />
+</BaseLayout>

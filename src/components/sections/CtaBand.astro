@@ -1,9 +1,8 @@
 ---
-/** Sötét záró sáv: a segítségkérés két útja. Telefonszám csak ellenőrzötten. */
+/** Sötét záró sáv: a központi elérhetőségek szerepük szerint, valamint árajánlat és teendők. */
 import Willow from '@/components/brand/Willow.astro';
 import Button from '@/components/ui/Button.astro';
-import { getSiteSettings } from '@/lib/content';
-import { verifiedOnly } from '@/lib/facts';
+import { central } from '@/content/data/contact';
 import { telHref } from '@/lib/format';
 
 interface Props {
@@ -12,13 +11,11 @@ interface Props {
   id?: string;
 }
 const {
-  title = 'Ha most szüksége van ránk',
-  intro = 'Hívjon minket, vagy keresse fel valamelyik irodánkat. Türelemmel segítünk eligazodni.',
+  title = 'Hívjon minket bizalommal',
+  intro = 'Információ 6:00 és 22:00 óra között, ügyeleti halottszállítás, vagy személyesen öt budapesti irodánkban.',
   id = 'kapcsolat',
 } = Astro.props;
-const settings = await getSiteSettings();
-const phone = verifiedOnly(settings.primaryPhone);
-const availability = verifiedOnly(settings.phoneAvailability);
+const lines = [central.info, central.transport, central.office];
 ---
 
 <section id={id} class="cta" aria-labelledby={`${id}-cim`}>
@@ -27,33 +24,44 @@ const availability = verifiedOnly(settings.phoneAvailability);
   </div>
   <div class="container cta__inner">
     <div class="cta__text">
-      <p class="eyebrow cta__eyebrow">Segítség</p>
+      <p class="eyebrow cta__eyebrow">Kapcsolat</p>
       <h2 id={`${id}-cim`} class="cta__title">
         {title}
       </h2>
       <p class="cta__intro">{intro}</p>
-    </div>
-    <div class="cta__actions">
-      {phone ? (
-        <Button href={telHref(phone.e164)} variant="inverse" size="lg" icon="phone">
-          Hívás: {phone.display}
+      <div class="cta__actions">
+        <Button
+          href="/arajanlat-keres-itt/"
+          variant="inverse"
+          icon="arrow-right"
+          iconPosition="end"
+        >
+          Árajánlat kérése
         </Button>
-      ) : (
-        <Button href="/elerhetoseg/" variant="inverse" size="lg" icon="phone">
-          Telefonos segítség
+        <Button href="/teendok-halaleset-utan/" variant="inverse-outline">
+          Teendők haláleset után
         </Button>
-      )}
-      <Button
-        href="/teendok-halaleset-utan/"
-        variant="inverse-outline"
-        size="lg"
-        icon="arrow-right"
-        iconPosition="end"
-      >
-        Teendők haláleset esetén
-      </Button>
-      {availability && <p class="cta__meta">{availability}</p>}
+      </div>
     </div>
+    <dl class="cta__lines">
+      {lines.map((line) => (
+        <div>
+          <dt>{line.label}</dt>
+          <dd>
+            <a href={telHref(line.phone.e164)}>{line.phone.display}</a>
+            {line.note && <span>{line.note}</span>}
+          </dd>
+        </div>
+      ))}
+      <div>
+        <dt>E-mail</dt>
+        <dd>
+          <a href={`mailto:${central.email}`} class="cta__email">
+            {central.email}
+          </a>
+        </dd>
+      </div>
+    </dl>
   </div>
 </section>
 
@@ -99,17 +107,55 @@ const availability = verifiedOnly(settings.phoneAvailability);
     max-width: 34rem;
   }
   .cta__actions {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-3);
-    align-content: center;
+    padding-top: var(--space-4);
   }
-  .cta__meta {
-    color: var(--color-ink-muted);
+  .cta__lines > div {
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-ink-line);
+  }
+  .cta__lines > div:first-child {
+    border-top: 1px solid var(--color-ink-accent);
+  }
+  .cta__lines dt {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-accent);
+  }
+  .cta__lines dd a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    color: var(--color-ink-text);
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .cta__lines dd a.cta__email {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    text-decoration: underline;
+    text-decoration-color: var(--color-ink-accent);
+  }
+  .cta__lines dd a:hover {
+    color: var(--palette-white);
+  }
+  .cta__lines dd span {
+    display: block;
     font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+  }
+  .cta :focus-visible {
+    outline-color: var(--color-focus-ring-inverse);
   }
   @media (min-width: 64em) {
     .cta__inner {
-      grid-template-columns: 1.4fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
       align-items: center;
       gap: var(--space-16);
     }

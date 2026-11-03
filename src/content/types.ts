@@ -132,14 +132,20 @@ export interface PricingCategory {
 export interface Office {
   id: string;
   slug: string;
-  /** Rövid, strukturális név (kerület + utca) – nem tartalmaz ellenőrizendő részletet. */
+  /** Az élő oldal elnevezése, pl. „Belvárosi iroda” */
   name: string;
-  address: Fact<PostalAddress>;
-  phones: Fact<PhoneNumber[]>;
-  openingHours: Fact<OpeningHoursRule[]>;
-  /** Útvonaltervező link. */
-  mapUrl: Fact<string>;
-  geo?: Fact<{ latitude: number; longitude: number }>;
+  /** Pl. „VI. kerület” */
+  district: string;
+  /** Római szám a tipográfiai listához, pl. „VI.” */
+  numeral: string;
+  postalCode: string;
+  locality: string;
+  street: string;
+  landline: PhoneNumber;
+  mobile: PhoneNumber;
+  /** Megközelítés – az élő oldal leírása alapján */
+  directions: string;
+  mapUrl: string;
 }
 
 export interface FaqItem {
@@ -187,18 +193,10 @@ export interface Homepage {
     /** A cím dőlt, kiemelt része (új sorban). */
     titleEmphasis: string;
     lead: string;
-    primaryCtaLabel: string;
     secondaryCta: Link;
     paths: HelpPath[];
   };
-  firstSteps: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    steps: Step[];
-    cta: Link;
-    copyStatus: CopyStatus;
-  };
+  intro: { eyebrow: string; title: string; paragraphs: string[]; points: Principle[] };
   services: {
     eyebrow: string;
     title: string;
@@ -206,44 +204,25 @@ export interface Homepage {
     featured: ServiceTeaser[];
     others: ServiceTeaser[];
     cta: Link;
-    copyStatus: CopyStatus;
   };
-  process: {
+  situations: {
     eyebrow: string;
     title: string;
     intro: string;
-    stages: Step[];
-    copyStatus: CopyStatus;
+    items: ServiceTeaser[];
+    cta: Link;
   };
-  pricing: { eyebrow: string; title: string; body: string; cta: Link; copyStatus: CopyStatus };
-  about: {
+  handled: { eyebrow: string; title: string; intro: string; items: string[] };
+  prices: {
     eyebrow: string;
-    quote: string;
-    principles: Principle[];
-    facts: TrustPoint[];
-    copyStatus: CopyStatus;
+    title: string;
+    intro: string;
+    items: { label: string; value: string; note: string; href: string }[];
+    cta: Link;
   };
   offices: { eyebrow: string; title: string; intro: string; cta: Link };
   faq: { eyebrow: string; title: string; intro: string; cta: Link };
   contact: { title: string; intro: string };
-}
-
-/** Szolgáltatás-aloldal (Hamvasztás, Hagyományos temetés) tartalma. */
-export interface ServicePage {
-  slug: string;
-  seo: SeoMetadata;
-  eyebrow: string;
-  title: string;
-  titleEmphasis?: string;
-  lead: string;
-  /** Rövid, áttekintő pontok a hero mellett. */
-  overview: { title: string; points: string[] };
-  intro: { title: string; paragraphs: string[] };
-  steps: { title: string; intro: string; items: Step[] };
-  options: { title: string; intro: string; items: Principle[] };
-  related: ServiceTeaser[];
-  faqIds: string[];
-  copyStatus: CopyStatus;
 }
 
 export interface ContentPage {
@@ -260,4 +239,43 @@ export interface Redirect {
   to: string;
   status: 301 | 308 | 410;
   reason: string;
+}
+
+/** Központi elérhetőség (szerepenként elkülönítve). */
+export interface ContactLine {
+  label: string;
+  phone: PhoneNumber;
+  note?: string;
+}
+
+/** Cikk-blokkok a hosszú tájékoztató oldalakhoz. Szövegben: [link](url), **kiemelés**. */
+export type ArticleBlock =
+  | { type: 'h2'; text: string; id?: string }
+  | { type: 'h3'; text: string }
+  | { type: 'p'; text: string }
+  | { type: 'list'; items: string[]; ordered?: boolean }
+  | { type: 'steps'; items: Step[] }
+  | { type: 'price'; label: string; value: string; note?: string }
+  | { type: 'callout'; title?: string; text: string }
+  | { type: 'legal'; source: string; paragraphs: string[] }
+  | { type: 'defs'; items: { term: string; text: string }[] }
+  | { type: 'facts'; items: { label: string; value: string }[] }
+  | { type: 'faq'; items: { q: string; a: string }[] }
+  | { type: 'contact' }
+  | { type: 'quote-cta'; title?: string }
+  | { type: 'quote-request' };
+
+export interface Article {
+  slug: string;
+  /** Az élő oldal forrás-URL-je (vagy több). */
+  source: string[];
+  section: 'teendok' | 'szolgaltatas' | 'tudnivalo' | 'arak' | 'ceg' | 'jogi';
+  eyebrow: string;
+  title: string;
+  titleEmphasis?: string;
+  lead: string;
+  seo: SeoMetadata;
+  blocks: ArticleBlock[];
+  /** Kapcsolódó cikkek (slug) */
+  related?: string[];
 }
