@@ -18,7 +18,7 @@ const faqBlock = articleBySlug('gyakori-kerdesek')?.blocks.find((b) => b.type ==
 const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6) : [];
 ---
 
-<BaseLayout seo={home.seo}>
+<BaseLayout seo={home.seo} reveal>
   <HeroSection hero={home.hero} />
 
   <Section
@@ -163,13 +163,15 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
     grid-column: 2;
     grid-row: 1 / span 2;
     color: var(--color-accent-decor);
-    transition: transform var(--duration-base) var(--ease-standard);
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .situation:hover .situation__title {
-    color: var(--color-accent-text);
-  }
-  .situation:hover :global(.situation__icon) {
-    transform: translateX(4px);
+  @media (hover: hover) and (pointer: fine) {
+    .situation:hover .situation__title {
+      color: var(--color-accent-text);
+    }
+    .situation:hover :global(.situation__icon) {
+      transform: translateX(4px);
+    }
   }
   .handled {
     display: grid;
@@ -207,8 +209,10 @@ const faqItems = faqBlock && faqBlock.type === 'faq' ? faqBlock.items.slice(0, 6
     text-decoration: none;
     transition: background-color var(--duration-base) var(--ease-standard);
   }
-  .price:hover {
-    background-color: var(--palette-white);
+  @media (hover: hover) and (pointer: fine) {
+    .price:hover {
+      background-color: var(--palette-white);
+    }
   }
   .handled__note {
     margin-top: var(--space-8);

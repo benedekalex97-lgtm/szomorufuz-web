@@ -63,6 +63,7 @@ Egy adat jóváhagyása: a `src/content/data/*.ts` fájlban `status: 'verified'`
 - [Bemutatóverzió – vizuális újratervezés](docs/demo-redesign.md)
 - **[Tartalommigráció: régi → új oldal, ellentmondások](docs/content-migration.md)**
 - **[Audit-javítás 2026-11 (SZF-001…015): árak, űrlapok, képek, URL-ek, QA](docs/audit-remediation-2026-11.md)**
+- **[Motion design: hero-kompozíció, mozgásrendszer, teljesítmény](docs/motion-design.md)**
 - Élő stílusútmutató: `/stilus/` (noindex)
 
 ## Munkafolyamat

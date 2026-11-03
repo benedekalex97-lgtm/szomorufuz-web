@@ -2,6 +2,7 @@
 // Használat:  npm run build && npm run qa:browser
 //             node scripts/qa/browser-qa.mjs --dir dist-review --tag review   (review mód)
 // Igényli: Playwright + Chromium (a fejlesztői gépen: npx playwright install chromium).
+import { settle } from './settle.mjs';
 import { createServer } from 'node:http';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -193,6 +194,7 @@ for (const path of A11Y_PAGES) {
   for (const width of [390, 1440]) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
     await page.goto(`${BASE}${path}`, { waitUntil: 'networkidle' });
+    await settle(page);
     await page.addScriptTag({ content: axeSource });
     const result = await page.evaluate(async () =>
       // eslint-disable-next-line no-undef

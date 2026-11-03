@@ -77,9 +77,14 @@ const classes = [
     text-align: center;
     text-decoration: none;
     transition:
-      background-color var(--duration-base) var(--ease-standard),
-      border-color var(--duration-base) var(--ease-standard),
-      color var(--duration-base) var(--ease-standard);
+      background-color var(--duration-base) ease,
+      border-color var(--duration-base) ease,
+      color var(--duration-base) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+  /* Lenyomás-visszajelzés: a felület „meghallja” az érintést (érintőképernyőn is) */
+  .btn:active {
+    transform: scale(0.97);
   }
 
   .btn--lg {
@@ -93,10 +98,12 @@ const classes = [
   }
 
   .btn :global(.btn__end) {
-    transition: transform var(--duration-base) var(--ease-standard);
+    transition: transform var(--duration-base) var(--ease-out);
   }
-  .btn:hover :global(.btn__end) {
-    transform: translateX(3px);
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover :global(.btn__end) {
+      transform: translateX(3px);
+    }
   }
 
   .btn--primary {

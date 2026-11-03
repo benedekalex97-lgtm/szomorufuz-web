@@ -49,11 +49,13 @@ const isCurrent = (href: string) =>
         aria-controls="mobil-menu"
         data-menu-toggle
       >
-        <span class="menu-toggle__open">
-          <Icon name="menu" size={22} />
-        </span>
-        <span class="menu-toggle__close">
-          <Icon name="x" size={22} />
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span class="menu-toggle__open">
+            <Icon name="menu" size={22} />
+          </span>
+          <span class="menu-toggle__close">
+            <Icon name="x" size={22} />
+          </span>
         </span>
         <span class="menu-toggle__label" data-menu-label>
           Menü
@@ -102,32 +104,54 @@ const isCurrent = (href: string) =>
   const desktop = window.matchMedia('(min-width: 75em)');
 
   if (header && toggle && menu) {
-    const setOpen = (open: boolean, restoreFocus = false) => {
+    // Mozgás: érintéssel/egérrel nyitva a panel beúszik, záráskor gyorsan eltűnik.
+    // Billentyűzettel (Enter, Szóköz, Escape) nincs animáció – azonnal reagál.
+    const EXIT_MS = 160;
+    let closeTimer = 0;
+    const finishClose = () => {
+      window.clearTimeout(closeTimer);
+      menu.hidden = true;
+      menu.removeAttribute('data-closing');
+    };
+
+    const setOpen = (open: boolean, opts: { restoreFocus?: boolean; instant?: boolean } = {}) => {
       toggle.setAttribute('aria-expanded', String(open));
-      // A panel pontosan a fejléc aljától a képernyő aljáig érjen (a bemutató-sáv miatt is)
-      if (open)
+      menu.toggleAttribute('data-instant', Boolean(opts.instant));
+      if (open) {
+        finishClose();
+        // A panel pontosan a fejléc aljától a képernyő aljáig érjen (a bemutató-sáv miatt is)
         menu.style.height = `${window.innerHeight - header.getBoundingClientRect().bottom}px`;
-      menu.hidden = !open;
+        menu.hidden = false;
+      } else if (opts.instant) {
+        finishClose();
+      } else if (!menu.hidden) {
+        menu.setAttribute('data-closing', '');
+        closeTimer = window.setTimeout(finishClose, EXIT_MS);
+      }
       header.classList.toggle('is-open', open);
       document.documentElement.classList.toggle('menu-open', open);
       if (label) label.textContent = open ? 'Bezárás' : 'Menü';
-      if (!open && restoreFocus) toggle.focus();
+      if (!open && opts.restoreFocus) toggle.focus();
     };
 
-    toggle.addEventListener('click', () => {
-      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    toggle.addEventListener('click', (event) => {
+      // event.detail === 0: billentyűzettel kiváltott kattintás
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true', { instant: event.detail === 0 });
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !menu.hidden) setOpen(false, true);
+      if (event.key === 'Escape' && !menu.hidden)
+        setOpen(false, { restoreFocus: true, instant: true });
     });
 
+    // Linkre kattintva az oldal úgyis vált – nincs mit animálni
     menu.addEventListener('click', (event) => {
-      if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+      if (event.target instanceof Element && event.target.closest('a'))
+        setOpen(false, { instant: true });
     });
 
     desktop.addEventListener('change', (event) => {
-      if (event.matches) setOpen(false);
+      if (event.matches) setOpen(false, { instant: true });
     });
 
     // Görgetéskor finom árnyék a fejlécen
@@ -274,14 +298,37 @@ const isCurrent = (href: string) =>
     white-space: nowrap;
   }
 
-  .menu-toggle__close,
-  .site-header.is-open .menu-toggle__open {
-    display: none;
+  /* A két ikon egymáson; nyitáskor áttűnnek (állapotjelzés) */
+  .menu-toggle__icon {
+    display: inline-grid;
   }
-
-  .site-header.is-open .menu-toggle__close,
-  .menu-toggle__open {
+  .menu-toggle__open,
+  .menu-toggle__close {
+    grid-area: 1 / 1;
     display: inline-flex;
+    transition:
+      opacity var(--duration-press) ease,
+      transform 200ms var(--ease-out);
+  }
+  .menu-toggle__close {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.9);
+  }
+  .site-header.is-open .menu-toggle__open {
+    opacity: 0;
+    transform: rotate(45deg) scale(0.9);
+  }
+  .site-header.is-open .menu-toggle__close {
+    opacity: 1;
+    transform: none;
+  }
+  .menu-toggle {
+    transition:
+      border-color var(--duration-base) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+  .menu-toggle:active {
+    transform: scale(0.96);
   }
 
   :global(.no-js) .menu-toggle {
@@ -306,17 +353,60 @@ const isCurrent = (href: string) =>
     padding-block: var(--space-4) var(--space-10);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
+  /* Nyitás: a panel felülről beúszik (fiók-görbe), a menüpontok röviden lépcsőznek.
+     Zárás: gyorsabb (a rendszer válasza legyen fürge). Megszakítható: átmenetek, nem
+     kulcskockák. */
+  .mobile-menu {
+    transition:
+      opacity 240ms var(--ease-drawer),
+      transform 300ms var(--ease-drawer);
+  }
+  @starting-style {
     .mobile-menu:not([hidden]) {
-      animation: menu-in var(--duration-base) var(--ease-standard);
+      opacity: 0;
+      transform: translateY(-10px);
     }
   }
-
-  @keyframes menu-in {
-    from {
+  .mobile-menu[data-closing] {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition-duration: var(--duration-exit);
+    transition-timing-function: var(--ease-out);
+  }
+  .mobile-menu__list li {
+    transition:
+      opacity 260ms var(--ease-out),
+      transform 320ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 30ms);
+  }
+  .mobile-menu__list li:nth-child(2) {
+    --i: 1;
+  }
+  .mobile-menu__list li:nth-child(3) {
+    --i: 2;
+  }
+  .mobile-menu__list li:nth-child(4) {
+    --i: 3;
+  }
+  .mobile-menu__list li:nth-child(5) {
+    --i: 4;
+  }
+  .mobile-menu__list li:nth-child(n + 6) {
+    --i: 5;
+  }
+  @starting-style {
+    .mobile-menu:not([hidden]) .mobile-menu__list li {
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateY(6px);
     }
+  }
+  .mobile-menu[data-closing] .mobile-menu__list li {
+    transition-delay: 0ms;
+  }
+  /* Billentyűzetes nyitás/zárás: azonnali */
+  .mobile-menu[data-instant],
+  .mobile-menu[data-instant] .mobile-menu__list li {
+    transition: none;
   }
 
   .mobile-menu__list {

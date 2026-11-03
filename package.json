@@ -25,7 +25,8 @@
     "qa:gallery": "node scripts/qa/gallery-e2e.mjs",
     "qa:urls": "node scripts/qa/url-migration.mjs",
     "qa:audit": "node scripts/qa/audit-qa.mjs",
-    "serve:local": "node scripts/qa/vercel-local.mjs"
+    "serve:local": "node scripts/qa/vercel-local.mjs",
+    "qa:motion": "node scripts/qa/motion-qa.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

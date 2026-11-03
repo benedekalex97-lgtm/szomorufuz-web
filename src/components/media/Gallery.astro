@@ -91,7 +91,8 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
     let index = 0;
     let opener: HTMLElement | null = null;
 
-    const show = (i: number) => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const show = (i: number, animate = false) => {
       index = (i + images.length) % images.length;
       const item = images[index];
       if (!item) return;
@@ -99,19 +100,42 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
       img.alt = item.alt;
       caption.textContent = item.caption ?? item.alt;
       count.textContent = `${index + 1} / ${images.length}`;
+      // Képváltás egérrel: rövid áttűnés enyhe elmosással (a két állapot ne „duplázódjon”).
+      // Billentyűzettel és csökkentett mozgásnál azonnali.
+      if (animate && !reduce.matches) {
+        img.animate(
+          [
+            { opacity: 0.35, filter: 'blur(2px)' },
+            { opacity: 1, filter: 'blur(0)' },
+          ],
+          { duration: 220, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' },
+        );
+      }
     };
+    // event.detail === 0: billentyűzettel kiváltott kattintás → animáció nélkül
+    const instant = (on: boolean) => dialog.toggleAttribute('data-instant', on);
 
     root.querySelectorAll<HTMLButtonElement>('[data-gallery-open]').forEach((btn) => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (event) => {
         opener = btn;
         show(Number(btn.dataset['galleryOpen']));
+        instant(event.detail === 0);
         dialog.showModal();
         root.querySelector<HTMLButtonElement>('[data-gallery-close]')?.focus();
       });
     });
-    root.querySelector('[data-gallery-prev]')?.addEventListener('click', () => show(index - 1));
-    root.querySelector('[data-gallery-next]')?.addEventListener('click', () => show(index + 1));
-    root.querySelector('[data-gallery-close]')?.addEventListener('click', () => dialog.close());
+    root
+      .querySelector('[data-gallery-prev]')
+      ?.addEventListener('click', (e) => show(index - 1, (e as MouseEvent).detail > 0));
+    root
+      .querySelector('[data-gallery-next]')
+      ?.addEventListener('click', (e) => show(index + 1, (e as MouseEvent).detail > 0));
+    root.querySelector('[data-gallery-close]')?.addEventListener('click', (e) => {
+      instant((e as MouseEvent).detail === 0);
+      dialog.close();
+    });
+    // Escape (natív „cancel”): billentyű → azonnali zárás
+    dialog.addEventListener('cancel', () => instant(true));
     dialog.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') show(index - 1);
       if (e.key === 'ArrowRight') show(index + 1);
@@ -156,8 +180,10 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
     aspect-ratio: 4 / 3;
     object-fit: cover;
   }
-  .gallery__thumb:hover {
-    border-color: var(--color-text);
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__thumb:hover {
+      border-color: var(--color-text);
+    }
   }
   .gallery__dialog {
     width: min(64rem, 100vw - 2rem);
@@ -169,6 +195,45 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
   }
   .gallery__dialog::backdrop {
     background: rgb(41 40 37 / 0.85);
+  }
+  /* Nyitás/zárás: halványodás + enyhe skálázás (modális – középről, ez a helyes).
+     Zárás gyorsabb; billentyűzettel ([data-instant]) azonnali. */
+  .gallery__dialog,
+  .gallery__dialog::backdrop {
+    transition:
+      opacity 220ms var(--ease-out),
+      transform 260ms var(--ease-out),
+      overlay 260ms allow-discrete,
+      display 260ms allow-discrete;
+  }
+  .gallery__dialog:not([open]) {
+    opacity: 0;
+    transform: scale(0.98);
+    transition-duration: var(--duration-exit);
+  }
+  .gallery__dialog:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    .gallery__dialog[open] {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    .gallery__dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  .gallery__dialog[data-instant],
+  .gallery__dialog[data-instant]::backdrop {
+    transition: none;
+  }
+  .gallery__thumb {
+    transition:
+      border-color var(--duration-base) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+  .gallery__thumb:active {
+    transform: scale(0.98);
   }
   .gallery__figure img {
     display: block;

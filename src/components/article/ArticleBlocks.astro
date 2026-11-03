@@ -235,6 +235,24 @@ const toc = blocks.flatMap((b) => (b.type === 'h2' && b.id ? [{ id: b.id, text: 
     font-size: var(--text-2xl);
     font-weight: 400;
     scroll-margin-top: calc(var(--header-height) + var(--space-6));
+    position: relative;
+  }
+  /* Horgonycél-jelzés: a tartalomjegyzékből / helyzetválasztóból elért címsor alá rövid
+     bronz vonal húzódik („itt vagy”). A sima görgetés után indul; egyszer, nyugalomban marad. */
+  .b-h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.45em;
+    width: 3rem;
+    height: 2px;
+    background-color: var(--color-accent-decor);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .b-h2:target::after {
+    transform: scaleX(1);
+    transition: transform 900ms var(--ease-in-out) 300ms;
   }
   .blocks > .b-h2:first-child {
     margin-top: 0 !important;
@@ -435,8 +453,19 @@ const toc = blocks.flatMap((b) => (b.type === 'h2' && b.id ? [{ id: b.id, text: 
     color: var(--color-text);
     text-decoration: none;
   }
-  .b-jump a:hover {
-    border-color: var(--color-text);
+  .b-jump a {
+    transition:
+      border-color var(--duration-base) ease,
+      transform var(--duration-press) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .b-jump a:hover {
+      border-color: var(--color-text);
+    }
+  }
+  /* Lenyomás-visszajelzés a helyzetválasztón */
+  .b-jump a:active {
+    transform: scale(0.98);
   }
   .b-jump__title {
     font-family: var(--font-heading);
