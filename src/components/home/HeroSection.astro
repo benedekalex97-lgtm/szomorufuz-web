@@ -273,6 +273,12 @@ const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
   }
 
   @media (min-width: 48em) {
+    /* Tablet: keskenyebb, jobbra igazított lombfüggöny – a levelek nem nagyítódnak durvára */
+    .hero :global(.hero__valance) {
+      width: min(32rem, 66%);
+      margin-left: auto;
+      margin-bottom: calc(-1 * var(--space-10));
+    }
     .paths {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -379,23 +385,67 @@ const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
     }
   }
 
-  /* Görgetéshez kötött mélység (asztali nézet): a hátsó réteg lassabban halad, mint az
-     első – finom térhatás. Natív CSS scroll-timeline, a kompozitorban fut; ahol nincs
-     támogatás, a korona egyszerűen statikus. Nem tart vissza és nem tér el a görgetéstől. */
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
-      .hero__layer--back {
-        animation: hero-depth-back linear both;
-        animation-timeline: scroll(root block);
-        animation-range: 0 100vh;
-      }
+  /* Asztali korona mozgása – mindkettő a kompozitorban fut, csak transform/rotate:
+     1. Egyszeri, csillapodó „megnyugvás”: a két réteg a jobb felső sarok körül, eltérő
+        fázissal és amplitúdóval leng ki, majd ~4,6 s-ra nyugalomba kerül (önálló `rotate`).
+     2. Görgetéshez kötött mélység: a hátsó réteg lassabban halad, mint az első (CSS
+        scroll-timeline, `transform`); ahol nincs támogatás, csak az 1. marad. Nem tartja
+        vissza és nem téríti el a görgetést. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
+    .hero__layer {
+      transform-origin: right top;
+    }
+    .hero__layer--front {
+      --settle: 0.55deg;
+      animation: hero-settle 2400ms cubic-bezier(0.37, 0, 0.63, 1) 2000ms both;
+    }
+    .hero__layer--back {
+      --settle: -0.4deg;
+      animation: hero-settle 2600ms cubic-bezier(0.37, 0, 0.63, 1) 1700ms both;
+    }
+    @supports (animation-timeline: scroll()) {
       .hero__layer--front {
-        animation: hero-depth-front linear both;
-        animation-timeline: scroll(root block);
-        animation-range: 0 100vh;
+        animation:
+          hero-settle 2400ms cubic-bezier(0.37, 0, 0.63, 1) 2000ms both,
+          hero-depth-front linear both;
+      }
+      .hero__layer--back {
+        animation:
+          hero-settle 2600ms cubic-bezier(0.37, 0, 0.63, 1) 1700ms both,
+          hero-depth-back linear both;
       }
     }
   }
+  /* Az idővonal külön szabályban: a rövidítés (animation) a specifikáció szerint
+     visszaállítja, a minifikáló pedig különben beolvasztaná – akkor hatástalan lenne. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 64em) {
+      .hero__canopy > .hero__layer {
+        animation-timeline: auto, scroll(root block);
+        animation-range:
+          normal,
+          0 100vh;
+      }
+    }
+  }
+  @keyframes hero-settle {
+    0% {
+      rotate: 0deg;
+    }
+    32% {
+      rotate: var(--settle);
+    }
+    60% {
+      rotate: calc(var(--settle) * -0.42);
+    }
+    82% {
+      rotate: calc(var(--settle) * 0.14);
+    }
+    100% {
+      rotate: 0deg;
+    }
+  }
+
   @keyframes hero-depth-back {
     to {
       transform: translateY(90px);

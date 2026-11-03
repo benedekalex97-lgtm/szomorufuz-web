@@ -1,0 +1,174 @@
+{
+  "results": [
+    {
+      "name": "320px: 5 s után nincs futó időalapú animáció (WCAG 2.2.2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "320px: CLS ≤ 0,1",
+      "ok": true,
+      "detail": "0.0000"
+    },
+    {
+      "name": "320px: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "320px: natív görgetés (nincs scroll-jacking)",
+      "ok": true,
+      "detail": "2640 / 2640"
+    },
+    {
+      "name": "320px: a belépő szekció fejléce teljesen látszik",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "390px: 5 s után nincs futó időalapú animáció (WCAG 2.2.2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "390px: CLS ≤ 0,1",
+      "ok": true,
+      "detail": "0.0000"
+    },
+    {
+      "name": "390px: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "390px: natív görgetés (nincs scroll-jacking)",
+      "ok": true,
+      "detail": "2426 / 2426"
+    },
+    {
+      "name": "390px: a belépő szekció fejléce teljesen látszik",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "768px: 5 s után nincs futó időalapú animáció (WCAG 2.2.2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "768px: CLS ≤ 0,1",
+      "ok": true,
+      "detail": "0.0000"
+    },
+    {
+      "name": "768px: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "768px: natív görgetés (nincs scroll-jacking)",
+      "ok": true,
+      "detail": "1922 / 1922"
+    },
+    {
+      "name": "768px: a belépő szekció fejléce teljesen látszik",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "1440px: 5 s után nincs futó időalapú animáció (WCAG 2.2.2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px: CLS ≤ 0,1",
+      "ok": true,
+      "detail": "0.0000"
+    },
+    {
+      "name": "1440px: nincs vízszintes túlcsordulás",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "1440px: natív görgetés (nincs scroll-jacking)",
+      "ok": true,
+      "detail": "1628 / 1628"
+    },
+    {
+      "name": "1440px: a belépő szekció fejléce teljesen látszik",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "390px csökkentett mozgás: a lombkorona és a cím azonnal teljes",
+      "ok": true,
+      "detail": "{\"dash\":\"0px\",\"clip\":\"none\",\"line\":\"none\",\"running\":0}"
+    },
+    {
+      "name": "390px csökkentett mozgás: nincs futó animáció",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "390px csökkentett mozgás: belépéskor nincs elmozdulás",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "1440px csökkentett mozgás: a lombkorona és a cím azonnal teljes",
+      "ok": true,
+      "detail": "{\"dash\":\"0px\",\"clip\":\"none\",\"line\":\"none\",\"running\":0}"
+    },
+    {
+      "name": "1440px csökkentett mozgás: nincs futó animáció",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "1440px csökkentett mozgás: belépéskor nincs elmozdulás",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "JS nélkül: nincs rejtve maradó tartalom",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "390px: asztali korona-fájl nem töltődik le",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "name": "1440px: asztali korona-fájl letöltődik",
+      "ok": true,
+      "detail": "2"
+    },
+    {
+      "name": "390px: képkocka p95 ≤ 17 ms (4× CPU)",
+      "ok": true,
+      "detail": "{\"frames\":269,\"p95\":17,\"dropped\":0}"
+    },
+    {
+      "name": "1440px: képkocka p95 ≤ 17 ms (4× CPU)",
+      "ok": true,
+      "detail": "{\"frames\":265,\"p95\":17,\"dropped\":0}"
+    }
+  ],
+  "timing": [
+    {
+      "width": 390,
+      "frames": 269,
+      "p95": 17,
+      "dropped": 0
+    },
+    {
+      "width": 1440,
+      "frames": 265,
+      "p95": 17,
+      "dropped": 0
+    }
+  ],
+  "failures": []
+}

@@ -2,6 +2,7 @@
 // Audit SZF-015: mobil- és akadálymentességi QA a 9 kiemelt oldalon, 4 szélességen.
 // Képernyőkép minden kombinációról + automatikus ellenőrzések. Helyi emulátor, nincs külső kérés.
 // Használat: npm run build && node scripts/qa/audit-qa.mjs
+import { settle } from './settle.mjs';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
@@ -110,6 +111,7 @@ for (const [name, path] of PAGES) {
     );
     check(`${name}@${width}: konzolhiba nincs`, errors.length === 0, errors.join(' | '));
 
+    await settle(page);
     await page.addScriptTag({ content: axeSource });
     const ax = await page.evaluate(() =>
       axe.run(document, {

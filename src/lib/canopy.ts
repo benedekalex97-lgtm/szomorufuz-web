@@ -247,6 +247,9 @@ export function strandStyle(s: Strand): string {
 // <img>-ként töltődik be, ezért a színek és görbék itt rögzítettek (a tokenek értékei:
 // --color-accent-decor #89745d, --color-accent-text #6e5b47, levél #a8957f,
 // --ease-out cubic-bezier(0.23, 1, 0.32, 1)). A prefers-reduced-motion a képben is érvényes.
+// A „megnyugvás” lengése NEM itt van: a képen belüli forgatás minden képkockán a teljes
+// kép újrarajzolását okozta (animation-performance mérés). A lengés a HeroSection két
+// HTML-rétegén fut, önálló `rotate` tulajdonsággal – a kompozitorban.
 const LAYER_CSS = `
 .b{fill:none;stroke:#89745d;stroke-width:1;stroke-linecap:round;opacity:.85}
 .s{fill:none;stroke-width:.6;stroke-linecap:round;opacity:.6}
@@ -257,11 +260,9 @@ const LAYER_CSS = `
 .b,.s{stroke-dasharray:calc(var(--len)*1px) calc(var(--len)*1px);stroke-dashoffset:calc(var(--len)*1px);animation:d var(--dur,1400ms) cubic-bezier(.23,1,.32,1) var(--delay,0ms) both}
 .b{--dur:1500ms}
 .l{clip-path:inset(0 0 100% 0);animation:u var(--dur,1400ms) cubic-bezier(.23,1,.32,1) calc(var(--delay,0ms) + 120ms) both}
-.g{animation:w 2200ms cubic-bezier(.37,0,.63,1) var(--sway-delay,0ms) both}
 }
 @keyframes d{to{stroke-dashoffset:0}}
 @keyframes u{to{clip-path:inset(0 0 -2% 0)}}
-@keyframes w{0%{transform:rotate(0)}32%{transform:rotate(var(--sway))}60%{transform:rotate(calc(var(--sway)*-.42))}82%{transform:rotate(calc(var(--sway)*.14))}100%{transform:rotate(0)}}
 `.replace(/\n/g, '');
 
 const strandMarkup = (s: Strand, extra = '') =>
